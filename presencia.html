@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRESENCIA Events Place | Taguig's Premier Venue</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ============================================
+           PRESENCIA DESIGN SYSTEM
+           Extracted from original site screenshots
+           ============================================ */
+        
+        :root {
+            /* Core Colors */
+            --black: #0F0F0F;
+            --charcoal: #1A1A1A;
+            --dark: #2D2D2D;
+            --cream: #FAF9F6;
+            --white: #FFFFFF;
+            
+            /* Gold Palette */
+            --gold: #D4AF37;
+            --gold-light: #E8D5A3;
+            --gold-tan: #C9A96E;
+            --gold-muted: #B8976A;
+            
+            /* Text */
+            --text-primary: #1A1A1A;
+            --text-secondary: #6B6B6B;
+            --text-light: #888888;
+            --text-inverse: #FAF9F6;
+            
+            /* UI */
+            --border-light: #E5E2DD;
+            --border-dark: #333333;
+            --success: #10B981;
+            --info-bg: #F0EDE8;
+            
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+            
+            /* Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--cream);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; }
+        .font-serif { font-family: 'Cormorant Garamond', serif; }
+        .italic { font-style: italic; }
+
+        /* ============================================
+           NAVIGATION BAR
+           ============================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--charcoal);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212,175,55,0.15);
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        
+        .nav-logo-img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            filter: brightness(1.1);
+        }
+        
+        .nav-brand {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        
+        .nav-brand-main {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        .nav-brand-sub {
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            text-transform: uppercase;
+        }
+        
+        .nav-menu-btn {
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--charcoal) 0%, var(--black) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 30%, rgba(212,175,55,0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .hero-logo-container {
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-logo {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 40px rgba(212,175,55,0.3));
+            animation: floatLogo 4s ease-in-out infinite;
+        }
+        
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .hero-tagline-top {
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            color: var(--gold-muted);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            color: var(--gold);
+            letter-spacing: 8px;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+        
+        .hero-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--text-inverse);
+            font-style: italic;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-description {
+            max-width: 600px;
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            max-width: 320px;
+            margin-bottom: 3rem;
+        }
+        
+        .btn-primary {
+            background: var(--gold-tan);
+            color: var(--black);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn-primary:hover {
+            background: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212,175,55,0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+            padding: 1rem 2rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--gold-tan);
+            color: var(--gold);
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: 600;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* ============================================
+           PROGRESS STEPPER
+           ============================================ */
+        .progress-stepper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            padding: 2rem;
+            background: var(--white);
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 73px;
+            z-index: 999;
+            overflow-x: auto;
+        }
+        
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .step-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--gold-tan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gold-muted);
+            background: var(--white);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .step-circle.active {
+            background: var(--gold-tan);
+            color: var(--black);
+            border-color: var(--gold-tan);
+        }
+        
+        .step-circle.completed {
+            background: var(--gold);
+            color: var(--white);
+            border-color: var(--gold);
+        }
+        
+        .step-label {
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            font-weight: 500;
+        }
+        
+        .step-line {
+            width: 60px;
+            height: 2px;
+            background: var(--border-light);
+            margin: 0 0.5rem;
+        }
+        
+        @media(max-width: 768px) {
+            .step-label { display: none; }
+            .step-line { width: 30px; }
+        }
+
+        /* ============================================
+           MAIN CONTENT AREA
+           ============================================ */
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .section-header {
+            margin-bottom: 2rem;
+        }
+        
+        .step-indicator {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--gold-muted);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* ============================================
+           PACKAGE CARDS
+           ============================================ */
+        .packages-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .package-card {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .package-card:hover {
+            border-color: var(--gold-tan);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+        }
+        
+        .package-card.selected {
+            border-color: var(--gold);
+            border-width: 2px;
+            box-shadow: 0 8px 30px rgba(212,175,55,0.15);
+        }
+        
+        .package-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--gold-tan);
+            color: var(--black);
+            padding: 0.4rem 1.2rem;
+            border-radius: var(--radius-full);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .package-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .package-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .package-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.3rem;
+        }
+        
+        .package-price-label {
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+        
+        .package-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .package-guests {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .package-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .package-features li {
+            padding: 0.5rem 0;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+        
+        .package-features li:last-child { border-bottom: none; }
+        
+        .feature-check {
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid var(--gold-tan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.65rem;
+            color: var(--gold);
+        }
+        
+        .package-card.selected .feature-check {
+            background: var(--gold);
+            color: var(--white);
+            border-color: var(--gold);
+        }
+        
+        .choose-btn {
+            width: 100%;
+            background: var(--gold-tan);
+            color: var(--black);
+            border: none;
+            padding: 0.9rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+        }
+        
+        .package-card.selected .choose-btn,
+        .choose-btn:hover {
+            background: var(--gold);
+        }
+
+        /* ============================================
+           FORM ELEMENTS
+           ============================================ */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-label .required {
+            color: #DC2626;
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+        }
+        
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--text-light);
+        }
+        
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B6B6B' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .info-box {
+            background: var(--info-bg);
+            border-left: 3px solid var(--gold-tan);
+            padding: 1rem;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin: 1rem 0;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        
+        .info-box i {
+            color: var(--gold);
+            margin-top: 2px;
+        }
+
+        /* ============================================
+           ADD-ONS SECTION
+           ============================================ */
+        .addons-list {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+        
+        .addon-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-light);
+            transition: background 0.2s ease;
+        }
+        
+        .addon-item:last-child { border-bottom: none; }
+        .addon-item:hover { background: rgba(212,175,55,0.03); }
+        
+        .addon-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        
+        .addon-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-light);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .addon-checkbox.checked {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+        
+        .addon-name {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+        
+        .addon-price {
+            font-weight: 600;
+            color: var(--gold);
+            font-size: 0.95rem;
+        }
+
+        /* ============================================
+           SUMMARY CARD (Dark Mode)
+           ============================================ */
+        .summary-card {
+            background: var(--charcoal);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            color: var(--text-inverse);
+            margin: 2rem 0;
+        }
+        
+        .summary-title {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold-muted);
+            margin-bottom: 1rem;
+        }
+        
+        .summary-package-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .summary-package-subtitle {
+            font-style: italic;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.95rem;
+        }
+        
+        .summary-row.total {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gold);
+            border-bottom: none;
+            border-top: 2px solid rgba(255,255,255,0.15);
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .summary-row.deduction {
+            color: var(--success);
+        }
+
+        /* ============================================
+           CONTRACT SECTION
+           ============================================ */
+        .contract-box {
+            background: var(--info-bg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .contract-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contract-title {
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .contract-name {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+        
+        .contract-text {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+        
+        .agreement-checkbox {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 1.25rem;
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            margin-bottom: 1.5rem;
+        }
+        
+        .agreement-checkbox input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            accent-color: var(--gold);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        .agreement-checkbox label {
+            font-size: 0.88rem;
+            color: var(--text-primary);
+            line-height: 1.5;
+            cursor: pointer;
+        }
+
+        /* ============================================
+           SUCCESS / CONFIRMATION
+           ============================================ */
+        .success-container {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 1.5rem;
+        }
+        
+        .reference-box {
+            background: var(--charcoal);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin: 2rem 0;
+            color: var(--text-inverse);
+        }
+        
+        .reference-label {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold-muted);
+            margin-bottom: 0.5rem;
+        }
+        
+        .reference-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+        
+        .copy-btn {
+            background: transparent;
+            border: 1px solid var(--text-inverse);
+            color: var(--text-inverse);
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: var(--text-inverse);
+            color: var(--charcoal);
+        }
+        
+        .next-steps {
+            text-align: left;
+            background: var(--info-bg);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .next-steps h4 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .next-steps ol {
+            padding-left: 1.25rem;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 2;
+        }
+        
+        .next-steps li { margin-bottom: 0.3rem; }
+
+        /* ============================================
+           NAVIGATION BUTTONS (Back/Continue)
+           ============================================ */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .btn-back {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--text-primary);
+            padding: 0.9rem 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-back:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-secondary);
+        }
+        
+        .btn-continue {
+            background: var(--gold-tan);
+            border: none;
+            color: var(--black);
+            padding: 0.9rem 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-continue:hover {
+            background: var(--gold);
+            transform: translateX(4px);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--charcoal);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--text-light);
+        }
+        
+        .footer-logo {
+            width: 60px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--gold-muted);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-tagline {
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover { color: var(--gold); }
+        
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-social a {
+            width: 44px;
+            height: 44px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-social a:hover {
+            background: var(--gold);
+            color: var(--black);
+            transform: translateY(-3px);
+        }
+        
+        .footer-copy {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media(max-width: 768px) {
+            .hero-title { letter-spacing: 4px; }
+            .hero-buttons { max-width: 280px; }
+            .main-content { padding: 2rem 1.25rem; }
+            .nav-buttons { flex-direction: column-reverse; }
+            .btn-back, .btn-continue { justify-content: center; }
+            .summary-row { font-size: 0.88rem; }
+        }
+
+        /* Hidden class */
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+    <a href="#" class="nav-logo">
+        <!-- REPLACE THIS SRC WITH YOUR LOGO -->
+        <img src="https://drive.google.com/file/d/185_3PNrCqdmO9aNHU9Sszl6YBucPMWIY/view?usp=drivesdk" 
+             alt="PRESENCIA Logo" 
+             class="nav-logo-img"
+             id="navLogo">
+        <div class="nav-brand">
+            <span class="nav-brand-main">PRESENCIA</span>
+            <span class="nav-brand-sub">Venue Management</span>
+        </div>
+    </a>
+    <button class="nav-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero" id="heroSection">
+    <div class="hero-logo-container">
+        <!-- REPLACE THIS SRC WITH YOUR LOGO -->
+        <img src="https://drive.google.com/file/d/185_3PNrCqdmO9aNHU9Sszl6YBucPMWIY/view?usp=drivesdk" 
+             alt="PRESENCIA Logo" 
+             class="hero-logo"
+             id="heroLogo">
+    </div>
+    
+    <p class="hero-tagline-top">TAGUIG'S PREMIER EVENTS PLACE</p>
+    
+    <h1 class="hero-title">PRESENCIA</h1>
+    
+    <p class="hero-subtitle">Where Presence Becomes Experience.</p>
+    
+    <p class="hero-description">
+        Weddings, debuts, birthdays, seminars, and celebrations — set in an elegant Taguig venue designed for moments that deserve to be felt.
+    </p>
+    
+    <div class="hero-buttons">
+        <button class="btn-primary" onclick="scrollToBooking()">
+            Reserve Your Date
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <button class="btn-secondary" onclick="showStep(1)">
+            View Packages
+        </button>
+    </div>
+    
+    <div class="hero-stats">
+        <div class="stat-item">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Curated Packages</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">100</div>
+            <div class="stat-label">Max Guests<br>Scroll to Explore</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Online Booking</div>
+        </div>
+    </div>
+</section>
+
+<!-- PROGRESS STEPPER -->
+<div class="progress-stepper" id="progressStepper">
+    <div class="step-item">
+        <div class="step-circle" id="stepCircle1">1</div>
+        <span class="step-label">Package</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item">
+        <div class="step-circle" id="stepCircle2">2</div>
+        <span class="step-label">Date</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item">
+        <div class="step-circle" id="stepCircle3">3</div>
+        <span class="step-label">Add-ons</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item">
+        <div class="step-circle" id="stepCircle4">4</div>
+        <span class="step-label">Details</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item">
+        <div class="step-circle" id="stepCircle5">5</div>
+        <span class="step-label">Contract</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item">
+        <div class="step-circle" id="stepCircle6">6</div>
+        <span class="step-label">Confirm</span>
+    </div>
+</div>
+
+<!-- MAIN CONTENT AREA -->
+<main class="main-content" id="mainContent">
+
+<!-- STEP 1: CHOOSE PACKAGE -->
+<div id="step1" class="step-content">
+    <div class="section-header">
+        <div class="step-indicator">STEP 1 OF 7</div>
+        <h2 class="section-title">Choose Your Package</h2>
+        <p class="section-desc">Select the experience that fits your event.</p>
+    </div>
+    
+    <div class="packages-grid">
+        <!-- Essential Package -->
+        <div class="package-card" id="pkgEssential" onclick="selectPackage('essential', 9500)">
+            <div class="package-name">Essential</div>
+            <div class="package-subtitle italic">Perfect for Intimate Gatherings</div>
+            <div class="package-price-row">
+                <span class="package-price-label">STARTS AT</span>
+                <span class="package-price">₱9,500.00</span>
+            </div>
+            <div class="package-guests">10–50 GUESTS</div>
+            <ul class="package-features">
+                <li><span class="feature-check">○</span> 7 Hours Venue Use</li>
+                <li><span class="feature-check">○</span> 1 Hour Free Setup</li>
+                <li><span class="feature-check">○</span> Basic Sound System</li>
+                <li><span class="feature-check">○</span> 60 Chairs + 4 Tables</li>
+                <li><span class="feature-check">○</span> Event On-site Coordinator</li>
+                <li><span class="feature-check">○</span> Welcome Signage</li>
+                <li><span class="feature-check">○</span> Presencia Signature Touch</li>
+                <li><span class="feature-check">○</span> Clean & Secure Venue</li>
+            </ul>
+            <button class="choose-btn">Choose Essential</button>
+        </div>
+        
+        <!-- Classic Package -->
+        <div class="package-card" id="pkgClassic" onclick="selectPackage('classic', 12500)">
+            <div class="package-badge">MOST POPULAR</div>
+            <div class="package-name">Classic</div>
+            <div class="package-subtitle italic">Our Most Popular Choice</div>
+            <div class="package-price-row">
+                <span class="package-price-label">STARTS AT</span>
+                <span class="package-price">₱12,500.00</span>
+            </div>
+            <div class="package-guests">30–80 GUESTS</div>
+            <ul class="package-features">
+                <li><span class="feature-check">○</span> 7 Hours Venue Use</li>
+                <li><span class="feature-check">○</span> 1 Hour Free Setup</li>
+                <li><span class="feature-check">○</span> Professional Sound System</li>
+                <li><span class="feature-check">○</span> 8 Tables + 100 Chairs</li>
+                <li><span class="feature-check">○</span> Event Lighting Upgrade</li>
+                <li><span class="feature-check">○</span> Flexible Floor Layout</li>
+                <li><span class="feature-check">○</span> Welcome Signage</li>
+                <li><span class="feature-check">○</span> Presencia Signature Touch</li>
+                <li><span class="feature-check">○</span> Clean & Secure Venue</li>
+                <li><span class="feature-check">○</span> Loyalty Voucher</li>
+            </ul>
+            <button class="choose-btn">Choose Classic</button>
+        </div>
+        
+        <!-- Premier Package -->
+        <div class="package-card" id="pkgPremier" onclick="selectPackage('premier', 16500)">
+            <div class="package-badge">BEST VALUE</div>
+            <div class="package-name">Premier</div>
+            <div class="package-subtitle italic">The Full Presencia Experience</div>
+            <div class="package-price-row">
+                <span class="package-price-label">STARTS AT</span>
+                <span class="package-price">₱16,500.00</span>
+            </div>
+            <div class="package-guests">50–100 GUESTS</div>
+            <strong style="display:block; margin: 1rem 0 0.75rem; font-size: 0.75rem; letter-spacing: 1px; color: var(--text-secondary);">INCLUSIONS</strong>
+            <ul class="package-features">
+                <li><span class="feature-check">○</span> 7 Hours Venue Use</li>
+                <li><span class="feature-check">○</span> 1 Hour Free Setup</li>
+                <li><span class="feature-check">○</span> Premium Sound System</li>
+                <li><span class="feature-check">○</span> Full Event Lighting</li>
+                <li><span class="feature-check">○</span> Flexible Floor Layout</li>
+                <li><span class="feature-check">○</span> On-Site Coordinator</li>
+                <li><span class="feature-check">○</span> Photo Backdrop Corner</li>
+                <li><span class="feature-check">○</span> Presencia Signature Touch — exclusive add-ons</li>
+                <li><span class="feature-check">○</span> Clean & Secure Venue</li>
+                <li><span class="feature-check">○</span> Loyalty Voucher</li>
+            </ul>
+            <button class="choose-btn">Choose Premier</button>
+        </div>
+    </div>
+    
+    <div class="nav-buttons">
+        <button class="btn-back" onclick="document.getElementById('heroSection').scrollIntoView({behavior:'smooth'})">
+            <i class="fas fa-chevron-left"></i> Back to Top
+        </button>
+        <button class="btn-continue" onclick="goToStep(2)">
+            Continue <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
+
+<!-- STEP 2: DATE & TIME -->
+<div id="step2" class="step-content hidden">
+    <div class="section-header">
+        <div class="step-indicator">STEP 2 OF 7</div>
+        <h2 class="section-title">Pick Your Date & Time</h2>
+        <p class="section-desc">All packages include 7 hours total. Choose your event date and time.</p>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">EVENT DATE <span class="required">*</span></label>
+        <input type="date" class="form-input" id="eventDate" required>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">EVENT TYPE <span class="required">*</span></label>
+        <select class="form-select" id="eventType" required>
+            <option value="">Select event type...</option>
+            <option value="Birthday">Birthday</option>
+            <option value="Wedding">Wedding</option>
+            <option value="Debut">Debut</option>
+            <option value="Child Dedication">Child Dedication</option>
+            <option value="Reunion">Reunion</option>
+            <option value="Seminar">Seminar</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Corporate Meeting">Corporate Meeting</option>
+            <option value="Product Launch">Product Launch</option>
+            <option value="Team Building">Team Building</option>
+            <option value="Other Celebration">Other Celebration</option>
+        </select>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+            <label class="form-label">START TIME</label>
+            <select class="form-select" id="startTime">
+                <option value="">Select...</option>
+                <option value="07:00">7:00 AM</option>
+                <option value="08:00">8:00 AM</option>
+                <option value="09:00">9:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="13:00">1:00 PM</option>
+                <option value="14:00">2:00 PM</option>
+                <option value="15:00">3:00 PM</option>
+                <option value="16:00">4:00 PM</option>
+                <option value="17:00">5:00 PM</option>
+                <option value="18:00">6:00 PM</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-label">END TIME</label>
+            <select class="form-select" id="endTime">
+                <option value="">Select...</option>
+                <option value="13:00">1:00 PM</option>
+                <option value="14:00">2:00 PM</option>
+                <option value="15:00">3:00 PM</option>
+                <option value="16:00">4:00 PM</option>
+                <option value="17:00">5:00 PM</option>
+                <option value="18:00">6:00 PM</option>
+                <option value="19:00">7:00 PM</option>
+                <option value="20:00">8:00 PM</option>
+                <option value="21:00">9:00 PM</option>
+                <option value="22:00">10:00 PM</option>
+                <option value="23:00">11:00 PM</option>
+                <option value="00:00">12:00 AM</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">GUEST COUNT <span style="font-weight:400;">(max 100 for Premier)</span></label>
+        <input type="number" class="form-input" id="guestCount" placeholder="e.g., 80" min="10" max="150">
+    </div>
+    
+    <div class="info-box">
+        <i class="fas fa-clock"></i>
+        <span><strong>7 hours total:</strong> 1hr Setup + 1hr Bonus + 4hr Event + 1hr Cleanup. Your start/end times can flex within these 7 hours.</span>
+    </div>
+    
+    <div class="nav-buttons">
+        <button class="btn-back" onclick="goToStep(1)">
+            <i class="fas fa-chevron-left"></i> Back
+        </button>
+        <button class="btn-continue" onclick="goToStep(3)">
+            Continue <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
+
+<!-- STEP 3: ADD-ONS -->
+<div id="step3" class="step-content hidden">
+    <div class="section-header">
+        <div class="step-indicator">STEP 3 OF 7</div>
+        <h2 class="section-title">Enhance Your Event</h2>
+        <p class="section-desc">Optional add-ons to make your event even more memorable.</p>
+    </div>
+    
+    <div class="addons-list">
+        <div class="addon-item" onclick="toggleAddon(this, 'mc', 1500)">
+            <div class="addon-left">
+                <div class="addon-checkbox" id="addonMC"><i class="fas fa-check" style="display:none;font-size:0.7rem;"></i></div>
+                <span class="addon-name">MC Service</span>
+            </div>
+            <span class="addon-price">+ ₱1,500.00</span>
+        </div>
+        <div class="addon-item" onclick="toggleAddon(this, 'coordinator', 2000)">
+            <div class="addon-left">
+                <div class="addonCheckbox" id="addonCoordinator"><i class="fas fa-check" style="display:none;font-size:0.7rem;"></i></div>
+                <span class="addonName">Event Coordinator</span>
+            </div>
+            <span class="addonPrice">+ ₱2,000.00</span>
+        </div>
+        <div class="addon-item" onclick="toggleAddon(this, 'backdrop', 1500)">
+            <div class="addonLeft">
+                <div class="addonCheckbox" id="addonBackdrop"><i class="fas fa-check" style="display:none;font-size:0.7rem;"></i></div>
+                <span className="addonName">Photo Backdrop</span>
+            </div>
+            <span className="addonPrice">+ ₱1,500.00</span>
+        </div>
+        <div class="addon-item" onclick="toggleAddon(this, 'signage', 500)">
+            <div class="addonLeft">
+                <div class="addonCheckbox" id="addonSignage"><i class="fas fa-check" style="display:none;font-size:0.7rem;"></i></div>
+                <span className="addonName">Welcome Signage</span>
+            </div>
+            <span className="addonPrice">+ ₱500.00</span>
+        </div>
+        <div class="addon-item" onclick="toggleAddon(this, 'catering', 500)">
+            <div class="addonLeft">
+                <div class="addonCheckbox" id="addonCatering"><i class="fas fa-check" style="display:none;font-size:0.7rem;"></i></div>
+                <span className="addonName">Catering Coordination</span>
+            </div>
+            <span className="addonPrice">+ ₱500.00</span>
+        </div>
+        <div class="addon-item" onclick="toggleAddon(this, 'extension', 1500)">
+            <div class="addonLeft">
+                <div class="addonCheckbox" id="addonExtension"><i class="fas fa-check" style="display:none;font-size:0.7rem;"></i></div>
+                <span className="addonName">Extension per Hour</span>
+            </div>
+            <span className="addonPrice">+ ₱1,500.00</span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">ADDITIONAL NOTES FOR ADD-ONS (OPTIONAL)</label>
+        <textarea class="form-textarea" id="addonNotes" placeholder="e.g., MC should speak Taglish, photo backdrop color theme is gold & white..."></textarea>
+    </div>
+    
+    <div class="nav-buttons">
+        <button class="btn-back" onclick="goToStep(2)">
+            <i class="fas fa-chevron-left"></i> Back
+        </button>
+        <button class="btn-continue" onclick="goToStep(4)">
+            Continue <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
+
+<!-- STEP 4: CONTACT DETAILS -->
+<div id="step4" class="step-content hidden">
+    <div class="section-header">
+        <div class="step-indicator">STEP 4 OF 7</div>
+        <h2 class="section-title">Your Contact Details</h2>
+        <p class="section-desc">We'll send your booking confirmation and contract to this email.</p>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">FULL NAME <span class="required">*</span></label>
+        <input type="text" class="form-input" id="clientName" placeholder="Juan Dela Cruz" required>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">EMAIL ADDRESS <span class="required">*</span></label>
+        <input type="email" class="form-input" id="clientEmail" placeholder="juan@example.com" required>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">CONTACT NUMBER <span class="required">*</span></label>
+        <input type="tel" class="form-input" id="clientPhone" placeholder="0917 123 4567" pattern="[0-9]{11}" required>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">FACEBOOK / MESSENGER (OPTIONAL)</label>
+        <input type="url" class="form-input" id="clientFB" placeholder="facebook.com/username">
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">SPECIAL REQUESTS OR NOTES (OPTIONAL)</label>
+        <textarea class="form-textarea" id="clientNotes" placeholder="Tell us about your event vision, theme, accessibility needs, vendor coordination, etc."></textarea>
+    </div>
+    
+    <div class="nav-buttons">
+        <button class="btn-back" onclick="goToStep(3)">
+            <i class="fas fa-chevron-left"></i> Back
+        </button>
+        <button class="btn-continue" onclick="goToStep(5)">
+            Continue <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
+
+<!-- STEP 5: CONTRACT -->
+<div id="step5" class="step-content hidden">
+    <div class="section-header">
+        <div class="step-indicator">STEP 5 OF 7</div>
+        <h2 class="section-title">Review & Sign Your Contract</h2>
+        <p class="section-desc">Please read the Presencia Client Booking Agreement carefully.</p>
+    </div>
+    
+    <div class="contract-box">
+        <div class="contract-header">
+            <div class="contract-title">PRESENCIA VENUE MANAGEMENT</div>
+            <div class="contract-name">Client Booking Agreement</div>
+        </div>
+        
+        <div class="contract-text">
+            <p><strong>Please read this agreement carefully.</strong> By signing, you agree to all terms stated herein.</p>
+            
+            <p>This Client Booking Agreement is entered into by and between Presencia Venue Management (hereinafter the "Venue Manager") and the client identified below (hereinafter the "Client"). This Agreement governs the use of the venue and all services rendered in connection with the booked event.</p>
+            
+            <p><strong>SECTION A — CLIENT & EVENT INFORMATION</strong></p>
+            <p>Client Full Name: <span id="contractNameDisplay">___________</span>&nbsp;&nbsp;&nbsp;Event Type: <span id="contractEventTypeDisplay">___________</span></p>
+            
+            <p><strong>SECTION B — PAYMENT TERMS</strong></p>
+            <p>The Client agrees to pay the total amount as specified in the selected package plus any additional services. A reservation fee of PHP 2,000 is due within 24 hours of confirmation. The remaining balance is due 3 days before the event date. Cleaning deposit of PHP 1,000 is refundable subject to venue inspection post-event.</p>
+            
+            <p><strong>SECTION C — CANCELLATION POLICY</strong></p>
+            <p>Cancellations made 14+ days before the event may be rescheduled to another available date subject to a PHP 500 processing fee. Cancellations made 7-13 days before will forfeit 50% of the reservation fee. Cancellations less than 7 days before will result in full forfeiture of all payments made.</p>
+            
+            <p><strong>SECTION D — VENUE USE RULES</strong></p>
+            <p>The Client agrees to respect the venue and all its property throughout the event. Maximum capacity must not be exceeded. Outside food and beverages require prior approval. Smoking is permitted only in designated areas. The venue must be vacated by the agreed end time. Any damages beyond normal wear will be billed to the Client.</p>
+            
+            <p><strong>SECTION E — LIABILITY</strong></p>
+            <p>The Venue Manager is not responsible for personal belongings lost or damaged during the event. The Client assumes responsibility for guest conduct and any damages caused by guests or vendors.</p>
+        </div>
+    </div>
+    
+    <div class="agreement-checkbox">
+        <input type="checkbox" id="agreeContract" required>
+        <label for="agreeContract">
+            I confirm that I have read, understood, and agreed to all terms of this Client Booking Agreement, including the payment terms, cancellation policy, and venue use rules. I commit to respecting the venue and all its property throughout the event. <span class="required">*</span>
+        </label>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">TYPE YOUR FULL NAME AS YOUR ELECTRONIC SIGNATURE <span class="required">*</span></label>
+        <input type="text" class="form-input" id="eSignature" placeholder="Juan Dela Cruz" style="font-family:'Playfair Display',serif;font-style:italic;" required>
+    </div>
+    
+    <div class="info-box">
+        <i class="fas fa-shield-alt"></i>
+        <span>Your electronic signature is legally binding under Philippine law (E-Commerce Act of 2000, RA 8792).</span>
+    </div>
+    
+    <div class="nav-buttons">
+        <button class="btn-back" onclick="goToStep(4)">
+            <i class="fas fa-chevron-left"></i> Back
+        </button>
+        <button class="btn-continue" onclick="goToStep(6)">
+            Continue <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
+
+<!-- STEP 6: CONFIRMATION / SUCCESS -->
+<div id="step6" class="step-content hidden">
+    <div class="success-container">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        
+        <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Booking Confirmed!</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+            Your booking confirmation email has been sent to <strong id="confirmEmailDisplay">email@example.com</strong>. We've also notified the venue manager and landlord.
+        </p>
+        
+        <div class="reference-box">
+            <div class="reference-label">YOUR BOOKING REFERENCE</div>
+            <div class="reference-number" id="refNumber">PRSC-20260630-9080</div>
+            <button class="copy-btn" onclick="copyReference()">
+                <i class="far fa-copy"></i> Copy
+            </button>
+        </div>
+        
+        <div class="next-steps">
+            <h4><i class="fas fa-envelope"></i> What happens next?</h4>
+            <ol>
+                <li>Pay the <strong>PHP 2,000 reservation fee</strong> within 24 hours</li>
+                <li>Email us the payment reference</li>
+                <li>We lock your date and send a signed contract copy</li>
+                <li>Pay the balance <strong>3 days before</strong> your event</li>
+                <li>Arrive on your setup hour — we handle the rest!</li>
+            </ol>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <button class="btn-primary" onclick="window.print()" style="justify-content:center;">
+                <i class="fas fa-print"></i> Print Confirmation
+            </button>
+        </div>
+        
+        <div style="margin-top: 1.5rem;">
+            <button class="btn-secondary" onclick="location.reload()" style="justify-content:center;">
+                Back to Home
+            </button>
+        </div>
+    </div>
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <!-- REPLACE THIS SRC WITH YOUR BRANDING LOGO -->
+    <img src="https://drive.google.com/file/d/1E8KaVLECwskZSNO2MOy-HJ1VXDjFOiP8/view?usp=drivesdk" 
+         alt="PRESENCIA" 
+         class="footer-logo"
+         id="footerLogo">
+    
+    <p class="footer-quote">"Every moment deserves a beautiful space. Every gathering deserves to be felt."</p>
+    <p class="footer-tagline">Where Presence Becomes Experience.</p>
+    
+    <div class="footer-links">
+        <a href="#heroSection" class="footer-link">Home</a>
+        <a href="#" onclick="showStep(1)" class="footer-link">Book Now</a>
+        <a href="mailto:presenciavenue@gmail.com" class="footer-link">Contact</a>
+    </div>
+    
+    <div class="footer-social">
+        <a href="https://www.facebook.com/share/181kLp5x6V/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/presenciavenue?igsh=MTA3aWc3dW12cThkNw==" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@presenciaofficial?_r=1&_t=ZS-97e45rtCaeW" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="mailto:presenciavenue@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+        <a href="tel:09916596381" title="Call"><i class="fas fa-phone"></i></a>
+    </div>
+    
+    <p class="footer-copy">
+        New Lower Bicutan, Taguig City (Front of BICUTAN MED)<br>
+        Managed by KINT LACSI | presenciavenue@gmail.com | 09916596381<br><br>
+        © 2026 PRESENCIA VENUE MANAGEMENT. All Rights Reserved.<br>
+        <small style="opacity:0.5">This is a confidential business document.</small>
+    </p>
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+// Global State
+let currentStep = 1;
+let selectedPackage = null;
+let selectedAddons = {};
+let bookingData = {};
+
+// Set minimum date to today
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('eventDate').min = today;
+
+// Mobile Menu Toggle
+function toggleMobileMenu() {
+    alert('Menu functionality coming soon!');
+}
+
+// Scroll to Booking
+function scrollToBooking() {
+    showStep(1);
+    document.getElementById('progressStepper').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Step Navigation
+function showStep(stepNum) {
+    // Hide all steps
+    document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+    
+    // Show target step
+    document.getElementById('step' + stepNum).classList.remove('hidden');
+    
+    // Update progress stepper
+    updateProgressStepper(stepNum);
+    
+    // Scroll to top of main content
+    document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth' });
+    
+    currentStep = stepNum;
+}
+
+function goToStep(stepNum) {
+    // Validate current step before proceeding
+    if (stepNum > currentStep) {
+        if (!validateCurrentStep()) return;
+    }
+    
+    if (stepNum === 6) {
+        processFinalSubmission();
+    } else {
+        showStep(stepNum);
+    }
+}
+
+function updateProgressStepper(activeStep) {
+    for (let i = 1; i <= 6; i++) {
+        const circle = document.getElementById('stepCircle' + i);
+        circle.classList.remove('active', 'completed');
+        circle.innerHTML = i;
+        
+        if (i < activeStep) {
+            circle.classList.add('completed');
+            circle.innerHTML = '<i class="fas fa-check" style="font-size:0.7rem;"></i>';
+        } else if (i === activeStep) {
+            circle.classList.add('active');
+        }
+    }
+}
+
+// Package Selection
+function selectPackage(pkgName, price) {
+    selectedPackage = { name: pkgName, price: price };
+    
+    // Update UI
+    document.querySelectorAll('.package-card').forEach(card => card.classList.remove('selected'));
+    document.getElementById('pkg' + pkgName.charAt(0).toUpperCase() + pkgName.slice(1)).classList.add('selected');
+    
+    // Update feature checks
+    const selectedCard = document.querySelector('.package-card.selected');
+    selectedCard.querySelectorAll('.feature-check').forEach(check => {
+        check.innerHTML = '✓';
+        check.style.background = 'var(--gold)';
+        check.style.color = 'var(--white)';
+        check.style.borderColor = 'var(--gold)';
+    });
+    
+    bookingData.package = selectedPackage;
+}
+
+// Add-on Toggle
+function toggleAddon(element, addonKey, price) {
+    const checkbox = element.querySelector('.addon-checkbox');
+    
+    if (checkbox.classList.contains('checked')) {
+        checkbox.classList.remove('checked');
+        checkbox.querySelector('i').style.display = 'none';
+        delete selectedAddons[addonKey];
+    } else {
+        checkbox.classList.add('checked');
+        checkbox.querySelector('i').style.display = 'block';
+        selectedAddons[addonKey] = price;
+    }
+}
+
+// Validation
+function validateCurrentStep() {
+    switch(currentStep) {
+        case 1:
+            if (!selectedPackage) {
+                alert('Please select a package first.');
+                return false;
+            }
+            break;
+        case 2:
+            if (!document.getElementById('eventDate').value) {
+                alert('Please select an event date.');
+                return false;
+            }
+            break;
+        case 4:
+            if (!document.getElementById('clientName').value ||
+                !document.getElementById('clientEmail').value ||
+                !document.getElementById('clientPhone').value) {
+                alert('Please fill in all required contact fields.');
+                return false;
+            }
+            break;
+        case 5:
+            if (!document.getElementById('agreeContract').checked) {
+                alert('Please agree to the contract terms.');
+                return false;
+            }
+            if (!document.getElementById('eSignature').value) {
+                alert('Please provide your electronic signature.');
+                return false;
+            }
+            // Update contract displays
+            document.getElementById('contractNameDisplay').textContent = document.getElementById('clientName').value || '___________';
+            document.getElementById('contractEventTypeDisplay').textContent = document.getElementById('eventType').value || '___________';
+            break;
+    }
+    return true;
+}
+
+// Final Submission
+function processFinalSubmission() {
+    // Gather all data
+    bookingData.date = document.getElementById('eventDate').value;
+    bookingData.eventType = document.getElementById('eventType').value;
+    bookingData.startTime = document.getElementById('startTime').value;
+    bookingData.endTime = document.getElementById('endTime').value;
+    bookingData.guestCount = document.getElementById('guestCount').value;
+    bookingData.clientName = document.getElementById('clientName').value;
+    bookingData.clientEmail = document.getElementById('clientEmail').value;
+    bookingData.clientPhone = document.getElementById('clientPhone').value;
+    bookingData.clientFB = document.getElementById('clientFB').value;
+    bookingData.notes = document.getElementById('clientNotes').value;
+    bookingData.addonNotes = document.getElementById('addonNotes').value;
+    bookingData.signature = document.getElementById('eSignature').value;
+    bookingData.addons = selectedAddons;
+    
+    // Calculate totals
+    let total = selectedPackage.price;
+    Object.values(selectedAddons).forEach(price => total += price);
+    const cleaningDeposit = 1000;
+    const reservationFee = 2000;
+    const grandTotal = total + cleaningDeposit;
+    const balanceDue = grandTotal - reservationFee;
+    
+    // Generate reference number
+    const refNum = generateReferenceNumber();
+    
+    // Update confirmation page
+    document.getElementById('confirmEmailDisplay').textContent = bookingData.clientEmail;
+    document.getElementById('refNumber').textContent = refNum;
+    
+    // Show step 6
+    showStep(6);
+    
+    // Log data (for debugging / future Google Sheets integration)
+    console.log('=== PRESENCIA BOOKING SUBMISSION ===', {
+        reference: refNum,
+        timestamp: new Date().toISOString(),
+        ...bookingData,
+        financials: {
+            packagePrice: selectedPackage.price,
+            addonsTotal: Object.values(selectedAddons).reduce((a,b)=>a+b, 0),
+            cleaningDeposit: cleaningDeposit,
+            grandTotal: grandTotal,
+            reservationFee: reservationFee,
+            balanceDue: balanceDue
+        }
+    });
+    
+    // TODO: Send to Google Sheets here
+    // sendToGoogleSheets(bookingData);
+}
+
+function generateReferenceNumber() {
+    const now = new Date();
+    const dateStr = now.getFullYear().toString() +
+                   String(now.getMonth()+1).padStart(2,'0') +
+                   String(now.getDate()).padStart(2,'0');
+    const random = Math.floor(Math.random() * 9000) + 1000;
+    return `PRSC-${dateStr}-${random}`;
+}
+
+function copyReference() {
+    const refText = document.getElementById('refNumber').textContent;
+    navigator.clipboard.writeText(refText).then(() => {
+        const btn = event.target.closest('.copy-btn');
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => btn.innerHTML = originalHTML, 2000);
+    });
+}
+
+// Initialize
+console.log('%c✨ PRESENCIA Events Place', 'color: #D4AF37; font-size: 28px; font-weight: bold;');
+console.log('%cPremium Venue Rentals — Taguig City', 'color: #c9c9c9; font-size: 14px;');
+console.log('%cManaged by KINT LACSI | Built with precision ♥', 'color: #10B981; font-size: 11px;');
+</script>
+
+</body>
+</html>

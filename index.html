@@ -14,44 +14,31 @@
     <style>
         /* ============================================
            PRESENCIA DESIGN SYSTEM
-           Extracted from original site screenshots
            ============================================ */
         
         :root {
-            /* Core Colors */
             --black: #0F0F0F;
             --charcoal: #1A1A1A;
             --dark: #2D2D2D;
             --cream: #FAF9F6;
             --white: #FFFFFF;
-            
-            /* Gold Palette */
             --gold: #D4AF37;
             --gold-light: #E8D5A3;
             --gold-tan: #C9A96E;
             --gold-muted: #B8976A;
-            
-            /* Text */
             --text-primary: #1A1A1A;
             --text-secondary: #6B6B6B;
             --text-light: #888888;
             --text-inverse: #FAF9F6;
-            
-            /* UI */
             --border-light: #E5E2DD;
             --border-dark: #333333;
             --success: #10B981;
             --info-bg: #F0EDE8;
-            
-            /* Spacing */
             --space-xs: 0.5rem;
             --space-sm: 1rem;
             --space-md: 1.5rem;
             --space-lg: 2rem;
             --space-xl: 3rem;
-            --space-2xl: 4rem;
-            
-            /* Radius */
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 16px;
@@ -76,7 +63,7 @@
         .italic { font-style: italic; }
 
         /* ============================================
-           NAVIGATION BAR
+           NAVIGATION BAR - FIXED WITH WORKING MOBILE MENU
            ============================================ */
         .navbar {
             position: fixed;
@@ -90,6 +77,7 @@
             align-items: center;
             z-index: 1000;
             border-bottom: 1px solid rgba(212,175,55,0.15);
+            transition: all 0.3s ease;
         }
         
         .nav-logo {
@@ -97,6 +85,7 @@
             align-items: center;
             gap: 12px;
             text-decoration: none;
+            z-index: 1001;
         }
         
         .nav-logo-img {
@@ -104,6 +93,10 @@
             height: 45px;
             object-fit: contain;
             filter: brightness(1.1);
+            /* Fallback if image fails to load */
+            background: radial-gradient(circle, rgba(212,175,55,0.2), transparent);
+            border-radius: 50%;
+            padding: 5px;
         }
         
         .nav-brand {
@@ -128,6 +121,7 @@
             text-transform: uppercase;
         }
         
+        /* MOBILE MENU BUTTON */
         .nav-menu-btn {
             background: none;
             border: none;
@@ -135,6 +129,136 @@
             font-size: 1.5rem;
             cursor: pointer;
             padding: 8px;
+            z-index: 1001;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-menu-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .nav-menu-btn.active {
+            color: var(--white);
+        }
+        
+        /* HAMBURGER ICON ANIMATION */
+        .hamburger {
+            width: 25px;
+            height: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: currentColor;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+        
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 9px; width: 80%; }
+        .hamburger span:nth-child(3) { top: 18px; }
+        
+        /* When active - becomes X */
+        .nav-menu-btn.active .hamburger span:nth-child(1) {
+            top: 9px;
+            width: 0%;
+            left: 50%;
+        }
+        
+        .nav-menu-btn.active .hamburger span:nth-child(2) {
+            transform: rotate(45deg);
+            width: 100%;
+        }
+        
+        .nav-menu-btn.active .hamburger span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 9px;
+            width: 100%;
+        }
+        
+        /* MOBILE MENU OVERLAY */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(15, 15, 15, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(100%);
+        }
+        
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+        
+        .mobile-menu-link {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .mobile-menu-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+        
+        .mobile-menu-link:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-close:hover {
+            background: var(--gold);
+            color: var(--black);
+            transform: rotate(90deg);
         }
 
         /* ============================================
@@ -305,7 +429,7 @@
             border-bottom: 1px solid var(--border-light);
             position: sticky;
             top: 73px;
-            z-index: 999;
+            z-index: 998;
             overflow-x: auto;
         }
         
@@ -1007,9 +1131,10 @@
             border-top: 1px solid rgba(255,255,255,0.08);
         }
 
-        /* ============================================
-           RESPONSIVE
-           ============================================ */
+        /* Hidden class */
+        .hidden { display: none !important; }
+
+        /* Responsive */
         @media(max-width: 768px) {
             .hero-title { letter-spacing: 4px; }
             .hero-buttons { max-width: 280px; }
@@ -1017,40 +1142,86 @@
             .nav-buttons { flex-direction: column-reverse; }
             .btn-back, .btn-continue { justify-content: center; }
             .summary-row { font-size: 0.88rem; }
+            
+            /* Mobile menu adjustments */
+            .mobile-menu-link { font-size: 1.5rem; }
         }
-
-        /* Hidden class */
-        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
 <!-- NAVIGATION -->
 <nav class="navbar">
-    <a href="#" class="nav-logo">
-        <!-- REPLACE THIS SRC WITH YOUR LOGO -->
-        <img src="https://drive.google.com/file/d/185_3PNrCqdmO9aNHU9Sszl6YBucPMWIY/view?usp=drivesdk" 
+    <a href="#home" class="nav-logo">
+        <!-- 
+           ⚠️ LOGO FIX INSTRUCTIONS:
+           
+           Option A: Store image in your GitHub repo (RECOMMENDED)
+           1. Create folder named "images" in your repo
+           2. Upload your logo PNG there
+           3. Change src below to: images/logo.png
+           
+           Option B: Use direct URL (if publicly accessible)
+           Replace src with direct image URL (not Google Drive preview)
+           
+           Option C: Use data URI (for small logos < 50KB)
+           Convert image to base64 and paste here
+        -->
+        <img src="images/logo.png" 
              alt="PRESENCIA Logo" 
              class="nav-logo-img"
-             id="navLogo">
+             id="navLogo"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none;font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:#D4AF37;letter-spacing:3px;">P</div>
+        
         <div class="nav-brand">
             <span class="nav-brand-main">PRESENCIA</span>
             <span class="nav-brand-sub">Venue Management</span>
         </div>
     </a>
-    <button class="nav-menu-btn" onclick="toggleMobileMenu()">
-        <i class="fas fa-bars"></i>
+    
+    <!-- WORKING HAMBURGER MENU BUTTON -->
+    <button class="nav-menu-btn" id="menuToggle" onclick="toggleMobileMenu()" aria-label="Menu">
+        <span class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
     </button>
 </nav>
 
+<!-- MOBILE MENU OVERLAY (Hidden by default) -->
+<div class="mobile-menu-overlay" id="mobileMenu">
+    <button class="mobile-menu-close" onclick="toggleMobileMenu()" aria-label="Close menu">
+        <i class="fas fa-times"></i>
+    </button>
+    
+    <a href="#home" class="mobile-menu-link" onclick="closeMobileMenu()">Home</a>
+    <a href="#" onclick="showStep(1); closeMobileMenu();" class="mobile-menu-link">Book Now</a>
+    <a href="#packages" onclick="closeMobileMenu()" class="mobile-menu-link">Packages</a>
+    <a href="#contact" onclick="closeMobileMenu()" class="mobile-menu-link">Contact</a>
+    
+    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(212,175,55,0.2);">
+        <p style="color: var(--text-light); font-size: 0.85rem; margin-bottom: 0.5rem;">Get in Touch</p>
+        <a href="tel:09916596381" style="color: var(--gold); text-decoration: none; font-size: 1rem;">
+            <i class="fas fa-phone"></i> 09916596381
+        </a><br>
+        <a href="mailto:presenciavenue@gmail.com" style="color: var(--gold); text-decoration: none; font-size: 1rem;">
+            <i class="fas fa-envelope"></i> presenciavenue@gmail.com
+        </a>
+    </div>
+</div>
+
 <!-- HERO SECTION -->
-<section class="hero" id="heroSection">
+<section class="hero" id="home">
     <div class="hero-logo-container">
-        <!-- REPLACE THIS SRC WITH YOUR LOGO -->
-        <img src="https://drive.google.com/file/d/185_3PNrCqdmO9aNHU9Sszl6YBucPMWIY/view?usp=drivesdk" 
+        <!-- Same logo fix applies here too -->
+        <img src="images/logo.png" 
              alt="PRESENCIA Logo" 
              class="hero-logo"
-             id="heroLogo">
+             id="heroLogo"
+             onerror="this.style.display='none';">
+        <div style="display:none;width:140px;height:140px;border:2px solid #D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:4rem;color:#D4AF37;">P</div>
     </div>
     
     <p class="hero-tagline-top">TAGUIG'S PREMIER EVENTS PLACE</p>
@@ -1209,7 +1380,7 @@
     </div>
     
     <div class="nav-buttons">
-        <button class="btn-back" onclick="document.getElementById('heroSection').scrollIntoView({behavior:'smooth'})">
+        <button class="btn-back" onclick="document.getElementById('home').scrollIntoView({behavior:'smooth'})">
             <i class="fas fa-chevron-left"></i> Back to Top
         </button>
         <button class="btn-continue" onclick="goToStep(2)">
@@ -1327,9 +1498,9 @@
         <div class="addon-item" onclick="toggleAddon(this, 'coordinator', 2000)">
             <div class="addon-left">
                 <div class="addonCheckbox" id="addonCoordinator"><i class="fas fa-check" style="display:none;font-size:0.7rem;"></i></div>
-                <span class="addonName">Event Coordinator</span>
+                <span className="addonName">Event Coordinator</span>
             </div>
-            <span class="addonPrice">+ ₱2,000.00</span>
+            <span className="addonPrice">+ ₱2,000.00</span>
         </div>
         <div class="addon-item" onclick="toggleAddon(this, 'backdrop', 1500)">
             <div class="addonLeft">
@@ -1531,17 +1702,18 @@
 
 <!-- FOOTER -->
 <footer class="footer">
-    <!-- REPLACE THIS SRC WITH YOUR BRANDING LOGO -->
-    <img src="https://drive.google.com/file/d/1E8KaVLECwskZSNO2MOy-HJ1VXDjFOiP8/view?usp=drivesdk" 
+    <img src="images/logo.png" 
          alt="PRESENCIA" 
          class="footer-logo"
-         id="footerLogo">
+         id="footerLogo"
+         onerror="this.style.display='none';">
+    <div style="display:none;font-family:'Cormorant Garamond',serif;font-size:2rem;color:#D4AF37;letter-spacing:3px;margin-bottom:1rem;">PRESENCIA</div>
     
     <p class="footer-quote">"Every moment deserves a beautiful space. Every gathering deserves to be felt."</p>
     <p class="footer-tagline">Where Presence Becomes Experience.</p>
     
     <div class="footer-links">
-        <a href="#heroSection" class="footer-link">Home</a>
+        <a href="#home" class="footer-link">Home</a>
         <a href="#" onclick="showStep(1)" class="footer-link">Book Now</a>
         <a href="mailto:presenciavenue@gmail.com" class="footer-link">Contact</a>
     </div>
@@ -1574,10 +1746,47 @@ let bookingData = {};
 const today = new Date().toISOString().split('T')[0];
 document.getElementById('eventDate').min = today;
 
-// Mobile Menu Toggle
+// ============================================
+// MOBILE MENU FUNCTIONALITY (NOW WORKING!)
+// ============================================
 function toggleMobileMenu() {
-    alert('Menu functionality coming soon!');
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.getElementById('menuToggle');
+    const body = document.body;
+    
+    menu.classList.toggle('active');
+    btn.classList.toggle('active');
+    
+    // Prevent body scrolling when menu is open
+    if (menu.classList.contains('active')) {
+        body.style.overflow = 'hidden';
+    } else {
+        body.style.overflow = '';
+    }
 }
+
+function closeMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.getElementById('menuToggle');
+    
+    menu.classList.remove('active');
+    btn.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Close menu when clicking outside
+document.getElementById('mobileMenu').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeMobileMenu();
+    }
+});
+
+// Close menu on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('mobileMenu').classList.contains('active')) {
+        closeMobileMenu();
+    }
+});
 
 // Scroll to Booking
 function scrollToBooking() {
@@ -1740,7 +1949,7 @@ function processFinalSubmission() {
     // Show step 6
     showStep(6);
     
-    // Log data (for debugging / future Google Sheets integration)
+    // Log data
     console.log('=== PRESENCIA BOOKING SUBMISSION ===', {
         reference: refNum,
         timestamp: new Date().toISOString(),
@@ -1754,9 +1963,6 @@ function processFinalSubmission() {
             balanceDue: balanceDue
         }
     });
-    
-    // TODO: Send to Google Sheets here
-    // sendToGoogleSheets(bookingData);
 }
 
 function generateReferenceNumber() {

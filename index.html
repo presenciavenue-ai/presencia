@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PRESENCIA Venue Management - Where Presence Becomes Experience</title>
     
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://z-cdn-media.chatglm.cn/files/23aea94c-10b4-4c0a-bd1c-0bdb57039e4c.png?auth_key=1882896281-39e0a920cfb240e49e132b046f4fbbbb-0-cbbb7554229a8579529f5ea1ed5d3278">
     <link rel="shortcut icon" type="image/png" href="https://z-cdn-media.chatglm.cn/files/23aea94c-10b4-4c0a-bd1c-0bdb57039e4c.png?auth_key=1882896281-39e0a920cfb240e49e132b046f4fbbbb-0-cbbb7554229a8579529f5ea1ed5d3278">
     <link rel="apple-touch-icon" href="https://z-cdn-media.chatglm.cn/files/23aea94c-10b4-4c0a-bd1c-0bdb57039e4c.png?auth_key=1882896281-39e0a920cfb240e49e132b046f4fbbbb-0-cbbb7554229a8579529f5ea1ed5d3278">
     
-    <!-- MathJax Configuration -->
     <script>
         window.MathJax = {
             tex: {
@@ -22,16 +20,12 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
     
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- EmailJS SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
-    <!-- jsPDF Library for PDF Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
@@ -753,6 +747,81 @@
             color: var(--black-primary);
         }
 
+        /* =========================================================
+           Client Agreement Scoped Styles (Integrated Version)
+           ========================================================= */
+        #client-agreement {
+            background: var(--black-primary);
+        }
+        
+        .agr-container {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--gold-primary);
+        }
+        
+        .agr-container .header { text-align: center; margin-bottom: 30px; }
+        .agr-container .header h1 { margin: 0; color: #2c3e50; font-family: 'Arial', sans-serif; font-size: 26px; font-weight: bold; }
+        .agr-container .header p { font-style: italic; color: #555; font-size: 14px; margin-top: 5px; }
+        
+        .agr-container .section { margin-bottom: 30px; border: 1px solid #ddd; padding: 25px; border-radius: 8px; background: #ffffff; }
+        .agr-container .section-title { font-weight: bold; font-size: 18px; margin-bottom: 20px; color: #2c3e50; border-bottom: 2px solid #f5f5f5; padding-bottom: 10px; text-transform: uppercase; }
+        
+        .agr-container .form-group { margin-bottom: 18px; }
+        .agr-container .form-group label { display: block; margin-bottom: 6px; font-weight: bold; color: #444; font-size: 14px; }
+        .agr-container .form-group input, 
+        .agr-container .form-group select, 
+        .agr-container .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; background: #fafafa; color: #333; font-family: 'Arial', sans-serif; font-size: 14px; }
+        .agr-container .form-group input:focus, 
+        .agr-container .form-group textarea:focus { outline: none; border-color: #3498db; background: #fff; }
+        
+        .agr-container .form-row { display: flex; flex-wrap: wrap; gap: 20px; }
+        .agr-container .form-row .form-group { flex: 1; min-width: 220px; }
+        
+        .agr-container .time-inputs { display: flex; gap: 15px; align-items: center; }
+        
+        .agr-container .package-options { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
+        .agr-container .package-option { flex: 1; min-width: 150px; padding: 15px; border: 2px solid #ddd; border-radius: 6px; text-align: center; cursor: pointer; color: #444; transition: all 0.3s ease; background: #fff; }
+        .agr-container .package-option:hover { border-color: #999; }
+        .agr-container .package-option.selected { background-color: #e8f4fc; border-color: #3498db; color: #2c3e50; box-shadow: 0 4px 10px rgba(52, 152, 219, 0.1); }
+        .agr-container .package-option strong { display: block; font-size: 16px; margin-bottom: 5px; }
+        
+        .agr-container .payment-summary { background-color: #f9f9f9; padding: 20px; border-radius: 6px; color: #333; border: 1px solid #eee; }
+        .agr-container .payment-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 15px; }
+        .agr-container .payment-row.total { font-weight: bold; font-size: 20px; margin-top: 15px; border-top: 2px solid #ddd; padding-top: 15px; color: #2c3e50; }
+        
+        .agr-container .terms-section { max-height: 400px; overflow-y: auto; padding: 20px; background-color: #fcfcfc; border: 1px solid #eee; border-radius: 6px; margin-bottom: 20px; }
+        .agr-container .article { margin-bottom: 20px; }
+        .agr-container .article-title { font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 15px; }
+        
+        .agr-container .signature-section { display: flex; flex-wrap: wrap; gap: 40px; margin-top: 40px; }
+        .agr-container .signature-box { flex: 1; min-width: 250px; margin-bottom: 20px; }
+        .agr-container .signature-line { border-top: 1px solid #333; margin-top: 70px; padding-top: 8px; font-size: 14px; color: #666; text-align: center; }
+        .agr-container .witness-section { margin-top: 50px; padding-top: 30px; border-top: 1px dashed #ccc; }
+        
+        .agr-container .referral-section { background-color: #f4fbf4; padding: 20px; border-radius: 6px; border-left: 5px solid #4CAF50; margin-bottom: 30px; }
+        .agr-container .referral-benefits { margin-top: 15px; padding: 15px; background-color: #fff; border-radius: 6px; border: 1px solid #eee; }
+        
+        .agr-container .agreement-checkbox { margin: 25px 0; font-weight: bold; color: #2c3e50; font-size: 15px; display: flex; align-items: flex-start; gap: 10px; }
+        .agr-container .agreement-checkbox input { margin-top: 4px; width: 18px; height: 18px; cursor: pointer; }
+        
+        .agr-container .submit-btn { background-color: #2c3e50; color: white; border: none; padding: 15px 25px; font-size: 18px; font-weight: bold; border-radius: 6px; cursor: pointer; display: block; width: 100%; transition: background-color 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .agr-container .submit-btn:hover { background-color: #1a252f; }
+        
+        .agr-container .footer { text-align: center; margin-top: 40px; font-size: 13px; color: #888; border-top: 1px solid #eee; padding-top: 20px; }
+        .agr-container h3 { color: #2c3e50; margin-bottom: 15px; font-size: 20px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        .agr-container h4 { color: #2c3e50; font-size: 16px; margin-bottom: 5px; }
+        .agr-container h5 { color: #555; font-size: 15px; margin-bottom: 5px; }
+        .agr-container p, .agr-container li { color: #444; font-size: 14px; margin-bottom: 8px; }
+        .agr-container ul { margin-left: 20px; margin-bottom: 15px; }
+
         /* Payment Methods */
         #payment-methods {
             background: var(--black-primary);
@@ -1311,7 +1380,6 @@
 </head>
 <body>
 
-    <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-logo">
             <img src="https://z-cdn-media.chatglm.cn/files/23aea94c-10b4-4c0a-bd1c-0bdb57039e4c.png?auth_key=1882896281-39e0a920cfb240e49e132b046f4fbbbb-0-cbbb7554229a8579529f5ea1ed5d3278" alt="PRESENCIA Logo - JP Emblem">
@@ -1321,6 +1389,7 @@
             <li><a href="#venue-gallery">Gallery</a></li>
             <li><a href="#packages">Packages</a></li>
             <li><a href="#booking-system">Book Now</a></li>
+            <li><a href="#client-agreement">Agreement</a></li>
             <li><a href="#payment-methods">Payment</a></li>
             <li><a href="#testimonials">Reviews</a></li>
             <li><a href="#partnership" class="nav-cta">Partner With Us</a></li>
@@ -1330,9 +1399,7 @@
         </div>
     </nav>
 
-    <!-- Main Website Content -->
     <div id="mainWebsite">
-        <!-- Hero Section -->
         <section id="hero" class="hero">
             <div class="hero-content">
                 <img src="https://z-cdn-media.chatglm.cn/files/23aea94c-10b4-4c0a-bd1c-0bdb57039e4c.png?auth_key=1882896281-39e0a920cfb240e49e132b046f4fbbbb-0-cbbb7554229a8579529f5ea1ed5d3278" alt="PRESENCIA Logo - Premium JP Emblem" class="hero-logo">
@@ -1360,7 +1427,6 @@
             </div>
         </section>
 
-        <!-- Venue Gallery -->
         <section id="venue-gallery">
             <h2 class="section-title fade-in">Experience Our Premium Spaces</h2>
             <p class="section-subtitle fade-in">
@@ -1402,7 +1468,6 @@
             </div>
         </section>
 
-        <!-- Packages Section -->
         <section id="packages">
             <h2 class="section-title fade-in">Choose Your Perfect Package</h2>
             <p class="section-subtitle fade-in">
@@ -1410,7 +1475,6 @@
             </p>
             
             <div class="packages-container">
-                <!-- Premier Package -->
                 <div class="package-card featured fade-in">
                     <div class="package-badge">MOST POPULAR</div>
                     <img src="https://qc4n.bigmodel.cn/603a8Jv7q_cropped.png?UCloudPublicKey=TOKEN_3f4277c6-f8d6-41a9-968b-dbfa0994d483&Expires=1814430931&Signature=6JswdEZFpsUcgepb30MPB3YdHmE%3D" alt="Premier Package" class="package-image">
@@ -1448,7 +1512,6 @@
                     </div>
                 </div>
                 
-                <!-- Classic Package -->
                 <div class="package-card fade-in">
                     <img src="https://qc4n.bigmodel.cn/3ad69nntD_cropped.png?UCloudPublicKey=TOKEN_3f4277c6-f8d6-41a9-968b-dbfa0994d483&Expires=1814430980&Signature=8rHex5K7ifyu6jnxndtyMngYCiA%3D" alt="Classic Package" class="package-image">
                     <div class="package-content">
@@ -1486,7 +1549,6 @@
                     </div>
                 </div>
                 
-                <!-- Essential Package -->
                 <div class="package-card fade-in">
                     <img src="https://qc4n.bigmodel.cn/83b00LKYL_cropped.png?UCloudPublicKey=TOKEN_3f4277c6-f8d6-41a9-968b-dbfa0994d483&Expires=1814430972&Signature=7BITmK5mueaq7LshiZlsJV9bNN4%3D" alt="Essential Package" class="package-image">
                     <div class="package-content">
@@ -1524,7 +1586,6 @@
             </div>
         </section>
 
-        <!-- Booking System -->
         <section id="booking-system">
             <h2 class="section-title fade-in">24/7 Online Booking System</h2>
             <p class="section-subtitle fade-in">
@@ -1534,7 +1595,6 @@
             
             <div class="booking-container fade-in">
                 <div class="booking-steps">
-                    <!-- Step 1: Package Selection -->
                     <div class="step">
                         <div class="step-header">
                             <div class="step-number">1</div>
@@ -1551,7 +1611,6 @@
                         </div>
                     </div>
                     
-                    <!-- Step 2: Date & Time -->
                     <div class="step">
                         <div class="step-header">
                             <div class="step-number">2</div>
@@ -1574,7 +1633,6 @@
                         <div id="availabilityStatus" style="margin-top: 1rem;"></div>
                     </div>
                     
-                    <!-- Step 3: Add-Ons -->
                     <div class="step">
                         <div class="step-header">
                             <div class="step-number">3</div>
@@ -1641,7 +1699,6 @@
                         </div>
                     </div>
                     
-                    <!-- Step 4: Client Information -->
                     <div class="step">
                         <div class="step-header">
                             <div class="step-number">4</div>
@@ -1686,7 +1743,6 @@
                         </div>
                     </div>
                     
-                    <!-- Step 5: Booking Summary -->
                     <div class="booking-summary">
                         <h3 style="color: var(--gold-primary); margin-bottom: 1.5rem;">
                             <i class="fas fa-file-invoice-dollar"></i> Booking Summary
@@ -1695,7 +1751,6 @@
                             <p style="color: var(--text-gray); text-align: center;">Please complete the form above to see your booking summary.</p>
                         </div>
                         
-                        <!-- SUBMIT BUTTON - FIXED AND FULLY FUNCTIONAL -->
                         <button type="button" class="btn btn-primary" style="width: 100%; margin-top: 2rem; padding: 1.2rem; font-size: 1.1rem;" onclick="submitBookingForm()" id="submitBookingBtn">
                             <i class="fas fa-paper-plane"></i> Submit Booking Request
                         </button>
@@ -1705,7 +1760,6 @@
                         </p>
                     </div>
 
-                    <!-- PDF Download Section - Appears After Successful Submission -->
                     <div class="pdf-download-section" id="pdfDownloadSection">
                         <h3><i class="fas fa-file-pdf"></i> 🎉 Booking Submitted Successfully!</h3>
                         <p style="color: var(--text-gray); margin-bottom: 1rem;">
@@ -1727,7 +1781,355 @@
             </div>
         </section>
 
-        <!-- Payment Methods -->
+        <section id="client-agreement">
+            <h2 class="section-title fade-in">Client Booking Agreement</h2>
+            <p class="section-subtitle fade-in">
+                Formalize your event details and secure your slot by filling out our comprehensive agreement form below.
+            </p>
+            
+            <div class="agr-container fade-in">
+                <div class="header">
+                    <h1>PRESENCIA VENUE MANAGEMENT</h1>
+                    <p>Client Booking Agreement</p>
+                    <p>Please read this agreement carefully. By signing, you agree to all terms stated herein.</p>
+                    <p style="font-size: 13px; margin-top:10px;">This Client Booking Agreement is entered into by and between Presencia Venue Management (hereinafter the "Venue Manager") and the client identified below (hereinafter the "Client"). This Agreement governs the use of the venue and all services rendered in connection with the booked event.</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">SECTION A — CLIENT & EVENT INFORMATION</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="agr_clientName">Client Full Name</label>
+                            <input type="text" id="agr_clientName" name="agr_clientName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="agr_contactNumber">Contact Number</label>
+                            <input type="tel" id="agr_contactNumber" name="agr_contactNumber" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="agr_email">Email Address</label>
+                            <input type="email" id="agr_email" name="agr_email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="agr_facebook">Facebook / Messenger</label>
+                            <input type="text" id="agr_facebook" name="agr_facebook">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="agr_eventType">Event Type (e.g. Birthday, Wedding, Seminar)</label>
+                            <input type="text" id="agr_eventType" name="agr_eventType" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="agr_guestCount">Number of Guests</label>
+                            <input type="number" id="agr_guestCount" name="agr_guestCount" min="1" max="100" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="agr_eventDate">Preferred Event Date</label>
+                            <input type="date" id="agr_eventDate" name="agr_eventDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Event Time</label>
+                            <div class="time-inputs">
+                                <div style="flex:1;">
+                                    <label for="agr_startTime" style="font-size: 12px; margin-bottom: 2px;">Start:</label>
+                                    <input type="time" id="agr_startTime" name="agr_startTime" required>
+                                </div>
+                                <div style="flex:1;">
+                                    <label for="agr_endTime" style="font-size: 12px; margin-bottom: 2px;">End:</label>
+                                    <input type="time" id="agr_endTime" name="agr_endTime" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="agr_addOnServices">Add-On Services Requested (e.g. MC Service, Photo Backdrop, Event Coordinator)</label>
+                        <textarea id="agr_addOnServices" name="agr_addOnServices" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="agr_specialRequests">Special Requests or Notes</label>
+                        <textarea id="agr_specialRequests" name="agr_specialRequests" rows="2"></textarea>
+                    </div>
+
+                    <div class="referral-section">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="agr_referralName">Name of Person Who Referred You</label>
+                            <input type="text" id="agr_referralName" name="agr_referralName" placeholder="If someone referred you to Presencia, please enter their name here">
+                        </div>
+                        <div class="referral-benefits">
+                            <p><strong>REFERRAL REWARDS</strong> — What You Earn Per Successful Referral:</p>
+                            <ul>
+                                <li>PHP 500 Cash Reward — Given to you once your referral completes their booked event with Presencia.</li>
+                                <li>Presencia Event Voucher — A loyalty voucher credited to your next event booking with us.</li>
+                            </ul>
+                            <p style="font-size: 13px;">Simply ask your referral to mention your name when they inquire with Presencia. That is all it takes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">SECTION B — PACKAGE & PAYMENT SUMMARY</div>
+                    <div class="package-options">
+                        <div class="package-option" data-price="9500" onclick="selectAgreementPackage(this)">
+                            <strong>ESSENTIAL</strong>
+                            PHP 9,500
+                        </div>
+                        <div class="package-option" data-price="12500" onclick="selectAgreementPackage(this)">
+                            <strong>CLASSIC</strong>
+                            PHP 12,500
+                        </div>
+                        <div class="package-option" data-price="16500" onclick="selectAgreementPackage(this)">
+                            <strong>PREMIER</strong>
+                            PHP 16,500
+                        </div>
+                    </div>
+                    <input type="hidden" id="agr_selectedPackage" name="agr_selectedPackage" value="">
+                    <input type="hidden" id="agr_packageRate" name="agr_packageRate" value="0">
+                    
+                    <div class="form-group">
+                        <label for="agr_addOnTotal">Add-On Services Total (PHP)</label>
+                        <input type="number" id="agr_addOnTotal" name="agr_addOnTotal" min="0" value="0" onchange="calculateAgreementTotal()">
+                    </div>
+                    
+                    <div class="payment-summary">
+                        <div class="payment-row">
+                            <span>Package Rate:</span>
+                            <span id="agr_displayPackageRate">PHP 0.00</span>
+                        </div>
+                        <div class="payment-row">
+                            <span>Add-On Services Total:</span>
+                            <span id="agr_displayAddOnTotal">PHP 0.00</span>
+                        </div>
+                        <div class="payment-row">
+                            <span>Cleaning Deposit (refundable):</span>
+                            <span>PHP 1,000.00</span>
+                        </div>
+                        <div class="payment-row">
+                            <span>Less: Reservation Fee Paid:</span>
+                            <span>PHP 2,000.00</span>
+                        </div>
+                        <div class="payment-row total">
+                            <span>TOTAL BALANCE DUE:</span>
+                            <span id="agr_displayTotalBalance">PHP 0.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 20px;">
+                        <p><strong>Reservation Fee:</strong> PHP 2,000 — paid upon signing. Fully deductible from total. Non-refundable.</p>
+                        <p><strong>Balance Due Date:</strong> Full balance must be paid at least 3 days before the event date.</p>
+                        <p><strong>Payment Methods:</strong> GCash, Bank Transfer, or Cash — as confirmed with the Venue Manager.</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">TERMS AND CONDITIONS</div>
+                    <p style="margin-bottom: 15px;">Please read the following terms and conditions carefully before signing this agreement.</p>
+                    
+                    <div class="terms-section">
+                        <h3>Articles 1 to 8 — Payment, Scheduling, Cancellation, and Venue Use</h3>
+                        
+                        <div class="article">
+                            <div class="article-title">PAYMENT TERMS</div>
+                            <div class="article">
+                                <div class="article-title">Article 1. Reservation Fee</div>
+                                <p>The Client shall pay a non-refundable Reservation Fee of PHP 2,000 upon signing. This amount is deducted from the total package fee upon the event. The event date is considered reserved only upon receipt of this fee. Presencia reserves the right to release the date if payment is not received within 24 hours of booking confirmation.</p>
+                            </div>
+                            <div class="article">
+                                <div class="article-title">Article 2. Full Payment</div>
+                                <p>The remaining balance must be settled in full at least three (3) days before the event date. Venue access will not be granted without confirmed full payment clearance. Accepted payment methods: GCash, bank transfer, or cash — as agreed with the Venue Manager.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="article">
+                            <div class="article-title">SCHEDULING & CANCELLATION</div>
+                            <div class="article">
+                                <div class="article-title">Article 3. Date Change Policy</div>
+                                <p>The Client may request one (1) date change, subject to venue availability. A rebooking fee of PHP 500 applies to all approved date change requests. Requests must be submitted in writing at least 10 days before the original event date. Requests submitted within 7 days of the event will not be accommodated.</p>
+                            </div>
+                            <div class="article">
+                                <div class="article-title">Article 4. Cancellation Policy</div>
+                                <ul>
+                                    <li>Cancellation 15 or more days before the event: Reservation fee is forfeited. The remaining balance, if already paid, shall be refunded.</li>
+                                    <li>Cancellation 7 to 14 days before the event: 50% of the total package rate is forfeited. No refund will be issued on this amount.</li>
+                                    <li>Cancellation within 7 days or no-show on event day: 100% of the total package rate is forfeited. No refund will be issued.</li>
+                                </ul>
+                                <p>All cancellations must be submitted in writing to presenciavenue@gmail.com.</p>
+                            </div>
+                            <div class="article">
+                                <div class="article-title">Article 5. Force Majeure</div>
+                                <p>In the event of a natural disaster, government-mandated closure, or any circumstance beyond reasonable control, affected bookings shall be rescheduled at no penalty to either party. No cash refund shall be issued under force majeure. A rescheduling credit shall apply.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="article">
+                            <div class="article-title">VENUE USE & TIME</div>
+                            <div class="article">
+                                <div class="article-title">Article 6. Venue Use Hours</div>
+                                <p>All packages include a total of 7 hours, allocated as follows:</p>
+                                <ul>
+                                    <li>1 Hour — Ingress: Venue setup and decoration</li>
+                                    <li>1 Hour — Free Bonus Hour: Additional preparation or buffer time</li>
+                                    <li>4 Hours — Event Proper: Main celebration or function</li>
+                                    <li>1 Hour — Egress: Cleanup and pack-up</li>
+                                </ul>
+                                <p>The event must fully conclude and the venue vacated within the agreed time.</p>
+                            </div>
+                            <div class="article">
+                                <div class="article-title">Article 7. Extension / Overtime</div>
+                                <p>Any extension beyond the agreed hours is charged at PHP 1,500 per hour. Extension requests must be made at least 30 minutes before the event ends. Presencia reserves the right to deny extension if the venue has a subsequent booking.</p>
+                            </div>
+                            <div class="article">
+                                <div class="article-title">Article 8. Venue Capacity</div>
+                                <p>The maximum allowed number of guests is 100 persons at any given time. The Client is responsible for ensuring their guest list does not exceed this limit. Overcrowding that compromises safety is grounds for immediate event suspension without refund.</p>
+                            </div>
+                        </div>
+                        
+                        <h3>Articles 9 to 14 — Property Care, Damage Policy & Acknowledgment</h3>
+                        <p style="margin-bottom:15px;">The Client agrees to protect and respect the venue at all times.</p>
+                        
+                        <div class="article">
+                            <div class="article-title">PROPERTY CARE & CLEANLINESS</div>
+                            <div class="article">
+                                <div class="article-title">Article 9. Cleanliness Obligation</div>
+                                <p>The Client is fully responsible for maintaining the cleanliness of the venue throughout the event. Upon egress, the venue must be returned in the same clean and orderly condition as received. The following must be completed before the Client vacates the premises:</p>
+                                <ul>
+                                    <li>All trash, food waste, and decorations must be collected and properly disposed of.</li>
+                                    <li>Tables, chairs, and furniture must be returned to their original arrangement.</li>
+                                    <li>No food, drinks, or personal belongings shall be left inside the venue.</li>
+                                    <li>Floors must be free from spills, stains, and debris.</li>
+                                </ul>
+                                <p>Failure to meet cleanliness standards shall result in full forfeiture of the Cleaning Deposit.</p>
+                            </div>
+                            <div class="article">
+                                <div class="article-title">Article 10. Cleaning Deposit</div>
+                                <p>A refundable Cleaning Deposit of PHP 1,000 is required upon signing this Agreement. The deposit is returned within three (3) banking days after the event, provided:</p>
+                                <ul>
+                                    <li>The venue is returned clean and in its original condition.</li>
+                                    <li>No property damage has been identified during post-event inspection.</li>
+                                </ul>
+                                <p>Presencia will provide photographic documentation of any cleanliness issues as basis for withholding.</p>
+                            </div>
+                            <div class="article">
+                                <div class="article-title">Article 11. Property Damage Policy</div>
+                                <p>The Client is fully liable for any damage to the venue, furniture, fixtures, equipment, walls, flooring, or property within the premises caused by the Client, guests, or their suppliers. Damage costs shall be assessed immediately after the event by Presencia Venue Management. The Client agrees to pay all assessed damage costs in full within seven (7) days. The Cleaning Deposit shall be applied first toward damages. If costs exceed the deposit, the Client shall pay the remaining balance separately. Intentional damage or vandalism shall be subject to applicable legal action under Philippine law. All damages shall be documented with dated photographs as official evidence.</p>
+                            </div>
+                            <div class="article">
+                                <div class="article-title">Article 12. Prohibited Acts Inside the Venue</div>
+                                <p>The following are strictly prohibited and are grounds for immediate event termination without refund:</p>
+                                <ul>
+                                    <li>Bringing or using illegal substances or prohibited items inside the venue.</li>
+                                    <li>Smoking anywhere within the venue premises.</li>
+                                    <li>Hammering nails, using strong tape, or affixing anything directly to walls without written approval.</li>
+                                    <li>Use of open flames, fireworks, or pyrotechnics inside the venue.</li>
+                                    <li>Exceeding the maximum guest capacity of 100 persons.</li>
+                                    <li>Acts of violence, harassment, or conduct that disturbs neighboring areas.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="article">
+                            <div class="article-title">AUTHORITY & DISPUTE RESOLUTION</div>
+                            <div class="article">
+                                <div class="article-title">Article 13. Manager Authority</div>
+                                <p>Presencia Venue Management, as the authorized Venue Manager, has full authority to:</p>
+                                <ul>
+                                    <li>Enforce all venue rules and terms of this Agreement during the event.</li>
+                                    <li>Suspend or terminate the event immediately if any clause is violated.</li>
+                                    <li>Retain the Cleaning Deposit and pursue additional damage claims as applicable.</li>
+                                </ul>
+                            </div>
+                            <div class="article">
+                                <div class="article-title">Article 14. Dispute Resolution</div>
+                                <p>Any dispute shall first be resolved through good-faith negotiation between both parties. If unresolved within fifteen (15) days, the matter shall proceed to mediation. Philippine law governs this Agreement. Venue for proceedings: Taguig City.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="agreement-checkbox">
+                        <input type="checkbox" id="agr_agreeTerms" name="agr_agreeTerms" required>
+                        <label for="agr_agreeTerms">I have read, understood, and agree to all the terms and conditions stated above.</label>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">ACKNOWLEDGMENT & SIGNATURES</div>
+                    <p style="margin-bottom: 20px;">Both parties confirm their full agreement by signing below. By signing below, both parties confirm that they have read, understood, and agreed to all terms of this Agreement, and the Client commits to respecting and protecting the venue and all its property during and after the event.</p>
+                    
+                    <div class="signature-section">
+                        <div class="signature-box">
+                            <h4>VENUE MANAGER</h4>
+                            <p>Presencia Venue Management</p>
+                            <div class="signature-line">
+                                <p>Signature</p>
+                            </div>
+                            <div class="form-group" style="margin-top: 20px;">
+                                <label for="agr_managerName">Printed Name</label>
+                                <input type="text" id="agr_managerName" name="agr_managerName">
+                            </div>
+                            <div class="form-group">
+                                <label for="agr_managerDate">Date Signed</label>
+                                <input type="date" id="agr_managerDate" name="agr_managerDate">
+                            </div>
+                        </div>
+                        
+                        <div class="signature-box">
+                            <h4>CLIENT</h4>
+                            <p>Full Name & Contact Number</p>
+                            <div class="signature-line">
+                                <p>Signature</p>
+                            </div>
+                            <div class="form-group" style="margin-top: 20px;">
+                                <label for="agr_clientPrintName">Printed Name</label>
+                                <input type="text" id="agr_clientPrintName" name="agr_clientPrintName">
+                            </div>
+                            <div class="form-group">
+                                <label for="agr_clientDate">Date Signed</label>
+                                <input type="date" id="agr_clientDate" name="agr_clientDate">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="witness-section">
+                        <h4>WITNESSED BY</h4>
+                        <div class="signature-section" style="margin-top: 15px;">
+                            <div class="signature-box">
+                                <h5>Witness 1</h5>
+                                <div class="signature-line" style="margin-top: 40px;">
+                                    <p>Signature</p>
+                                </div>
+                                <div class="form-group" style="margin-top: 15px;">
+                                    <label for="agr_witness1Name">Printed Name</label>
+                                    <input type="text" id="agr_witness1Name" name="agr_witness1Name">
+                                </div>
+                            </div>
+                            
+                            <div class="signature-box">
+                                <h5>Witness 2</h5>
+                                <div class="signature-line" style="margin-top: 40px;">
+                                    <p>Signature</p>
+                                </div>
+                                <div class="form-group" style="margin-top: 15px;">
+                                    <label for="agr_witness2Name">Printed Name</label>
+                                    <input type="text" id="agr_witness2Name" name="agr_witness2Name">
+                                </div>
+                            </div>
+                        </div>
+                        <p style="font-style: italic; margin-top: 20px; font-size: 13px; text-align: center;">For full legal enforceability, both parties are encouraged to have this Agreement notarized by a licensed Notary Public in Taguig City.</p>
+                    </div>
+                </div>
+
+                <button type="button" class="submit-btn" onclick="submitAgreementForm()">Submit Booking Agreement</button>
+
+                <div class="footer">
+                    <p>Presencia Venue Management | Bicutan, Taguig Branch | presenciavenue@gmail.com</p>
+                </div>
+            </div>
+        </section>
+
         <section id="payment-methods">
             <h2 class="section-title fade-in">Secure Payment Options</h2>
             <p class="section-subtitle fade-in">
@@ -1787,7 +2189,6 @@
             </div>
         </section>
 
-        <!-- Manager Dashboard Preview (Public) -->
         <section id="manager-dashboard">
             <h2 class="section-title fade-in">Management Control Panel</h2>
             <p class="section-subtitle fade-in">
@@ -1882,7 +2283,6 @@
             </div>
         </section>
 
-        <!-- Testimonials -->
         <section id="testimonials">
             <h2 class="section-title fade-in">What Our Clients Say</h2>
             <p class="section-subtitle fade-in">
@@ -1967,7 +2367,6 @@
             </div>
         </section>
 
-        <!-- Partnership -->
         <section id="partnership">
             <h2 class="section-title fade-in">Partner With PRESENCIA</h2>
             <p class="section-subtitle fade-in">
@@ -2061,7 +2460,7 @@
                                 <input type="text" class="form-control" placeholder="Full name" required id="partnerContactPerson">
                                 </div>
                             </div>
-                        </div>
+                        
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Phone Number *</label>
@@ -2072,12 +2471,12 @@
                                 <input type="email" class="form-control" placeholder="business@email.com" required id="partnerEmail">
                                 </div>
                             </div>
-                        </div>
+                        
                         <div class="form-group">
                             <label>Services Offered *</label>
                                 <input type="text" class="form-control" placeholder="Describe your services" required id="partnerServices">
                                 </div>
-                        </div>
+                        
                         <div class="form-group">
                             <label>Why do you want to partner with PRESENCIA? *</label>
                                 <textarea class="form-control" rows="4" placeholder="Tell us about your interest..." required id="partnerReason"></textarea>
@@ -2087,7 +2486,6 @@
                         </button>
                     </form>
 
-                    <!-- Partnership PDF Download Section -->
                     <div class="pdf-download-section" id="partnershipPdfSection">
                         <h3><i class="fas fa-file-signature"></i> 🤝 Partnership Application Submitted!</h3>
                         <p style="color: var(--text-gray); margin-bottom: 1rem;">
@@ -2110,7 +2508,6 @@
             </div>
         </section>
 
-        <!-- Contact Footer -->
         <section id="contact-footer">
             <div class="footer-container">
                 <div class="footer-grid">
@@ -2150,6 +2547,7 @@
                         <a href="#venue-gallery">Venue Gallery</a>
                         <a href="#packages">Event Packages</a>
                         <a href="#booking-system">Book Now</a>
+                        <a href="#client-agreement">Agreement Form</a>
                         <a href="#payment-methods">Payment Info</a>
                         <a href="#testimonials">Testimonials</a>
                         <a href="#partnership">Partner With Us</a>
@@ -2164,7 +2562,6 @@
         </section>
     </div>
 
-    <!-- Manager Login Modal -->
     <div class="modal" id="managerModal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeManagerLogin()">&times;</button>
@@ -2190,7 +2587,6 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
     <div class="toast" id="toast"></div>
 
     <script>
@@ -2346,9 +2742,6 @@
                     dateInput.setCustomValidity('Weekends are not available. Please select a weekday.');
                     dateInput.reportValidity();
                     
-                    // Optional: Auto-select next available weekday
-                    suggestNextAvailableWeekday(selectedDate);
-                    
                     return false;
                 } else {
                     // It's a weekday - proceed normally
@@ -2362,33 +2755,6 @@
                 weekendWarning.style.display = 'none';
                 statusDiv.innerHTML = '';
             }
-        }
-        
-        // Suggest next available weekday
-        function suggestNextAvailableWeekend(currentDate) {
-            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            let currentDay = currentDate.getDay(); // 0=Sun, 6=Sat
-            
-            // Find next weekday (Mon-Fri)
-            let nextDayOffset = 1;
-            while (true) {
-                const checkDay = (currentDay + nextDayOffset) % 7;
-                if (checkDay >= 1 && checkDay <= 5) break; // Mon-Fri
-                nextDayOffset++;
-            }
-            
-            const nextAvailable = new Date(currentDate);
-            nextAvailable.setDate(nextAvailable.getDate() + nextDayOffset);
-            
-            // Format the suggestion
-            const options = { weekday: 'long' };
-            const dayName = nextAvailable.toLocaleDateString('en-US', options).split(',')[0];
-            const dateStr = nextAvailable.toLocaleDateString('en-US');
-            
-            console.log(`Next available: ${dayName} ${dateStr}`);
-            
-            // You could show this as a tooltip or hint
-            // For now, just log it
         }
         
         // Check actual availability (excluding weekends)
@@ -2498,13 +2864,10 @@
         }
 
         // =====================================================
-        // ✅ FIXED: SUBMIT BOOKING FORM - FULLY FUNCTIONAL
+        // SUBMIT BOOKING FORM - FULLY FUNCTIONAL
         // =====================================================
         
         function submitBookingForm() {
-            console.log('🚀 Submit button clicked!');
-            
-            // Get all form fields
             const packageSelect = document.getElementById('packageSelect');
             const clientName = document.getElementById('clientName');
             const clientEmail = document.getElementById('clientEmail');
@@ -2515,19 +2878,14 @@
             const ingressTime = document.getElementById('ingressTime');
             const specialRequests = document.getElementById('specialRequests');
 
-            console.log('🔍 Starting validation...');
-
-            // Validation
             let isValid = true;
             let errorMessage = '';
             let firstInvalidField = null;
 
-            // Reset borders
             [packageSelect, clientName, clientEmail, clientPhone, eventType, guestCount, eventDate, ingressTime].forEach(field => {
-                if (field) field.style.borderColor = ''; // Reset border
+                if (field) field.style.borderColor = '';
             });
 
-            // Check each field
             if (!packageSelect.value) {
                 packageSelect.style.borderColor = '#ff4444';
                 isValid = false;
@@ -2540,31 +2898,20 @@
                 isValid = false;
                 errorMessage = errorMessage || 'Please enter your full name.';
                 if (!firstInvalidField) firstInvalidField = clientName;
-            } else {
-                clientName.style.borderColor = '';
             }
 
-            if (!clientEmail.value || !clientEmail.value.trim()) {
-                clientEmail.style.borderColor = '#ff4444';
-                isValid = false;
-                errorMessage = errorMessage || 'Please enter your email address.';
-                if (!firstInvalidField) firstInvalidField = clientEmail;
-            } else if (!isValidEmail(clientEmail.value)) {
+            if (!clientEmail.value || !clientEmail.value.trim() || !isValidEmail(clientEmail.value)) {
                 clientEmail.style.borderColor = '#ff4444';
                 isValid = false;
                 errorMessage = errorMessage || 'Please enter a valid email address.';
                 if (!firstInvalidField) firstInvalidField = clientEmail;
-            } else {
-                clientEmail.style.borderColor = '';
-            }
+            } 
 
             if (!clientPhone.value || !clientPhone.value.trim()) {
                 clientPhone.style.borderColor = '#ff4444';
                 isValid = false;
                 errorMessage = errorMessage || 'Please enter your phone number.';
                 if (!firstInvalidField) firstInvalidField = clientPhone;
-            } else {
-                clientPhone.style.borderColor = '';
             }
 
             if (!eventType.value) {
@@ -2572,8 +2919,6 @@
                 isValid = false;
                 errorMessage = errorMessage || 'Please select an event type.';
                 if (!firstInvalidField) firstInvalidField = eventType;
-            } else {
-                eventType.style.borderColor = '';
             }
 
             if (!guestCount.value || guestCount.value < 1) {
@@ -2581,8 +2926,6 @@
                 isValid = false;
                 errorMessage = errorMessage || 'Please enter a valid guest count.';
                 if (!firstInvalidField) firstInvalidField = guestCount;
-            } else {
-                guestCount.style.borderColor = '';
             }
 
             if (!eventDate.value) {
@@ -2590,8 +2933,6 @@
                 isValid = false;
                 errorMessage = errorMessage || 'Please select an event date.';
                 if (!firstInvalidField) firstInvalidField = eventDate;
-            } else {
-                eventDate.style.borderColor = '';
             }
 
             if (!ingressTime.value) {
@@ -2599,16 +2940,10 @@
                 isValid = false;
                 errorMessage = errorMessage || 'Please select an ingress time.';
                 if (!firstInvalidField) firstInvalidField = ingressTime;
-            } else {
-                ingressTime.style.borderColor = '';
             }
 
-            // If validation fails, show error and stop
             if (!isValid) {
-                console.log('❌ Validation failed!');
                 showToast('⚠️ ' + errorMessage, 'error');
-                
-                // Scroll to first invalid field
                 if (firstInvalidField) {
                     firstInvalidField.focus();
                     setTimeout(() => {
@@ -2618,16 +2953,11 @@
                 return;
             }
 
-            // Validation passed! Process the booking
-            console.log('✅ Validation passed! Processing booking...');
-
             try {
-                // Gather booking data
                 const packageData = packageSelect.value.split('|');
                 const packageName = packageData[0];
                 const basePrice = parseInt(packageData[1]);
 
-                // Calculate addons
                 let addons = [];
                 let addonTotal = 0;
                 document.querySelectorAll('input[name="addon"]:checked').forEach(addon => {
@@ -2639,7 +2969,6 @@
                 const totalAmount = basePrice + addonTotal;
                 const initialDeposit = Math.round(totalAmount * 0.5);
 
-                // Create booking object
                 const bookingData = {
                     clientName: clientName.value.trim(),
                     clientEmail: clientEmail.value.trim(),
@@ -2659,7 +2988,6 @@
                     totalDueNow: initialDeposit + 1000
                 };
 
-                // Check availability again before saving
                 const bookings = getBookings();
                 const isDateBooked = bookings.some(b => b.eventDate === bookingData.eventDate && b.status !== 'cancelled');
                 
@@ -2668,38 +2996,88 @@
                     return;
                 }
 
-                // Save booking to localStorage
-                console.log('💾 Saving booking data...');
                 const newBooking = addBooking(bookingData);
-                
-                // Store current booking data for PDF generation
                 currentBookingData = newBooking;
 
-                console.log('✅ Booking saved successfully!', newBooking);
-
-                // Show success message
                 showToast(`🎉 Booking submitted successfully! Reference: ${newBooking.id}`, 'success');
 
-                // Show PDF download section
                 document.getElementById('bookingRefNumber').textContent = newBooking.id;
                 document.getElementById('pdfDownloadSection').classList.add('show');
 
-                // Scroll to PDF section
                 setTimeout(() => {
                     document.getElementById('pdfDownloadSection').scrollIntoView({ behavior: 'smooth' });
                 }, 500);
 
             } catch (error) {
-                console.error('❌ Error submitting booking:', error);
-                console.error('Error details:', error.stack);
                 showToast('❌ An error occurred while saving. Please try again or refresh the page.', 'error');
             }
         }
 
-        // Email validation helper
         function isValidEmail(email) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
+        }
+
+        // =====================================================
+        // CLIENT AGREEMENT FORM JS
+        // =====================================================
+        function selectAgreementPackage(element) {
+            document.querySelectorAll('.package-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            element.classList.add('selected');
+            
+            const packageName = element.querySelector('strong').textContent;
+            const packagePrice = element.getAttribute('data-price');
+            
+            document.getElementById('agr_selectedPackage').value = packageName;
+            document.getElementById('agr_packageRate').value = packagePrice;
+            
+            calculateAgreementTotal();
+        }
+        
+        function calculateAgreementTotal() {
+            const packageRate = parseFloat(document.getElementById('agr_packageRate').value) || 0;
+            const addOnTotal = parseFloat(document.getElementById('agr_addOnTotal').value) || 0;
+            const cleaningDeposit = 1000;
+            const reservationFee = 2000;
+            
+            const totalBalance = packageRate + addOnTotal + cleaningDeposit - reservationFee;
+            
+            document.getElementById('agr_displayPackageRate').textContent = `PHP ${packageRate.toLocaleString('en-PH', { minimumFractionDigits: 2 })}`;
+            document.getElementById('agr_displayAddOnTotal').textContent = `PHP ${addOnTotal.toLocaleString('en-PH', { minimumFractionDigits: 2 })}`;
+            document.getElementById('agr_displayTotalBalance').textContent = `PHP ${totalBalance.toLocaleString('en-PH', { minimumFractionDigits: 2 })}`;
+        }
+
+        function submitAgreementForm() {
+            if (!document.getElementById('agr_agreeTerms').checked) {
+                showToast('⚠️ Please agree to the terms and conditions before submitting.', 'error');
+                return;
+            }
+            
+            if (!document.getElementById('agr_selectedPackage').value) {
+                showToast('⚠️ Please select a package before submitting.', 'error');
+                return;
+            }
+            
+            const referralName = document.getElementById('agr_referralName').value.trim();
+            if (referralName) {
+                const confirmReferral = confirm(`You have entered "${referralName}" as the person who referred you. Is this correct?`);
+                if (!confirmReferral) {
+                    return;
+                }
+            }
+            
+            console.log('Agreement Form Data:', {
+                clientName: document.getElementById('agr_clientName').value,
+                contactNumber: document.getElementById('agr_contactNumber').value,
+                email: document.getElementById('agr_email').value,
+                eventDate: document.getElementById('agr_eventDate').value,
+                package: document.getElementById('agr_selectedPackage').value
+            });
+
+            showToast('🎉 Thank you for submitting your booking agreement! A copy has been sent to your email.', 'success');
         }
 
         // =====================================================
@@ -2711,18 +3089,12 @@
                 showToast('No booking data available.', 'error');
                 return;
             }
-
-            console.log('📄 Generating Contract PDF...');
-
             try {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
-
-                // Set colors
                 const goldColor = [212, 175, 55];
                 const blackColor = [10, 10, 10];
 
-                // Header
                 doc.setFillColor(...goldColor);
                 doc.rect(0, 0, 210, 50, 'F');
                 doc.setTextColor(...blackColor);
@@ -2731,17 +3103,14 @@
                 doc.setFontSize(14);
                 doc.text('VENUE MANAGEMENT', 105, 42, { align: 'center' });
 
-                // Title
                 doc.setTextColor(...blackColor);
                 doc.setFontSize(24);
                 doc.text('EVENT BOOKING CONTRACT', 105, 70, { align: 'center' });
 
-                // Contract info
                 doc.setFontSize(11);
                 doc.text(`Contract No: ${currentBookingData.id}`, 20, 90);
                 doc.text(`Date: ${new Date().toLocaleDateString()}`, 150, 90);
 
-                // Parties
                 doc.setTextColor(...goldColor);
                 doc.setFontSize(13);
                 doc.text('PARTIES:', 20, 110);
@@ -2760,7 +3129,6 @@
                 doc.text(`Email: ${currentBookingData.clientEmail}`, 120, 148);
                 doc.text(`Phone: ${currentBookingData.clientPhone}`, 120, 158);
 
-                // Event Details
                 doc.setFillColor(245, 229, 176);
                 doc.rect(20, 180, 170, 60, 'F');
                 doc.setTextColor(...blackColor);
@@ -2772,7 +3140,6 @@
                 doc.text(`Ingress Time: ${currentBookingData.ingressTime}`, 25, 225);
                 doc.text(`Expected Guests: ${currentBookingData.guestCount}`, 25, 235);
 
-                // Package Details
                 doc.setTextColor(...goldColor);
                 doc.setFontSize(12);
                 doc.text('PACKAGE SELECTED:', 20, 260);
@@ -2785,7 +3152,6 @@
                     doc.text('Add-Ons: ' + currentBookingData.addons.join(', '), 20, 290);
                 }
 
-                // Financial Summary
                 doc.setFillColor(240, 240, 240);
                 doc.rect(20, 305, 170, 50, 'F');
                 doc.setTextColor(...blackColor);
@@ -2795,7 +3161,6 @@
                 doc.text(`Initial Deposit (50%): ₱${currentBookingData.initialDeposit.toLocaleString()}`, 25, 347);
                 doc.text(`Cleaning Deposit (Refundable): ₱${currentBookingData.cleaningDeposit.toLocaleString()}`, 25, 359);
 
-                // Terms
                 doc.setTextColor(...goldColor);
                 doc.setFontSize(12);
                 doc.text('TERMS & CONDITIONS:', 20, 385);
@@ -2817,7 +3182,6 @@
                     yPos += 12;
                 });
 
-                // Signatures
                 doc.setTextColor(...blackColor);
                 doc.setFontSize(11);
                 doc.text('SIGNATURES:', 20, yPos + 15);
@@ -2830,12 +3194,10 @@
                 doc.text('PRESENCIA Representative', 130, yPos + 35);
                 doc.text('Date: _____________', 130, yPos + 45);
 
-                // Save the PDF
                 doc.save(`PRESENCIA_Contract_${currentBookingData.id}.pdf`);
                 showToast('📄 Contract PDF downloaded successfully!', 'success');
 
             } catch (error) {
-                console.error('❌ Error generating contract PDF:', error);
                 showToast('❌ Error generating PDF. Please try again.', 'error');
             }
         }
@@ -2845,16 +3207,12 @@
                 showToast('No booking data available.', 'error');
                 return;
             }
-
-            console.log('🧾 Generating Invoice PDF...');
-
             try {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
-
                 const goldColor = [212, 175, 55];
+                const blackColor = [10, 10, 10];
 
-                // Header
                 doc.setFillColor(...goldColor);
                 doc.rect(0, 0, 210, 45, 'F');
                 doc.setTextColor(10, 10, 10);
@@ -2863,14 +3221,12 @@
                 doc.setFontSize(12);
                 doc.text('PRESENCIA VENUE MANAGEMENT', 105, 37, { align: 'center' });
 
-                // Invoice details
                 doc.setTextColor(10, 10, 10);
                 doc.setFontSize(11);
                 doc.text(`Invoice #: INV-${currentBookingData.id}`, 20, 60);
                 doc.text(`Date: ${new Date().toLocaleDateString()}`, 150, 60);
                 doc.text(`Due Date: ${new Date(Date.parse(currentBookingData.eventDate) - 3 * 24 * 60 * 60 * 1000).toLocaleDateString()}`, 150, 70);
 
-                // Bill To
                 doc.setFillColor(245, 229, 176);
                 doc.rect(20, 85, 170, 45, 'F');
                 doc.setTextColor(10, 10, 10);
@@ -2882,7 +3238,6 @@
                 doc.text(currentBookingData.clientEmail, 25, 120);
                 doc.text(currentBookingData.clientPhone, 25, 130);
 
-                // Items Table
                 doc.setTextColor(...goldColor);
                 doc.setFontSize(13);
                 doc.text('ITEM DESCRIPTION', 20, 155);
@@ -2898,7 +3253,6 @@
                 doc.text('1', 147, 172);
                 doc.text(`₱${currentBookingData.packagePrice.toLocaleString()}`, 165, 172);
 
-                // Add-ons
                 if (currentBookingData.addons && currentBookingData.addons.length > 0) {
                     currentBookingData.addons.forEach((addon, index) => {
                         const y = 185 + (index * 12);
@@ -2908,24 +3262,19 @@
                     });
                 }
 
-                // Totals
-                doc.setDrawColor(200, 200, 200);
                 let totalY = 195 + (currentBookingData.addons ? currentBookingData.addons.length * 12 : 0);
                 doc.line(20, totalY, 190, totalY);
 
                 doc.setFontSize(11);
                 doc.text('Subtotal:', 25, totalY + 10);
                 doc.text(`₱${currentBookingData.totalAmount.toLocaleString()}`, 155, totalY + 10);
-
                 doc.text('Initial Deposit (50%):', 25, totalY + 22);
                 doc.setTextColor(212, 175, 55);
                 doc.text(`₱${currentBookingData.initialDeposit.toLocaleString()}`, 155, totalY + 22);
-
                 doc.setTextColor(10, 10, 10);
                 doc.text('Cleaning Deposit (Refundable):', 25, totalY + 34);
                 doc.text(`₱${currentBookingData.cleaningDeposit.toLocaleString()}`, 155, totalY + 34);
 
-                // Total
                 doc.setFillColor(212, 175, 55);
                 doc.rect(20, totalY + 48, 170, 20, 'F');
                 doc.setTextColor(10, 10, 10);
@@ -2933,37 +3282,31 @@
                 doc.setFont(undefined, 'bold');
                 doc.text(`TOTAL DUE NOW: ₱${currentBookingData.totalDueNow.toLocaleString()}`, 105, totalY + 62, { align: 'center' });
 
-                // Payment Methods
                 doc.setTextColor(...goldColor);
                 doc.setFontSize(12);
                 doc.text('PAYMENT METHODS:', 20, totalY + 92);
-                
                 doc.setTextColor(10, 10, 10);
                 doc.setFontSize(10);
                 doc.text('GCash: 09770264721', 25, totalY + 105);
                 doc.text('Maya: 09770264721', 25, totalY + 115);
                 doc.text('Vybe by BPI: 09770264721', 25, totalY + 125);
 
-                // Note
                 doc.setFillColor(245, 229, 176);
                 doc.rect(20, totalY + 138, 170, 25, 'F');
                 doc.setFontSize(9);
                 doc.setTextColor(10, 10, 10);
                 doc.text('Please send proof of payment to presenciavenue@gmail.com to confirm your booking.', 25, totalY + 152);
 
-                // Footer
                 doc.setFillColor(...goldColor);
                 doc.rect(0, 280, 210, 5, 'F');
                 doc.setTextColor(10, 10, 10);
                 doc.setFontSize(9);
                 doc.text('Thank you for choosing PRESENCIA! Where Presence Becomes Experience.', 105, 290, { align: 'center' });
 
-                // Save
                 doc.save(`PRESENCIA_Invoice_${currentBookingData.id}.pdf`);
                 showToast('🧾 Invoice PDF downloaded successfully!', 'success');
 
             } catch (error) {
-                console.error('❌ Error generating invoice PDF:', error);
                 showToast('❌ Error generating invoice. Please try again.', 'error');
             }
         }
@@ -2976,15 +3319,11 @@
             const partnerServices = document.getElementById('partnerServices')?.value || 'Services';
             const partnerReason = document.getElementById('partnerReason')?.value || 'Reason';
 
-            console.log('🤝 Generating Partnership Agreement PDF...');
-
             try {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
-
                 const goldColor = [212, 175, 55];
 
-                // Header
                 doc.setFillColor(...goldColor);
                 doc.rect(0, 0, 210, 50, 'F');
                 doc.setTextColor(10, 10, 10);
@@ -2993,12 +3332,10 @@
                 doc.setFontSize(12);
                 doc.text('PRESENCIA VENUE MANAGEMENT', 105, 40, { align: 'center' });
 
-                // Title
                 doc.setTextColor(10, 10, 10);
                 doc.setFontSize(16);
                 doc.text('This agreement is made on ' + new Date().toLocaleDateString(), 20, 70);
 
-                // Parties
                 doc.setTextColor(...goldColor);
                 doc.setFontSize(13);
                 doc.text('BETWEEN:', 20, 90);
@@ -3019,7 +3356,6 @@
                 doc.text(`Email: ${partnerEmail}`, 20, 209);
                 doc.text(`Services: ${partnerServices}`, 20, 219);
 
-                // Agreement Terms
                 doc.setFillColor(245, 229, 176);
                 doc.rect(20, 235, 170, 8, 'F');
                 doc.setTextColor(...goldColor);
@@ -3058,7 +3394,6 @@
                     }
                 });
 
-                // Partner's Reason
                 doc.setFillColor(240, 240, 240);
                 doc.rect(20, yPos + 5, 170, 35, 'F');
                 doc.setTextColor(10, 10, 10);
@@ -3067,11 +3402,9 @@
                 doc.setTextColor(10, 10, 10);
                 doc.setFontSize(9);
                 
-                // Wrap long text
                 const splitReason = doc.splitTextToSize(partnerReason, 160);
                 doc.text(splitReason, 25, yPos + 27);
 
-                // Signatures
                 const sigY = yPos + 50;
                 doc.setTextColor(10, 10, 10);
                 doc.setFontSize(11);
@@ -3087,24 +3420,17 @@
                 doc.text(partnerContactPerson, 130, sigY + 30);
                 doc.text('Date: _______________', 130, sigY + 40);
 
-                // Footer
                 doc.setFillColor(...goldColor);
                 doc.rect(0, 280, 210, 5, 'F');
 
-                // Save
                 doc.save(`PRESENCIA_Partnership_Agreement_${Date.now()}.pdf`);
                 showToast('🤝 Partnership Agreement PDF downloaded successfully!', 'success');
 
             } catch (error) {
-                console.error('❌ Error generating partnership PDF:', error);
                 showToast('❌ Error generating partnership agreement. Please try again.', 'error');
             }
         }
 
-        // =====================================================
-        // COPY TO CLIPBOARD
-        // =====================================================
-        
         function copyToClipboard(text, service) {
             navigator.clipboard.writeText(text).then(() => {
                 showToast(`${service} number copied to clipboard!`);
@@ -3113,10 +3439,6 @@
             });
         }
 
-        // =====================================================
-        // TOAST NOTIFICATIONS
-        // =====================================================
-        
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
             toast.textContent = message;
@@ -3127,10 +3449,6 @@
             }, 4000);
         }
 
-        // =====================================================
-        // PUBLIC STATS UPDATE
-        // =====================================================
-        
         function updatePublicStats() {
             const bookings = getBookings();
             const total = bookings.length;
@@ -3142,10 +3460,6 @@
             document.getElementById('publicPending').textContent = pending;
         }
 
-        // =====================================================
-        // MANAGER LOGIN (Simplified)
-        // =====================================================
-        
         function showManagerLogin() {
             document.getElementById('managerModal').classList.add('active');
         }
@@ -3167,14 +3481,8 @@
             }
         }
 
-        // =====================================================
-        // PARTNERSHIP FORM SUBMISSION
-        // =====================================================
-        
         function submitPartnership(e) {
             e.preventDefault();
-            
-            // Simple validation
             const businessName = document.getElementById('partnerBusinessName');
             const contactPerson = document.getElementById('partnerContactPerson');
             const phone = document.getElementById('partnerPhone');
@@ -3187,7 +3495,6 @@
                 return;
             }
 
-            // Show success and PDF download section
             showToast('🤝 Partnership application submitted successfully!', 'success');
             document.getElementById('partnershipPdfSection').classList.add('show');
             
@@ -3196,10 +3503,6 @@
             }, 500);
         }
 
-        // =====================================================
-        // SMOOTH SCROLL
-        // =====================================================
-        
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -3213,7 +3516,6 @@
             });
         });
 
-        // Close modals on outside click
         window.onclick = function(event) {
             const modals = ['managerModal'];
             modals.forEach(modalId => {

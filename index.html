@@ -5,12 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PRESENCIA Venue Management - Where Presence Becomes Experience</title>
     
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://z-cdn-media.chatglm.cn/files/23aea94c-10b4-4c0a-bd1c-0bdb57039e4c.png?auth_key=1882896281-39e0a920cfb240e49e132b046f4fbbbb-0-cbbb7554229a8579529f5ea1ed5d3278">
+    <link rel="shortcut icon" type="image/png" href="https://z-cdn-media.chatglm.cn/files/23aea94c-10b4-4c0a-bd1c-0bdb57039e4c.png?auth_key=1882896281-39e0a920cfb240e49e132b046f4fbbbb-0-cbbb7554229a8579529f5ea1ed5d3278">
+    <link rel="apple-touch-icon" href="https://z-cdn-media.chatglm.cn/files/23aea94c-10b4-4c0a-bd1c-0bdb57039e4c.png?auth_key=1882896281-39e0a920cfb240e49e132b046f4fbbbb-0-cbbb7554229a8579529f5ea1ed5d3278">
     
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)'], ['$$', '$$'], ['\\[', '\\]']], 
+                displayMath: []
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <!-- jsPDF Library for PDF Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
@@ -140,6 +161,17 @@
             overflow: hidden;
         }
 
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
         .hero-content {
             max-width: 900px;
             text-align: center;
@@ -178,6 +210,13 @@
             color: var(--text-gray);
             margin-bottom: 2.5rem;
             font-style: italic;
+        }
+
+        .hero-events {
+            color: var(--white);
+            font-size: 1rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
         }
 
         .hero-location {
@@ -238,9 +277,27 @@
             transform: translateY(-3px);
         }
 
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: black;
+        }
+
         /* Section Styles */
-        section { padding: 100px 5%; position: relative; }
-        
+        section {
+            padding: 100px 5%;
+            position: relative;
+        }
+
         .section-title {
             font-family: 'Playfair Display', serif;
             font-size: 3rem;
@@ -258,425 +315,2346 @@
             margin: 0 auto 4rem;
         }
 
-        /* Gallery */
-        #venue-gallery { background: var(--black-secondary); }
-        .gallery-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem; max-width: 1400px; margin: 0 auto;
+        /* Venue Gallery */
+        #venue-gallery {
+            background: var(--black-secondary);
         }
-        .gallery-item {
-            position: relative; overflow: hidden; border-radius: 15px;
-            aspect-ratio: 16/10; cursor: pointer; transition: transform 0.3s ease;
-        }
-        .gallery-item:hover { transform: scale(1.03); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .gallery-item:hover img { transform: scale(1.1); }
-        .gallery-overlay {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-            padding: 2rem 1.5rem 1.5rem; transform: translateY(100%); transition: transform 0.3s ease;
-        }
-        .gallery-item:hover .gallery-overlay { transform: translateY(0); }
-        .gallery-overlay h3 { color: var(--gold-primary); font-family: 'Playfair Display', serif; margin-bottom: 0.5rem; }
 
-        /* Packages */
-        #packages { background: var(--black-primary); }
-        .packages-container {
-            max-width: 1400px; margin: 0 auto; display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem;
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            aspect-ratio: 16/10;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            padding: 2rem 1.5rem 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay h3 {
+            color: var(--gold-primary);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-overlay p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Packages Section */
+        #packages {
+            background: var(--black-primary);
+        }
+
+        .packages-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
         .package-card {
             background: linear-gradient(145deg, var(--black-secondary), var(--black-tertiary));
-            border-radius: 20px; overflow: hidden; border: 2px solid transparent;
-            transition: all 0.4s ease; position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            position: relative;
         }
-        .package-card:hover { border-color: var(--gold-primary); transform: translateY(-10px); }
-        .package-card.featured { border: 3px solid var(--gold-primary); transform: scale(1.05); }
-        .package-card.featured:hover { transform: scale(1.05) translateY(-10px); }
+
+        .package-card:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2);
+        }
+
+        .package-card.featured {
+            border: 3px solid var(--gold-primary);
+            transform: scale(1.05);
+        }
+
+        .package-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
         .package-badge {
-            position: absolute; top: 20px; right: 20px; background: var(--gold-primary);
-            color: var(--black-primary); padding: 0.5rem 1rem; border-radius: 20px;
-            font-weight: 700; font-size: 0.85rem; z-index: 2;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold-primary);
+            color: var(--black-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            z-index: 2;
         }
-        .package-image { width: 100%; height: 250px; object-fit: cover; }
-        .package-content { padding: 2rem; }
-        .package-name { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold-primary); margin-bottom: 0.5rem; }
-        .package-price { font-size: 2.5rem; font-weight: 700; color: var(--white); margin-bottom: 1rem; }
-        .package-price span { font-size: 1rem; color: var(--text-gray); font-weight: 400; }
+
+        .package-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .package-content {
+            padding: 2rem;
+        }
+
+        .package-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .package-price span {
+            font-size: 1rem;
+            color: var(--text-gray);
+            font-weight: 400;
+        }
+
         .package-guests {
-            display: inline-block; background: rgba(212, 175, 55, 0.15); color: var(--gold-light);
-            padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; margin-bottom: 1.5rem;
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--gold-light);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
         }
-        .package-list { list-style: none; margin-bottom: 1.5rem; }
-        .package-list li { padding: 0.5rem 0; color: var(--text-gray); display: flex; align-items: flex-start; gap: 0.8rem; font-size: 0.95rem; }
-        .package-list li i { color: var(--gold-primary); margin-top: 0.2rem; }
+
+        .package-details h4 {
+            color: var(--gold-primary);
+            font-size: 1.1rem;
+            margin: 1.5rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .package-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .package-list li {
+            padding: 0.5rem 0;
+            color: var(--text-gray);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .package-list li i {
+            color: var(--gold-primary);
+            margin-top: 0.2rem;
+        }
+
+        .deposit-note {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 3px solid var(--gold-primary);
+            padding: 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-top: 1.5rem;
+        }
+
+        .btn-book-package {
+            width: 100%;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
 
         /* Booking System */
-        #booking-system { background: linear-gradient(135deg, var(--black-secondary), var(--black-primary)); }
+        #booking-system {
+            background: linear-gradient(135deg, var(--black-secondary), var(--black-primary));
+        }
+
         .booking-container {
-            max-width: 1100px; margin: 0 auto; background: var(--black-tertiary);
-            border-radius: 25px; padding: 3rem; border: 1px solid rgba(212, 175, 55, 0.3);
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--black-tertiary);
+            border-radius: 25px;
+            padding: 3rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
-        .step { background: var(--black-secondary); padding: 2rem; border-radius: 15px; border-left: 4px solid var(--gold-primary); margin-bottom: 2rem; }
-        .step-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+
+        .booking-steps {
+            display: grid;
+            gap: 3rem;
+        }
+
+        .step {
+            background: var(--black-secondary);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--gold-primary);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
         .step-number {
-            width: 45px; height: 45px; background: var(--gold-primary); color: var(--black-primary);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem;
+            width: 45px;
+            height: 45px;
+            background: var(--gold-primary);
+            color: var(--black-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
         }
-        .step-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold-primary); }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; color: var(--gold-light); margin-bottom: 0.5rem; font-weight: 500; }
+
+        .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold-primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--gold-light);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
         .form-control {
-            width: 100%; padding: 1rem; background: var(--black-primary); border: 2px solid var(--black-tertiary);
-            border-radius: 10px; color: var(--white); font-size: 1rem; transition: border-color 0.3s ease;
+            width: 100%;
+            padding: 1rem;
+            background: var(--black-primary);
+            border: 2px solid var(--black-tertiary);
+            border-radius: 10px;
+            color: var(--white);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
         }
-        .form-control:focus { outline: none; border-color: var(--gold-primary); }
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-        
-        .addons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem; }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+        }
+
+        select.form-control {
+            cursor: pointer;
+        }
+
+        .addons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
         .addon-item {
-            background: var(--black-primary); padding: 1rem; border-radius: 10px; border: 2px solid var(--black-tertiary);
-            cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 1rem;
-        }
-        .addon-item:hover, .addon-item.selected { border-color: var(--gold-primary); background: rgba(212, 175, 55, 0.05); }
-        .addon-item input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; accent-color: var(--gold-primary); }
-        
-        .booking-summary { background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05)); border: 2px solid var(--gold-primary); border-radius: 15px; padding: 2rem; margin-top: 2rem; }
-        .summary-row { display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
-        .summary-total { font-size: 1.5rem; font-weight: 700; color: var(--gold-primary); margin-top: 1rem; padding-top: 1rem; border-top: 2px solid var(--gold-primary); }
-
-        /* Modals (Login & Agreement) */
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95); z-index: 2000; align-items: center; justify-content: center;
-            padding: 2rem; overflow-y: auto;
-        }
-        .modal.active { display: flex; }
-        .modal-content {
-            background: var(--black-secondary); padding: 3rem; border-radius: 20px; width: 100%;
-            max-width: 500px; border: 2px solid var(--gold-primary); position: relative; max-height: 90vh; overflow-y: auto;
-        }
-        .modal-content.large { max-width: 800px; }
-        .modal-close {
-            position: absolute; top: 1rem; right: 1rem; background: none; border: none;
-            color: var(--gold-primary); font-size: 2rem; cursor: pointer; z-index: 10;
+            background: var(--black-primary);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px solid var(--black-tertiary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
-        /* Agreement Specific Styles inside Modal */
-        .agreement-text-box {
-            background: var(--black-primary); padding: 1.5rem; border-radius: 10px;
-            max-height: 300px; overflow-y: auto; margin-bottom: 1.5rem; border: 1px solid var(--black-tertiary);
-            color: var(--text-gray); font-size: 0.9rem;
+        .addon-item:hover,
+        .addon-item.selected {
+            border-color: var(--gold-primary);
+            background: rgba(212, 175, 55, 0.05);
         }
-        .agreement-text-box h4 { color: var(--gold-primary); margin-top: 1rem; margin-bottom: 0.5rem; }
-        .agreement-text-box p, .agreement-text-box ul { margin-bottom: 1rem; }
-        .agreement-text-box ul { padding-left: 1.5rem; }
-        .referral-box {
-            background: rgba(76, 175, 80, 0.1); border-left: 4px solid var(--success);
-            padding: 1rem; border-radius: 5px; margin-bottom: 1.5rem;
-        }
-        .checkbox-container {
-            display: flex; align-items: flex-start; gap: 10px; margin-bottom: 1.5rem; cursor: pointer;
-        }
-        .checkbox-container input { margin-top: 5px; width: 18px; height: 18px; accent-color: var(--gold-primary); }
 
-        /* Dashboard Styles */
-        #manager-dashboard { background: var(--black-secondary); }
+        .addon-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--gold-primary);
+        }
+
+        .addon-info {
+            flex: 1;
+        }
+
+        .addon-name {
+            color: var(--white);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .addon-price {
+            color: var(--gold-primary);
+            font-size: 0.85rem;
+        }
+
+        .booking-summary {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+            border: 2px solid var(--gold-primary);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .summary-total {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--gold-primary);
+        }
+
+        /* PDF Download Section */
+        .pdf-download-section {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(33, 150, 243, 0.1));
+            border: 2px dashed var(--success);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            display: none;
+        }
+
+        .pdf-download-section.show {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .pdf-download-section h3 {
+            color: var(--success);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .pdf-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .btn-pdf {
+            background: linear-gradient(135deg, var(--danger), #c62828);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-pdf:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(244, 67, 54, 0.4);
+        }
+
+        .btn-pdf.invoice {
+            background: linear-gradient(135deg, var(--info), #1565c0);
+        }
+
+        .btn-pdf.partnership {
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: var(--black-primary);
+        }
+
+        /* Payment Methods */
+        #payment-methods {
+            background: var(--black-primary);
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 3rem auto 0;
+        }
+
+        .payment-card {
+            background: var(--black-secondary);
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid var(--black-tertiary);
+            transition: all 0.3s ease;
+        }
+
+        .payment-card:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-5px);
+        }
+
+        .payment-icon {
+            font-size: 3.5rem;
+            color: var(--gold-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+        }
+
+        .payment-account {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: 2px;
+            font-family: monospace;
+        }
+
+        .payment-copy-btn {
+            margin-top: 1rem;
+            padding: 0.5rem 1.5rem;
+            background: var(--gold-primary);
+            color: var(--black-primary);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .payment-copy-btn:hover {
+            background: var(--gold-dark);
+        }
+
+        .payment-terms {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            background: var(--black-secondary);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--gold-primary);
+        }
+
+        .contact-manager {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .contact-manager h3 {
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Manager Dashboard */
+        #manager-dashboard {
+            background: var(--black-secondary);
+        }
+
         .dashboard-preview {
-            max-width: 1200px; margin: 3rem auto 0; background: var(--black-tertiary);
-            border-radius: 20px; overflow: hidden; border: 2px solid rgba(212, 175, 55, 0.3);
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            background: var(--black-tertiary);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(212, 175, 55, 0.3);
         }
-        .dashboard-header { background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark)); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .dashboard-header h3 { color: var(--black-primary); font-size: 1.5rem; font-weight: 700; }
-        .dashboard-content { padding: 2rem; }
-        .stat-card { background: var(--black-secondary); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--gold-primary); }
-        .stat-label { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 0.5rem; }
-        .stat-value { font-size: 2rem; font-weight: 700; color: var(--gold-primary); }
-        
-        .admin-table-container { overflow-x: auto; margin-top: 2rem; }
-        .admin-table { width: 100%; border-collapse: collapse; min-width: 800px; }
-        .admin-table th, .admin-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--black-secondary); font-size: 0.9rem; }
-        .admin-table th { background: var(--black-primary); color: var(--gold-primary); font-weight: 600; }
-        .status-badge { padding: 0.3rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
-        .status-pending { background: rgba(255, 152, 0, 0.2); color: var(--warning); }
-        .status-confirmed { background: rgba(76, 175, 80, 0.2); color: var(--success); }
-        .status-rescheduled { background: rgba(33, 150, 243, 0.2); color: var(--info); }
-        .status-cancelled { background: rgba(244, 67, 54, 0.2); color: var(--danger); }
-        .action-select { background: var(--black-primary); color: var(--white); border: 1px solid var(--gold-primary); border-radius: 5px; padding: 0.3rem; font-size: 0.8rem; outline: none; }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-header h3 {
+            color: var(--black-primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .dashboard-login-btn {
+            background: var(--black-primary);
+            color: var(--gold-primary);
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-login-btn:hover {
+            background: var(--black-secondary);
+            transform: scale(1.05);
+        }
+
+        .dashboard-content {
+            padding: 2rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--black-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--gold-primary);
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            background: var(--black-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(212, 175, 55, 0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-primary);
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .feature-text h4 {
+            color: var(--gold-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-text p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .document-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .doc-preview {
+            background: var(--black-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px dashed var(--black-tertiary);
+        }
+
+        .doc-preview img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            filter: grayscale(30%);
+        }
+
+        .doc-preview h4 {
+            color: var(--gold-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Testimonials */
+        #testimonials {
+            background: var(--black-primary);
+        }
+
+        .testimonials-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--black-secondary);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border-left: 4px solid var(--gold-primary);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateX(10px);
+        }
+
+        .stars {
+            color: var(--gold-primary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            color: var(--gold-primary);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .testimonial-role {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Partnership */
+        #partnership {
+            background: linear-gradient(135deg, var(--black-secondary), var(--black-primary));
+        }
+
+        .partnership-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .benefit-item {
+            background: var(--black-tertiary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border-top: 3px solid var(--gold-primary);
+        }
+
+        .benefit-item i {
+            font-size: 2rem;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+        }
+
+        .partners-needed {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .partner-type {
+            background: var(--black-secondary);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-left: 3px solid var(--gold-primary);
+        }
+
+        .partner-type i {
+            color: var(--gold-primary);
+            font-size: 1.3rem;
+        }
+
+        .partnership-form {
+            background: var(--black-tertiary);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-top: 3rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Contact Footer */
+        #contact-footer {
+            background: var(--black-secondary);
+            border-top: 3px solid var(--gold-primary);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--gold-primary);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-gray);
+            text-decoration: none;
+            line-height: 2;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold-primary);
+        }
+
+        .footer-logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 1.5rem;
+            object-fit: contain;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--black-tertiary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-primary);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--gold-primary);
+            color: var(--black-primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--black-tertiary);
+            color: var(--text-gray);
+        }
+
+        .footer-bottom p {
+            margin: 0.5rem 0;
+        }
+
+        .tagline {
+            color: var(--gold-primary);
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .packages-container {
+                grid-template-columns: 1fr;
+            }
+
+            .package-card.featured {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            section {
+                padding: 60px 5%;
+            }
+
+            .booking-container {
+                padding: 1.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--black-secondary);
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            border: 2px solid var(--gold-primary);
+            position: relative;
+            animation: fadeInUp 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content.large {
+            max-width: 1200px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--gold-primary);
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10;
+        }
 
         /* Toast Notification */
         .toast {
-            position: fixed; bottom: 30px; right: 30px; background: var(--gold-primary);
-            color: var(--black-primary); padding: 1rem 2rem; border-radius: 10px; font-weight: 600;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); z-index: 3000; transform: translateX(150%);
-            transition: transform 0.3s ease; max-width: 400px;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--gold-primary);
+            color: var(--black-primary);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 3000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            max-width: 400px;
         }
-        .toast.show { transform: translateX(0); }
-        .toast.error { background: var(--danger); color: white; }
-        .toast.success { background: var(--success); color: white; }
 
-        /* Animations */
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease-out; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: var(--danger);
+            color: white;
+        }
+
+        .toast.success {
+            background: var(--success);
+            color: white;
+        }
+
+        /* ============ MANAGER DASHBOARD STYLES ============ */
         
-        .pdf-download-section {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(33, 150, 243, 0.1));
-            border: 2px dashed var(--success); border-radius: 15px; padding: 2rem; margin-top: 2rem; text-align: center; display: none;
+        .dashboard-app {
+            display: none;
         }
-        .pdf-download-section.show { display: block; animation: fadeInUp 0.5s ease-out; }
-        .btn-pdf {
-            background: linear-gradient(135deg, var(--danger), #c62828); color: white; padding: 1rem 2rem;
-            border: none; border-radius: 25px; cursor: pointer; font-weight: 600; font-size: 1rem;
-            display: inline-flex; align-items: center; gap: 0.5rem; margin: 0.5rem; transition: all 0.3s ease;
+
+        .dashboard-app.active {
+            display: block;
         }
-        .btn-pdf:hover { transform: translateY(-3px); box-shadow: 0 6px 25px rgba(244, 67, 54, 0.4); }
-        .btn-pdf.invoice { background: linear-gradient(135deg, var(--info), #1565c0); }
+
+        .dashboard-sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: var(--black-secondary);
+            border-right: 2px solid var(--gold-primary);
+            z-index: 2001;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+            padding: 2rem 0;
+        }
+
+        .dashboard-sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem 2rem;
+            border-bottom: 1px solid var(--black-tertiary);
+            text-align: center;
+        }
+
+        .sidebar-header img {
+            width: 80px;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-header h3 {
+            color: var(--gold-primary);
+            font-size: 1.2rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .sidebar-menu li {
+            margin: 0.5rem 0;
+        }
+
+        .sidebar-menu button {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text-gray);
+            text-align: left;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sidebar-menu button:hover,
+        .sidebar-menu button.active {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold-primary);
+            border-left: 3px solid var(--gold-primary);
+        }
+
+        .sidebar-menu button i {
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            background: var(--gold-primary);
+            color: var(--black-primary);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 2002;
+            display: none;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .sidebar-toggle.visible {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dashboard-main {
+            margin-left: 0;
+            padding: 2rem;
+            min-height: calc(100vh - 80px);
+            transition: margin-left 0.3s ease;
+        }
+
+        .dashboard-main.sidebar-open {
+            margin-left: 300px;
+        }
+
+        .dashboard-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--black-tertiary);
+        }
+
+        .dashboard-header-bar h2 {
+            color: var(--gold-primary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info span {
+            color: var(--text-gray);
+        }
+
+        .logout-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .dash-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .dash-stat-card {
+            background: var(--black-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--gold-primary);
+        }
+
+        .dash-stat-card.revenue {
+            border-left-color: var(--success);
+        }
+
+        .dash-stat-card.pending {
+            border-left-color: var(--warning);
+        }
+
+        .dash-stat-card.cancelled {
+            border-left-color: var(--danger);
+        }
+
+        .dash-stat-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .dash-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+        }
+
+        .bookings-table-container {
+            background: var(--black-secondary);
+            border-radius: 15px;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .bookings-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .bookings-table th,
+        .bookings-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--black-tertiary);
+        }
+
+        .bookings-table th {
+            background: var(--black-tertiary);
+            color: var(--gold-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .bookings-table tr:hover {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .status-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-pending {
+            background: rgba(255, 152, 0, 0.2);
+            color: var(--warning);
+        }
+
+        .status-confirmed {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--success);
+        }
+
+        .status-cancelled {
+            background: rgba(244, 67, 54, 0.2);
+            color: var(--danger);
+        }
+
+        .status-completed {
+            background: rgba(33, 150, 243, 0.2);
+            color: var(--info);
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn.approve {
+            background: var(--success);
+            color: white;
+        }
+
+        .action-btn.cancel {
+            background: var(--danger);
+            color: white;
+        }
+
+        .action-btn.view {
+            background: var(--info);
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .dash-section {
+            display: none;
+        }
+
+        .dash-section.active {
+            display: block;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-bar select,
+        .filter-bar input {
+            padding: 0.7rem 1rem;
+            background: var(--black-primary);
+            border: 2px solid var(--black-tertiary);
+            border-radius: 8px;
+            color: var(--white);
+            font-size: 0.9rem;
+        }
+
+        .filter-bar select:focus,
+        .filter-bar input:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-gray);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .booking-detail {
+            background: var(--black-secondary);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--black-tertiary);
+        }
+
+        .detail-label {
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        .detail-value {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .detail-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: flex-end;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-logo">
-            <img src="https://z-cdn-media.chatglm.cn/files/23aea94c-10b4-4c0a-bd1c-0bdb57039e4c.png?auth_key=1882896281-39e0a920cfb240e49e132b046f4fbbbb-0-cbbb7554229a8579529f5ea1ed5d3278" alt="PRESENCIA Logo">
+            <img src="https://z-cdn-media.chatglm.cn/files/23aea94c-10b4-4c0a-bd1c-0bdb57039e4c.png?auth_key=1882896281-39e0a920cfb240e49e132b046f4fbbbb-0-cbbb7554229a8579529f5ea1ed5d3278" alt="PRESENCIA Logo - JP Emblem">
         </div>
         <ul class="nav-links">
             <li><a href="#hero">Home</a></li>
+            <li><a href="#venue-gallery">Gallery</a></li>
             <li><a href="#packages">Packages</a></li>
             <li><a href="#booking-system">Book Now</a></li>
-            <li><a href="#manager-dashboard">Admin</a></li>
+            <li><a href="#payment-methods">Payment</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#partnership" class="nav-cta">Partner With Us</a></li>
         </ul>
-        <div class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></div>
+        <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
     </nav>
 
-    <section id="hero" class="hero">
-        <div class="hero-content">
-            <img src="https://z-cdn-media.chatglm.cn/files/23aea94c-10b4-4c0a-bd1c-0bdb57039e4c.png?auth_key=1882896281-39e0a920cfb240e49e132b046f4fbbbb-0-cbbb7554229a8579529f5ea1ed5d3278" alt="PRESENCIA Logo" class="hero-logo">
-            <h1>PRESENCIA</h1>
-            <p class="hero-subtitle">Events Place Rentals</p>
-            <p class="hero-tagline">Where Presence Becomes Experience</p>
-            <div class="hero-buttons">
-                <a href="#booking-system" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Book Your Event</a>
-                <a href="#packages" class="btn btn-secondary"><i class="fas fa-gem"></i> View Packages</a>
+    <!-- Main Website Content -->
+    <div id="mainWebsite">
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <div class="hero-content">
+                <img src="https://z-cdn-media.chatglm.cn/files/23aea94c-10b4-4c0a-bd1c-0bdb57039e4c.png?auth_key=1882896281-39e0a920cfb240e49e132b046f4fbbbb-0-cbbb7554229a8579529f5ea1ed5d3278" alt="PRESENCIA Logo - Premium JP Emblem" class="hero-logo">
+                <h1>PRESENCIA</h1>
+                <p class="hero-subtitle">Events Place Rentals</p>
+                <p class="hero-tagline">Where Presence Becomes Experience</p>
+                <p class="hero-events">
+                    <i class="fas fa-star"></i> Birthdays | Weddings | Child Dedication | Seminars | Workshops & More
+                </p>
+                <div class="hero-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>New Lower Bicutan Taguig (Front of Bicutan Med)</span>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#booking-system" class="btn btn-primary">
+                        <i class="fas fa-calendar-check"></i> Book Your Event
+                    </a>
+                    <a href="#packages" class="btn btn-secondary">
+                        <i class="fas fa-gem"></i> View Packages
+                    </a>
+                    <a href="#partnership" class="btn btn-secondary">
+                        <i class="fas fa-handshake"></i> Partnership Inquiry
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="packages">
-        <h2 class="section-title fade-in">Choose Your Perfect Package</h2>
-        <div class="packages-container">
-            <div class="package-card featured fade-in">
-                <div class="package-badge">MOST POPULAR</div>
-                <div class="package-content">
-                    <h3 class="package-name"><i class="fas fa-crown"></i> Premier Package</h3>
-                    <div class="package-price">₱16,500 <span>/ event</span></div>
-                    <div class="package-guests"><i class="fas fa-users"></i> Up to 100 Guests</div>
-                    <button class="btn btn-primary btn-book-package" onclick="selectPackage('premier', 16500)">Select Package</button>
-                </div>
-            </div>
-            <div class="package-card fade-in">
-                <div class="package-content">
-                    <h3 class="package-name"><i class="fas fa-medal"></i> Classic Package</h3>
-                    <div class="package-price">₱12,500 <span>/ event</span></div>
-                    <div class="package-guests"><i class="fas fa-users"></i> 50 to 80 Guests</div>
-                    <button class="btn btn-primary btn-book-package" onclick="selectPackage('classic', 12500)">Select Package</button>
-                </div>
-            </div>
-            <div class="package-card fade-in">
-                <div class="package-content">
-                    <h3 class="package-name"><i class="fas fa-star"></i> Essential Package</h3>
-                    <div class="package-price">₱9,500 <span>/ event</span></div>
-                    <div class="package-guests"><i class="fas fa-users"></i> 30 to 50 Guests</div>
-                    <button class="btn btn-primary btn-book-package" onclick="selectPackage('essential', 9500)">Select Package</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="booking-system">
-        <h2 class="section-title fade-in">Online Booking System</h2>
-        <div class="booking-container fade-in">
-            <div class="booking-steps">
-                
-                <div class="step">
-                    <div class="step-header"><div class="step-number">1</div><h3 class="step-title">Select Your Package</h3></div>
-                    <div class="form-group">
-                        <select class="form-control" id="packageSelect" onchange="updateBookingSummary()">
-                            <option value="">-- Select Package --</option>
-                            <option value="essential|9500">Essential Package - ₱9,500 (30-50 guests)</option>
-                            <option value="classic|12500">Classic Package - ₱12,500 (50-80 guests)</option>
-                            <option value="premier|16500">Premier Package - ₱16,500 (up to 100 guests)</option>
-                        </select>
+        <!-- Venue Gallery -->
+        <section id="venue-gallery">
+            <h2 class="section-title fade-in">Experience Our Premium Spaces</h2>
+            <p class="section-subtitle fade-in">
+                Explore our beautifully designed event venues equipped with modern amenities, elegant decor, and professional lighting systems perfect for any occasion.
+            </p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item fade-in">
+                    <img src="https://qc4n.bigmodel.cn/603a8Auzm_cropped.png?UCloudPublicKey=TOKEN_3f4277c6-f8d6-41a9-968b-dbfa0994d483&Expires=1814430935&Signature=euARXN2E3wN4rAS3Oo4x%2BAqEVak%3D" alt="Premier Venue Setup">
+                    <div class="gallery-overlay">
+                        <h3>Premium Banquet Hall</h3>
+                        <p>Elegant setup for up to 100 guests with golden ceiling accents</p>
                     </div>
                 </div>
                 
-                <div class="step">
-                    <div class="step-header"><div class="step-number">2</div><h3 class="step-title">Event Details</h3></div>
-                    <div class="form-row">
-                        <div class="form-group"><label>Event Date *</label><input type="date" class="form-control" id="eventDate" required></div>
-                        <div class="form-group"><label>Ingress Time *</label><input type="time" class="form-control" id="ingressTime" required></div>
+                <div class="gallery-item fade-in">
+                    <img src="https://qc4n.bigmodel.cn/3ad69Cw7Y_cropped.png?UCloudPublicKey=TOKEN_3f4277c6-f8d6-41a9-968b-dbfa0994d483&Expires=1814430907&Signature=MhLh4aJKTNaelAjGQwEilGnrCXM%3D" alt="Classic Venue Interior">
+                    <div class="gallery-overlay">
+                        <h3>Classic Event Space</h3>
+                        <p>Sophisticated interior with geometric ceiling beams</p>
                     </div>
-                    <div class="form-row">
+                </div>
+                
+                <div class="gallery-item fade-in">
+                    <img src="https://qc4n.bigmodel.cn/83b00ullG_cropped.png?UCloudPublicKey=TOKEN_3f4277c6-f8d6-41a9-968b-dbfa0994d483&Expires=1814430968&Signature=IFrQFh669n2RaNYxov%2FeZUQuD%2F0%3D" alt="Essential Venue Space">
+                    <div class="gallery-overlay">
+                        <h3>Versatile Essential Space</h3>
+                        <p>Clean minimalist design perfect for intimate gatherings</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item fade-in">
+                    <img src="https://qc4n.bigmodel.cn/37267LZPw_cropped.png?UCloudPublicKey=TOKEN_3f4277c6-f8d6-41a9-968b-dbfa0994d483&Expires=1814430921&Signature=SIv16jQWOx1PtrDIP7KBA08p2Rg%3D" alt="Buffet Catering Area">
+                    <div class="gallery-overlay">
+                        <h3>Catering & Buffet Station</h3>
+                        <p>Professional food service area with multiple stations</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Packages Section -->
+        <section id="packages">
+            <h2 class="section-title fade-in">Choose Your Perfect Package</h2>
+            <p class="section-subtitle fade-in">
+                Select from our carefully curated event packages designed to suit every occasion and budget.
+            </p>
+            
+            <div class="packages-container">
+                <!-- Premier Package -->
+                <div class="package-card featured fade-in">
+                    <div class="package-badge">MOST POPULAR</div>
+                    <img src="https://qc4n.bigmodel.cn/603a8Jv7q_cropped.png?UCloudPublicKey=TOKEN_3f4277c6-f8d6-41a9-968b-dbfa0994d483&Expires=1814430931&Signature=6JswdEZFpsUcgepb30MPB3YdHmE%3D" alt="Premier Package" class="package-image">
+                    <div class="package-content">
+                        <h3 class="package-name"><i class="fas fa-crown"></i> Premier Package</h3>
+                        <div class="package-price">₱16,500 <span>/ event</span></div>
+                        <div class="package-guests"><i class="fas fa-users"></i> Up to 100 Guests</div>
+                        
+                        <div class="package-details">
+                            <h4><i class="fas fa-check-circle"></i> Inclusions:</h4>
+                            <ul class="package-list">
+                                <li><i class="fas fa-clock"></i> 6 hours venue usage (1hr ingress, 1hr egress, 4hrs event)</li>
+                                <li><i class="fas fa-volume-up"></i> Premium Sound System</li>
+                                <li><i class="fas fa-chair"></i> 100 chairs included</li>
+                                <li><i class="fas fa-table"></i> 8 long tables</li>
+                                <li><i class="fas fa-microphone"></i> MC (Master of Ceremonies)</li>
+                                <li><i class="fas fa-camera"></i> Photobooth with backdrop</li>
+                            </ul>
+                            
+                            <h4><i class="fas fa-gift"></i> Freebies:</h4>
+                            <ul class="package-list">
+                                <li><i class="fas fa-hourglass-half"></i> 1hr free stay / Grace time</li>
+                                <li><i class="fas fa-user-tie"></i> Event On-site Coordinator</li>
+                                <li><i class="fas fa-sign"></i> Welcome Signage</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="deposit-note">
+                            <strong><i class="fas fa-info-circle"></i> Cleaning Deposit:</strong> ₱1,000 (Refundable after inspection)
+                        </div>
+                        
+                        <button class="btn btn-primary btn-book-package" onclick="selectPackage('premier', 16500)">
+                            <i class="fas fa-calendar-plus"></i> Select This Package
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Classic Package -->
+                <div class="package-card fade-in">
+                    <img src="https://qc4n.bigmodel.cn/3ad69nntD_cropped.png?UCloudPublicKey=TOKEN_3f4277c6-f8d6-41a9-968b-dbfa0994d483&Expires=1814430980&Signature=8rHex5K7ifyu6jnxndtyMngYCiA%3D" alt="Classic Package" class="package-image">
+                    <div class="package-content">
+                        <h3 class="package-name"><i class="fas fa-medal"></i> Classic Package</h3>
+                        <div class="package-price">₱12,500 <span>/ event</span></div>
+                        <div class="package-guests"><i class="fas fa-users"></i> 50 to 80 Guests</div>
+                        
+                        <div class="package-details">
+                            <h4><i class="fas fa-check-circle"></i> Inclusions:</h4>
+                            <ul class="package-list">
+                                <li><i class="fas fa-clock"></i> 6 Hours Venue Usage</li>
+                                <li style="margin-left: 1.5rem;">- 1 hr Ingress</li>
+                                <li style="margin-left: 1.5rem;">- 1 hr Egress</li>
+                                <li style="margin-left: 1.5rem;">- 4hrs Event Proper</li>
+                            </ul>
+                            
+                            <h4><i class="fas fa-gift"></i> Freebies:</h4>
+                            <ul class="package-list">
+                                <li><i class="fas fa-volume-up"></i> Basic Sound System</li>
+                                <li><i class="fas fa-chair"></i> 90 Chairs</li>
+                                <li><i class="fas fa-table"></i> 6 Long Tables</li>
+                                <li><i class="fas fa-hourglass-half"></i> 1hr Free Stay / Grace Time</li>
+                                <li><i class="fas fa-user-tie"></i> Event On-site Coordinator</li>
+                                <li><i class="fas fa-sign"></i> Welcome Signage</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="deposit-note">
+                            <strong><i class="fas fa-info-circle"></i> Cleaning Deposit:</strong> ₱1,000 Refundable Required
+                        </div>
+                        
+                        <button class="btn btn-primary btn-book-package" onclick="selectPackage('classic', 12500)">
+                            <i class="fas fa-calendar-plus"></i> Select This Package
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Essential Package -->
+                <div class="package-card fade-in">
+                    <img src="https://qc4n.bigmodel.cn/83b00LKYL_cropped.png?UCloudPublicKey=TOKEN_3f4277c6-f8d6-41a9-968b-dbfa0994d483&Expires=1814430972&Signature=7BITmK5mueaq7LshiZlsJV9bNN4%3D" alt="Essential Package" class="package-image">
+                    <div class="package-content">
+                        <h3 class="package-name"><i class="fas fa-star"></i> Essential Package</h3>
+                        <div class="package-price">₱9,500 <span>/ event</span></div>
+                        <div class="package-guests"><i class="fas fa-users"></i> 30 to 50 Guests</div>
+                        
+                        <div class="package-details">
+                            <h4><i class="fas fa-check-circle"></i> Inclusions:</h4>
+                            <ul class="package-list">
+                                <li><i class="fas fa-clock"></i> 6 Hours Venue Usage</li>
+                                <li style="margin-left: 1.5rem;">- 1 hr Ingress</li>
+                                <li style="margin-left: 1.5rem;">- 1 hr Egress</li>
+                                <li style="margin-left: 1.5rem;">- 4 hrs Event Proper</li>
+                            </ul>
+                            
+                            <h4><i class="fas fa-gift"></i> Freebies:</h4>
+                            <ul class="package-list">
+                                <li><i class="fas fa-volume-up"></i> Basic Sound System</li>
+                                <li><i class="fas fa-chair"></i> 60 Chairs</li>
+                                <li><i class="fas fa-table"></i> 4 Long Tables</li>
+                                <li><i class="fas fa-hourglass-half"></i> 1 hr Free Stay / Grace Time</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="deposit-note">
+                            <strong><i class="fas fa-info-circle"></i> Note:</strong> ₱1,000 pesos refundable cleaning deposit required.
+                        </div>
+                        
+                        <button class="btn btn-primary btn-book-package" onclick="selectPackage('essential', 9500)">
+                            <i class="fas fa-calendar-plus"></i> Select This Package
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking System -->
+        <section id="booking-system">
+            <h2 class="section-title fade-in">24/7 Online Booking System</h2>
+            <p class="section-subtitle fade-in">
+                Book your event instantly with our automated system. Real-time availability check prevents double bookings.
+            </p>
+            
+            <div class="booking-container fade-in">
+                <div class="booking-steps">
+                    <!-- Step 1: Package Selection -->
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                            <h3 class="step-title">Select Your Package</h3>
+                        </div>
                         <div class="form-group">
-                            <label>Event Type *</label>
-                            <select class="form-control" id="eventType" required>
-                                <option value="">-- Select Event Type --</option>
-                                <option value="birthday">Birthday Celebration</option>
-                                <option value="wedding">Wedding Reception</option>
-                                <option value="corporate">Corporate Event</option>
-                                <option value="other">Other</option>
+                            <label>Choose Event Package *</label>
+                            <select class="form-control" id="packageSelect" onchange="updateBookingSummary()">
+                                <option value="">-- Select Package --</option>
+                                <option value="essential|9500">Essential Package - ₱9,500 (30-50 guests)</option>
+                                <option value="classic|12500">Classic Package - ₱12,500 (50-80 guests)</option>
+                                <option value="premier|16500">Premier Package - ₱16,500 (up to 100 guests)</option>
                             </select>
                         </div>
-                        <div class="form-group"><label>Expected Guests *</label><input type="number" class="form-control" id="guestCount" placeholder="e.g., 75" required></div>
                     </div>
-                </div>
-
-                <div class="step">
-                    <div class="step-header"><div class="step-number">3</div><h3 class="step-title">Your Information</h3></div>
-                    <div class="form-row">
-                        <div class="form-group"><label>Full Name *</label><input type="text" class="form-control" id="clientName" required></div>
-                        <div class="form-group"><label>Email Address *</label><input type="email" class="form-control" id="clientEmail" required></div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group"><label>Phone Number *</label><input type="tel" class="form-control" id="clientPhone" required></div>
-                        <div class="form-group"><label>Special Requests</label><input type="text" class="form-control" id="specialRequests"></div>
-                    </div>
-                </div>
-                
-                <div class="booking-summary">
-                    <h3 style="color: var(--gold-primary); margin-bottom: 1.5rem;"><i class="fas fa-file-invoice-dollar"></i> Booking Summary</h3>
-                    <div id="summaryContent"><p style="color: var(--text-gray); text-align: center;">Please select a package above to see your summary.</p></div>
                     
-                    <button type="button" class="btn btn-primary" style="width: 100%; margin-top: 2rem; padding: 1.2rem;" onclick="processBookingRequest()">
-                        <i class="fas fa-arrow-right"></i> Review Terms & Submit
+                    <!-- Step 2: Date & Time -->
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number">2</div>
+                            <h3 class="step-title">Pick Date & Time</h3>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Event Date *</label>
+                                <input type="date" class="form-control" id="eventDate" onchange="checkAvailability()" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Ingress Time *</label>
+                                <input type="time" class="form-control" id="ingressTime" required>
+                            </div>
+                        </div>
+                        <div id="availabilityStatus" style="margin-top: 1rem;"></div>
+                    </div>
+                    
+                    <!-- Step 3: Add-Ons -->
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number">3</div>
+                            <h3 class="step-title">Customize with Add-Ons</h3>
+                        </div>
+                        <p style="color: var(--text-gray); margin-bottom: 1rem;">Enhance your package with optional services:</p>
+                        
+                        <div class="addons-grid">
+                            <label class="addon-item">
+                                <input type="checkbox" name="addon" value="sound_upgrade|2000" onchange="updateBookingSummary()">
+                                <div class="addon-info">
+                                    <div class="addon-name"><i class="fas fa-music"></i> Sound System Upgrade</div>
+                                    <div class="addon-price">+₱2,000</div>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" name="addon" value="photography|5000" onchange="updateBookingSummary()">
+                                <div class="addon-info">
+                                    <div class="addon-name"><i class="fas fa-camera-retro"></i> Photography Package</div>
+                                    <div class="addon-price">+₱5,000</div>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" name="addon" value="video|8000" onchange="updateBookingSummary()">
+                                <div class="addon-info">
+                                    <div class="addon-name"><i class="fas fa-video"></i> Video Documentation</div>
+                                    <div class="addon-price">+₱8,000</div>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" name="addon" value="decoration|3000" onchange="updateBookingSummary()">
+                                <div class="addon-info">
+                                    <div class="addon-name"><i class="fas fa-paint-brush"></i> Event Decoration</div>
+                                    <div class="addon-price">+₱3,000</div>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" name="addon" value="valet|1500" onchange="updateBookingSummary()">
+                                <div class="addon-info">
+                                    <div class="addon-name"><i class="fas fa-car"></i> Valet Parking Service</div>
+                                    <div class="addon-price">+₱1,500</div>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" name="addon" value="extra_chairs|150" onchange="updateBookingSummary()">
+                                <div class="addon-info">
+                                    <div class="addon-name"><i class="fas fa-chair"></i> Extra Chairs (per chair)</div>
+                                    <div class="addon-price">+₱150 each</div>
+                                </div>
+                            </label>
+                            
+                            <label class="addon-item">
+                                <input type="checkbox" name="addon" value="extra_tables|500" onchange="updateBookingSummary()">
+                                <div class="addon-info">
+                                    <div class="addon-name"><i class="fas fa-table"></i> Extra Tables (per table)</div>
+                                    <div class="addon-price">+₱500 each</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4: Client Information -->
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number">4</div>
+                            <h3 class="step-title">Your Information</h3>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name *</label>
+                                <input type="text" class="form-control" id="clientName" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input type="email" class="form-control" id="clientEmail" placeholder="your@email.com" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" class="form-control" id="clientPhone" placeholder="09XXXXXXXXX" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Event Type *</label>
+                                <select class="form-control" id="eventType" required>
+                                    <option value="">-- Select Event Type --</option>
+                                    <option value="birthday">Birthday Celebration</option>
+                                    <option value="wedding">Wedding Reception</option>
+                                    <option value="dedication">Child Dedication</option>
+                                    <option value="seminar">Seminar/Conference</option>
+                                    <option value="workshop">Workshop</option>
+                                    <option value="corporate">Corporate Event</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Expected Number of Guests *</label>
+                            <input type="number" class="form-control" id="guestCount" placeholder="e.g., 75" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Special Requirements (Optional)</label>
+                            <textarea class="form-control" id="specialRequests" rows="3" placeholder="Any special requests or notes..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 5: Booking Summary -->
+                    <div class="booking-summary">
+                        <h3 style="color: var(--gold-primary); margin-bottom: 1.5rem;">
+                            <i class="fas fa-file-invoice-dollar"></i> Booking Summary
+                        </h3>
+                        <div id="summaryContent">
+                            <p style="color: var(--text-gray); text-align: center;">Please complete the form above to see your booking summary.</p>
+                        </div>
+                        
+                        <!-- SUBMIT BUTTON - FIXED AND FULLY FUNCTIONAL -->
+                        <button type="button" class="btn btn-primary" style="width: 100%; margin-top: 2rem; padding: 1.2rem; font-size: 1.1rem;" onclick="submitBookingForm()" id="submitBookingBtn">
+                            <i class="fas fa-paper-plane"></i> Submit Booking Request
+                        </button>
+                        
+                        <p style="color: var(--text-gray); font-size: 0.85rem; text-align: center; margin-top: 1rem;">
+                            <i class="fas fa-lock"></i> Your information is secure. After submission, you can download your Contract & Invoice.
+                        </p>
+                    </div>
+
+                    <!-- PDF Download Section - Appears After Successful Submission -->
+                    <div class="pdf-download-section" id="pdfDownloadSection">
+                        <h3><i class="fas fa-file-pdf"></i> 🎉 Booking Submitted Successfully!</h3>
+                        <p style="color: var(--text-gray); margin-bottom: 1rem;">
+                            Your reference number is: <strong id="bookingRefNumber" style="color: var(--gold-primary);"></strong>
+                        </p>
+                        <p style="color: var(--text-gray);">
+                            Download your documents below:
+                        </p>
+                        <div class="pdf-buttons">
+                            <button class="btn-pdf" onclick="generateContractPDF()">
+                                <i class="fas fa-file-contract"></i> Download Contract
+                            </button>
+                            <button class="btn-pdf invoice" onclick="generateInvoicePDF()">
+                                <i class="fas fa-receipt"></i> Download Invoice
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payment Methods -->
+        <section id="payment-methods">
+            <h2 class="section-title fade-in">Secure Payment Options</h2>
+            <p class="section-subtitle fade-in">
+                We accept multiple digital payment methods for your convenience. All transactions are secure and encrypted.
+            </p>
+            
+            <div class="payment-grid fade-in">
+                <div class="payment-card">
+                    <div class="payment-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3 class="payment-name">GCash</h3>
+                    <div class="payment-account">09770264721</div>
+                    <button class="payment-copy-btn" onclick="copyToClipboard('09770264721', 'GCash')">
+                        <i class="fas fa-copy"></i> Copy Number
                     </button>
                 </div>
-
-                <div class="pdf-download-section" id="pdfDownloadSection">
-                    <h3><i class="fas fa-check-circle"></i> Booking Submitted Successfully!</h3>
-                    <p style="color: var(--text-gray);">Reference Number: <strong id="bookingRefNumber" style="color: var(--gold-primary);"></strong></p>
-                    <div class="pdf-buttons">
-                        <button class="btn-pdf" onclick="generateContractPDF()"><i class="fas fa-file-contract"></i> Download Contract</button>
-                        <button class="btn-pdf invoice" onclick="generateInvoicePDF()"><i class="fas fa-receipt"></i> Download Invoice</button>
+                
+                <div class="payment-card">
+                    <div class="payment-icon">
+                        <i class="fas fa-credit-card"></i>
                     </div>
+                    <h3 class="payment-name">Maya</h3>
+                    <div class="payment-account">09770264721</div>
+                    <button class="payment-copy-btn" onclick="copyToClipboard('09770264721', 'Maya')">
+                        <i class="fas fa-copy"></i> Copy Number
+                    </button>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="manager-dashboard">
-        <h2 class="section-title fade-in">Management Control Panel</h2>
-        
-        <div class="dashboard-preview fade-in">
-            <div class="dashboard-header">
-                <h3><i class="fas fa-chart-line"></i> Admin Dashboard</h3>
-                <button class="btn btn-primary" id="loginBtn" onclick="showManagerLogin()">Manager Login</button>
-                <button class="btn btn-danger" id="logoutBtn" style="display: none;" onclick="handleLogout()">Logout</button>
+                
+                <div class="payment-card">
+                    <div class="payment-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3 class="payment-name">Vybe by BPI</h3>
+                    <div class="payment-account">09770264721</div>
+                    <button class="payment-copy-btn" onclick="copyToClipboard('09770264721', 'Vybe')">
+                        <i class="fas fa-copy"></i> Copy Number
+                    </button>
+                </div>
             </div>
             
-            <div class="dashboard-content" id="dashboardContentPublic">
-                <div style="background: rgba(212, 175, 55, 0.1); padding: 1rem; border-radius: 10px; margin-bottom: 2rem; text-align: center;">
-                    <p style="color: var(--gold-primary);"><i class="fas fa-lock"></i> Access restricted to authorized managers only.</p>
-                </div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-                    <div class="stat-card">
-                        <div class="stat-label">Total Bookings</div>
-                        <div class="stat-value" id="publicTotalBookings">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Revenue Generated</div>
-                        <div class="stat-value" id="publicRevenue">₱0</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="dashboard-content" id="dashboardContentSecure" style="display: none;">
-                <h4 style="color: var(--gold-primary); margin-bottom: 1rem;">Recent Booking Requests</h4>
-                <div class="admin-table-container">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Ref ID</th>
-                                <th>Client Name</th>
-                                <th>Contact & Email</th>
-                                <th>Package / Date</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="adminBookingTableBody">
-                            </tbody>
-                    </table>
+            <div class="payment-terms fade-in">
+                <h3 style="color: var(--gold-primary); margin-bottom: 1rem;"><i class="fas fa-info-circle"></i> Payment Terms</h3>
+                <ul style="list-style: none; color: var(--text-gray);">
+                    <li style="padding: 0.5rem 0;"><i class="fas fa-check" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> <strong>Initial Deposit:</strong> 50% of total amount due upon booking confirmation</li>
+                    <li style="padding: 0.5rem 0;"><i class="fas fa-check" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> <strong>Remaining Balance:</strong> Payable 3 days before event date</li>
+                    <li style="padding: 0.5rem 0;"><i class="fas fa-check" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> <strong>Cleaning Deposit:</strong> ₱1,000 (fully refundable after event, subject to venue inspection)</li>
+                </ul>
+                
+                <div class="contact-manager">
+                    <h3><i class="fas fa-user-shield"></i> Send Proof of Payment To:</h3>
+                    <p style="font-size: 1.2rem; margin: 1rem 0;"><strong>KINT LACSI</strong></p>
+                    <p style="font-size: 1.1rem; margin: 0.5rem 0;"><i class="fas fa-phone"></i> 09916596381</p>
+                    <p style="font-size: 1.1rem; margin: 0.5rem 0;"><i class="fas fa-envelope"></i> presenciavenue@gmail.com</p>
+                    <p style="color: var(--text-gray); margin-top: 1rem;">Your booking will be verified and confirmed within 24 hours.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <div class="modal" id="agreementModal">
-        <div class="modal-content large">
-            <button class="modal-close" onclick="closeAgreementModal()">&times;</button>
-            <h2 style="color: var(--gold-primary); text-align: center; margin-bottom: 1rem;">Client Booking Agreement</h2>
-            <p style="text-align: center; color: var(--text-gray); margin-bottom: 1.5rem;">Please review our terms to finalize your booking.</p>
+        <!-- Manager Dashboard Preview (Public) -->
+        <section id="manager-dashboard">
+            <h2 class="section-title fade-in">Management Control Panel</h2>
+            <p class="section-subtitle fade-in">
+                Powerful admin tools for managing bookings, tracking sales, and generating documents.
+            </p>
             
-            <div class="agreement-text-box">
-                <h4>PAYMENT TERMS</h4>
-                <p><strong>Article 1. Reservation Fee:</strong> A non-refundable Reservation Fee of PHP 2,000 is required. Deducted from total package fee.</p>
-                <p><strong>Article 2. Full Payment:</strong> Remaining balance must be settled in full at least 3 days before the event.</p>
+            <div class="dashboard-preview fade-in">
+                <div class="dashboard-header">
+                    <h3><i class="fas fa-chart-line"></i> Admin Dashboard</h3>
+                    <button class="dashboard-login-btn" onclick="showManagerLogin()">
+                        <i class="fas fa-sign-in-alt"></i> Manager Login
+                    </button>
+                </div>
                 
-                <h4>CANCELLATION & SCHEDULING</h4>
-                <p><strong>Article 3 & 4.</strong> Cancellations within 7 days forfeit 100% of the package rate. Rescheduling requires a PHP 500 fee, subject to availability.</p>
+                <div class="dashboard-content">
+                    <div style="background: rgba(212, 175, 55, 0.1); padding: 1rem; border-radius: 10px; margin-bottom: 2rem; text-align: center;">
+                        <p style="color: var(--gold-primary);"><i class="fas fa-lock"></i> Access restricted to authorized managers only</p>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">Manager: KINT LACSI | Contact: 09916596381</p>
+                    </div>
+                    
+                    <div class="dashboard-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">Total Bookings This Month</div>
+                            <div class="stat-value" id="publicTotalBookings">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Revenue Generated</div>
+                            <div class="stat-value" id="publicRevenue">₱0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Pending Verifications</div>
+                            <div class="stat-value" id="publicPending">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Cancellation Rate</div>
+                            <div class="stat-value">0%</div>
+                        </div>
+                    </div>
+                    
+                    <h3 style="color: var(--gold-primary); margin: 2rem 0 1rem;"><i class="fas fa-cogs"></i> Dashboard Features</h3>
+                    
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <div class="feature-text">
+                                <h4>Booking Management</h4>
+                                <p>View, approve, cancel, or rebook events. Verify deposits and manage schedules.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+                            <div class="feature-text">
+                                <h4>Sales Analytics</h4>
+                                <p>Track revenue trends, popular packages, peak dates, and growth metrics.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-users"></i></div>
+                            <div class="feature-text">
+                                <h4>Client Database</h4>
+                                <p>Manage client profiles, track history, identify repeat customers.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-file-pdf"></i></div>
+                            <div class="feature-text">
+                                <h4>Document Generation</h4>
+                                <p>Create contracts, invoices, return vouchers automatically.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-sliders-h"></i></div>
+                            <div class="feature-text">
+                                <h4>Settings Control</h4>
+                                <p>Update pricing, manage add-ons, block dates, configure notifications.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-bell"></i></div>
+                            <div class="feature-text">
+                                <h4>Notifications</h4>
+                                <p>Auto-reminders for payments, upcoming events, and follow-ups.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section id="testimonials">
+            <h2 class="section-title fade-in">What Our Clients Say</h2>
+            <p class="section-subtitle fade-in">
+                Don't just take our word for it. Here's what our valued clients have experienced.
+            </p>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-card fade-in">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "PRESENCIA made our wedding absolutely perfect! The venue was stunning, the staff was incredibly professional, and the online booking process was so smooth. Highly recommend!"
+                    </p>
+                    <div class="testimonial-author">Maria & Juan</div>
+                    <div class="testimonial-role">Wedding Celebration (Premier Package)</div>
+                </div>
                 
-                <h4>VENUE CARE & POLICIES</h4>
-                <p><strong>Article 9. Cleanliness:</strong> Venue must be returned in the same condition. All trash must be collected.</p>
-                <p><strong>Article 10. Cleaning Deposit:</strong> A PHP 1,000 refundable deposit is required and returned within 3 banking days post-event.</p>
-                <p><strong>Article 12. Prohibited:</strong> No illegal substances, no smoking indoors, no affixing items directly to walls with strong tape.</p>
-                <p><em>*By checking the box below, you agree to the full legally binding terms of PRESENCIA Venue Management.</em></p>
+                <div class="testimonial-card fade-in">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "We hosted our company seminar here and couldn't be happier. The sound system was excellent, the space was perfect for 70 attendees, and the coordinator was so helpful throughout."
+                    </p>
+                    <div class="testimonial-author">TechCorp PH</div>
+                    <div class="testimonial-role">Corporate Seminar (Classic Package)</div>
+                </div>
+                
+                <div class="testimonial-card fade-in">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Booked my daughter's debut here and it exceeded all expectations! The photobooth backdrop was gorgeous, and being able to customize with add-ons made everything so convenient."
+                    </p>
+                    <div class="testimonial-author">Elena R.</div>
+                    <div class="testimonial-role">18th Birthday Debut (Premier Package)</div>
+                </div>
+                
+                <div class="testimonial-card fade-in">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Affordable yet elegant! The Essential package was perfect for our intimate family gathering of 40 people. Great value for money!"
+                    </p>
+                    <div class="testimonial-author">Roberto M.</div>
+                    <div class="testimonial-role">Family Reunion (Essential Package)</div>
+                </div>
+                
+                <div class="testimonial-card fade-in">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "As an event planner, I've worked with many venues, but PRESENCIA stands out for their professionalism and the efficiency of their booking system!"
+                    </p>
+                    <div class="testimonial-author">Grace Events Planning</div>
+                    <div class="testimonial-role">Multiple Events Partner</div>
+                </div>
             </div>
+        </section>
 
-            <div class="referral-box">
-                <h4 style="color: var(--success); margin-bottom: 0.5rem;"><i class="fas fa-gift"></i> PRESENCIA Referral Rewards</h4>
-                <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">Did someone refer you? We reward our referrers! Enter their name below.</p>
-                <input type="text" id="modalReferralName" class="form-control" placeholder="Name of referrer (Optional)">
+        <!-- Partnership -->
+        <section id="partnership">
+            <h2 class="section-title fade-in">Partner With PRESENCIA</h2>
+            <p class="section-subtitle fade-in">
+                Are you an event supplier, caterer, photographer, decorator, or service provider? Let's collaborate!
+            </p>
+            
+            <div class="partnership-container fade-in">
+                <h3 style="color: var(--gold-primary); font-size: 1.8rem; text-align: center; margin-bottom: 1rem;">
+                    <i class="fas fa-handshake"></i> Benefits of Partnering
+                </h3>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <i class="fas fa-bullhorn"></i>
+                        <p>Featured on website & social media</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-users"></i>
+                        <p>Priority referrals from clients</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-ad"></i>
+                        <p>Co-marketing opportunities</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-tags"></i>
+                        <p>Exclusive partner discounts</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-camera"></i>
+                        <p>Venue access for portfolio shoots</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-network-wired"></i>
+                        <p>Network with industry professionals</p>
+                    </div>
+                </div>
+                
+                <h3 style="color: var(--gold-primary); font-size: 1.8rem; text-align: center; margin: 3rem 0 1.5rem;">
+                    <i class="fas fa-search"></i> We're Looking For
+                </h3>
+                
+                <div class="partners-needed">
+                    <div class="partner-type">
+                        <i class="fas fa-camera-retro"></i>
+                        <span>Photographers & Videographers</span>
+                    </div>
+                    <div class="partner-type">
+                        <i class="fas fa-palette"></i>
+                        <span>Event Decorators & Florists</span>
+                    </div>
+                    <div class="partner-type">
+                        <i class="fas fa-utensils"></i>
+                        <span>Caterers & Cake Artists</span>
+                    </div>
+                    <div class="partner-type">
+                        <i class="fas fa-music"></i>
+                        <span>Bands, DJs, & Entertainment</span>
+                    </div>
+                    <div class="partner-type">
+                        <i class="fas fa-spa"></i>
+                        <span>Makeup Artists & Hair Stylists</span>
+                    </div>
+                    <div class="partner-type">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Event Planners & Coordinators</span>
+                    </div>
+                    <div class="partner-type">
+                        <i class="fas fa-car"></i>
+                        <span>Transportation Services</span>
+                    </div>
+                    <div class="partner-type">
+                        <i class="fas fa-gift"></i>
+                        <span>Gift Suppliers & Souvenir Makers</span>
+                    </div>
+                </div>
+                
+                <div class="partnership-form">
+                    <h3 style="color: var(--gold-primary); font-size: 1.8rem; text-align: center; margin-bottom: 2rem;">
+                        <i class="fas fa-envelope-open-text"></i> Partnership Application Form
+                    </h3>
+                    
+                    <form id="partnershipForm" onsubmit="submitPartnership(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Business/Organization Name *</label>
+                                <input type="text" class="form-control" placeholder="Your business name" required id="partnerBusinessName">
+                            </div>
+                            <div class="form-group">
+                                <label>Contact Person *</label>
+                                <input type="text" class="form-control" placeholder="Full name" required id="partnerContactPerson">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" class="form-control" placeholder="09XXXXXXXXX" required id="partnerPhone">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input type="email" class="form-control" placeholder="business@email.com" required id="partnerEmail">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Services Offered *</label>
+                            <input type="text" class="form-control" placeholder="Describe your services" required id="partnerServices">
+                        </div>
+                        <div class="form-group">
+                            <label>Why do you want to partner with PRESENCIA? *</label>
+                            <textarea class="form-control" rows="4" placeholder="Tell us about your interest..." required id="partnerReason"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;" id="submitPartnershipBtn">
+                            <i class="fas fa-paper-plane"></i> Submit Partnership Application
+                        </button>
+                    </form>
+
+                    <!-- Partnership PDF Download Section -->
+                    <div class="pdf-download-section" id="partnershipPdfSection">
+                        <h3><i class="fas fa-file-signature"></i> 🤝 Partnership Application Submitted!</h3>
+                        <p style="color: var(--text-gray); margin-bottom: 1rem;">
+                            Thank you for your interest in partnering with PRESENCIA!
+                        </p>
+                        <div class="pdf-buttons">
+                            <button class="btn-pdf partnership" onclick="generatePartnershipPDF()">
+                                <i class="fas fa-download"></i> Download Partnership Agreement
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: var(--black-tertiary); border-radius: 15px;">
+                    <h3 style="color: var(--gold-primary); margin-bottom: 1rem;"><i class="fas fa-phone-alt"></i> For Immediate Discussions</h3>
+                    <p style="font-size: 1.2rem; margin: 0.5rem 0;"><strong>KINT LACSI</strong></p>
+                    <p style="font-size: 1.1rem; margin: 0.5rem 0;"><i class="fas fa-mobile-alt"></i> 09916596381</p>
+                    <p style="font-size: 1.1rem; margin: 0.5rem 0;"><i class="fas fa-envelope"></i> presenciavenue@gmail.com</p>
+                </div>
             </div>
+        </section>
 
-            <label class="checkbox-container">
-                <input type="checkbox" id="modalAgreeTerms">
-                <span style="color: var(--white); font-size: 0.95rem;">I have read, understood, and agree to the Terms and Conditions stated above.</span>
-            </label>
-
-            <div class="form-group">
-                <label>Digital Signature (Type your Full Name) *</label>
-                <input type="text" id="modalSignature" class="form-control" placeholder="e.g., Juan Dela Cruz">
+        <!-- Contact Footer -->
+        <section id="contact-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-section">
+                        <img src="https://z-cdn-media.chatglm.cn/files/23aea94c-10b4-4c0a-bd1c-0bdb57039e4c.png?auth_key=1882896281-39e0a920cfb240e49e132b046f4fbbbb-0-cbbb7554229a8579529f5ea1ed5d3278" alt="PRESENCIA Logo - Footer" class="footer-logo">
+                        <p>Premium venue management for unforgettable events. Where presence becomes experience.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
+                        <p><strong>PRESENCIA Venue Management</strong></p>
+                        <p>Horizon PH Events Place</p>
+                        <p>New Lower Bicutan, Taguig City</p>
+                        <p>(Front of Bicutan Med)</p>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h3><i class="fas fa-phone-alt"></i> Contact Details</h3>
+                        <p><i class="fas fa-phone"></i> General Inquiries: 09916596381</p>
+                        <p><i class="fas fa-envelope"></i> presenciavenue@gmail.com</p>
+                        <p><i class="fas fa-wallet"></i> Payments: 09770264721</p>
+                        <br>
+                        <p><strong>Business Hours:</strong></p>
+                        <p>Booking System: 24/7 Online</p>
+                        <p>Venue Tours: By Appointment Only</p>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h3><i class="fas fa-link"></i> Quick Links</h3>
+                        <a href="#hero">Home</a>
+                        <a href="#venue-gallery">Venue Gallery</a>
+                        <a href="#packages">Event Packages</a>
+                        <a href="#booking-system">Book Now</a>
+                        <a href="#payment-methods">Payment Info</a>
+                        <a href="#testimonials">Testimonials</a>
+                        <a href="#partnership">Partner With Us</a>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p>&copy; 2024 PRESENCIA Venue Management. All Rights Reserved.</p>
+                    <p class="tagline">Where Presence Becomes Experience ✨</p>
+                </div>
             </div>
-
-            <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="finalizeBooking()">Confirm & Finalize Booking</button>
-        </div>
+        </section>
     </div>
 
+    <!-- Manager Login Modal -->
     <div class="modal" id="managerModal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeManagerLogin()">&times;</button>
-            <h2 style="color: var(--gold-primary); text-align: center; margin-bottom: 2rem;"><i class="fas fa-user-shield"></i> Manager Login</h2>
+            <h2 style="color: var(--gold-primary); text-align: center; margin-bottom: 2rem;">
+                <i class="fas fa-user-shield"></i> Manager Login
+            </h2>
             <form onsubmit="handleManagerLogin(event)">
-                <div class="form-group"><label>Username</label><input type="text" class="form-control" id="managerUsername" required></div>
-                <div class="form-group"><label>Password</label><input type="password" class="form-control" id="managerPassword" required></div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Login to Dashboard</button>
+                <div class="form-group">
+                    <label>Username / Email</label>
+                    <input type="text" class="form-control" id="managerUsername" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="managerPassword" placeholder="Enter password" required>
+                </div>
+                <p style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1rem; text-align: center;">
+                    <i class="fas fa-info-circle"></i> Default credentials: admin / admin123
+                </p>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i> Login to Dashboard
+                </button>
             </form>
         </div>
     </div>
 
+    <!-- Toast Notification -->
     <div class="toast" id="toast"></div>
 
     <script>
-        // Global Variables
-        let pendingBookingData = null; 
-        let currentBookingData = null; 
-
-        // Initialize Local Storage
-        document.addEventListener('DOMContentLoaded', () => {
+        // =====================================================
+        // DATA STORAGE SYSTEM
+        // =====================================================
+        
+        let currentBookingData = null; // Store current booking for PDF generation
+        
+        // Initialize storage
+        function initializeStorage() {
             if (!localStorage.getItem('presencia_bookings')) {
                 localStorage.setItem('presencia_bookings', JSON.stringify([]));
             }
+        }
+
+        // Get all bookings
+        function getBookings() {
+            return JSON.parse(localStorage.getItem('presencia_bookings')) || [];
+        }
+
+        // Save bookings
+        function saveBookings(bookings) {
+            localStorage.setItem('presencia_bookings', JSON.stringify(bookings));
+            updatePublicStats();
+        }
+
+        // Add new booking
+        function addBooking(bookingData) {
+            const bookings = getBookings();
+            const newBooking = {
+                ...bookingData,
+                id: 'BK' + Date.now(),
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+            bookings.unshift(newBooking);
+            saveBookings(bookings);
+            return newBooking;
+        }
+
+        // =====================================================
+        // NAVBAR SCROLL EFFECT
+        // =====================================================
+        
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // =====================================================
+        // FADE IN ANIMATIONS
+        // =====================================================
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // =====================================================
+        // MOBILE MENU
+        // =====================================================
+        
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '80px';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.background = 'rgba(10, 10, 10, 0.98)';
+                navLinks.style.padding = '2rem';
+            }
+        }
+
+        // =====================================================
+        // DATE VALIDATION
+        // =====================================================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeStorage();
             updatePublicStats();
             
             const dateInput = document.getElementById('eventDate');
@@ -686,308 +2664,828 @@
             }
         });
 
-        function getBookings() {
-            return JSON.parse(localStorage.getItem('presencia_bookings')) || [];
-        }
-
-        function saveBookings(bookings) {
-            localStorage.setItem('presencia_bookings', JSON.stringify(bookings));
-            updatePublicStats();
-            if(document.getElementById('dashboardContentSecure').style.display === 'block') {
-                renderAdminTable();
+        // =====================================================
+        // AVAILABILITY CHECK
+        // =====================================================
+        
+        function checkAvailability() {
+            const dateInput = document.getElementById('eventDate');
+            const statusDiv = document.getElementById('availabilityStatus');
+            
+            if (dateInput.value) {
+                const bookings = getBookings();
+                const isDateBooked = bookings.some(b => b.eventDate === dateInput.value && b.status !== 'cancelled');
+                
+                if (isDateBooked) {
+                    statusDiv.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem; background: rgba(244, 67, 54, 0.1); border-radius: 10px; border-left: 4px solid #f44336;">
+                            <i class="fas fa-times-circle" style="color: #f44336; font-size: 1.2rem;"></i>
+                            <span style="color: #f44336; font-weight: 500;">⚠️ This date already has a booking. Please select another date.</span>
+                        </div>
+                    `;
+                } else {
+                    statusDiv.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem; background: rgba(76, 175, 80, 0.1); border-radius: 10px; border-left: 4px solid #4CAF50;">
+                            <i class="fas fa-check-circle" style="color: #4CAF50; font-size: 1.2rem;"></i>
+                            <span style="color: #4CAF50; font-weight: 500;">✓ Date is available for booking!</span>
+                        </div>
+                    `;
+                }
+            } else {
+                statusDiv.innerHTML = '';
             }
         }
 
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = 'toast show ' + type;
-            setTimeout(() => toast.classList.remove('show'), 4000);
-        }
-
-        function selectPackage(packageName, price) {
-            document.getElementById('packageSelect').value = `${packageName}|${price}`;
-            updateBookingSummary();
-            document.getElementById('booking-system').scrollIntoView({ behavior: 'smooth' });
-            showToast(`Package selected!`);
-        }
-
+        // =====================================================
+        // BOOKING SUMMARY CALCULATOR
+        // =====================================================
+        
         function updateBookingSummary() {
             const packageSelect = document.getElementById('packageSelect');
             const summaryDiv = document.getElementById('summaryContent');
             
             if (!packageSelect.value) {
-                summaryDiv.innerHTML = '<p style="color: var(--text-gray); text-align: center;">Please select a package.</p>';
+                summaryDiv.innerHTML = '<p style="color: var(--text-gray); text-align: center;">Please complete the form above to see your booking summary.</p>';
                 return;
             }
             
             const [packageName, basePrice] = packageSelect.value.split('|');
             let total = parseInt(basePrice);
+            
+            let addonDetails = [];
+            document.querySelectorAll('input[name="addon"]:checked').forEach(addon => {
+                const [name, price] = addon.value.split('|');
+                total += parseInt(price);
+                addonDetails.push({ name: name.replace('_', ' '), price: parseInt(price) });
+            });
+            
             const deposit = Math.round(total * 0.5);
             const cleaningDeposit = 1000;
             
-            summaryDiv.innerHTML = `
-                <div class="summary-row"><span><strong>Selected Package:</strong></span><span style="color:var(--gold-primary);">${packageName.toUpperCase()}</span></div>
-                <div class="summary-row"><span>Base Price:</span><span>₱${total.toLocaleString()}</span></div>
-                <div class="summary-row"><span>Initial Deposit (50%):</span><span style="color: var(--gold-light);">₱${deposit.toLocaleString()}</span></div>
-                <div class="summary-row"><span>Cleaning Deposit (Refundable):</span><span>₱${cleaningDeposit.toLocaleString()}</span></div>
-                <div class="summary-total"><span>Total Due Now:</span><span>₱${(deposit + cleaningDeposit).toLocaleString()}</span></div>
+            let html = `
+                <div class="summary-row">
+                    <span><strong>Selected Package:</strong></span>
+                    <span style="color: var(--gold-primary);">${packageName.charAt(0).toUpperCase() + packageName.slice(1)} Package</span>
+                </div>
+                <div class="summary-row">
+                    <span>Base Price:</span>
+                    <span>₱${parseInt(basePrice).toLocaleString()}</span>
+                </div>
             `;
+            
+            if (addonDetails.length > 0) {
+                html += `<div class="summary-row"><strong>Add-Ons Selected:</strong></div>`;
+                addonDetails.forEach(addon => {
+                    html += `
+                        <div class="summary-row" style="padding-left: 1rem;">
+                            <span>${addon.name.replace(/_/g, ' ')}</span>
+                            <span>+₱${addon.price.toLocaleString()}</span>
+                        </div>
+                    `;
+                });
+            }
+            
+            html += `
+                <div class="summary-row">
+                    <span><strong>Subtotal:</strong></span>
+                    <span>₱${total.toLocaleString()}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Initial Deposit (50%):</span>
+                    <span style="color: var(--gold-light);">₱${deposit.toLocaleString()}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Cleaning Deposit (Refundable):</span>
+                    <span>₱${cleaningDeposit.toLocaleString()}</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total Due Now:</span>
+                    <span>₱${(deposit + cleaningDeposit).toLocaleString()}</span>
+                </div>
+            `;
+            
+            summaryDiv.innerHTML = html;
         }
 
-        // Validate Main Form -> Open Modal
-        function processBookingRequest() {
-            const packageSelect = document.getElementById('packageSelect').value;
-            const eventDate = document.getElementById('eventDate').value;
-            const clientName = document.getElementById('clientName').value.trim();
-            const clientEmail = document.getElementById('clientEmail').value.trim();
-            const clientPhone = document.getElementById('clientPhone').value.trim();
+        // =====================================================
+        // SELECT PACKAGE FROM CARDS
+        // =====================================================
+        
+        function selectPackage(packageName, price) {
+            document.getElementById('packageSelect').value = `${packageName}|${price}`;
+            updateBookingSummary();
+            document.getElementById('booking-system').scrollIntoView({ behavior: 'smooth' });
+            showToast(`Package selected! Complete your booking below.`);
+        }
+
+        // =====================================================
+        // ✅ FIXED: SUBMIT BOOKING FORM - FULLY FUNCTIONAL
+        // =====================================================
+        
+        function submitBookingForm() {
+            console.log('🚀 Submit button clicked!');
             
-            if(!packageSelect || !eventDate || !clientName || !clientEmail || !clientPhone) {
-                showToast('⚠️ Please fill out all required fields marked with *', 'error');
+            // Get all form fields
+            const packageSelect = document.getElementById('packageSelect');
+            const clientName = document.getElementById('clientName');
+            const clientEmail = document.getElementById('clientEmail');
+            const clientPhone = document.getElementById('clientPhone');
+            const eventType = document.getElementById('eventType');
+            const guestCount = document.getElementById('guestCount');
+            const eventDate = document.getElementById('eventDate');
+            const ingressTime = document.getElementById('ingressTime');
+            const specialRequests = document.getElementById('specialRequests');
+
+            // Validation
+            let isValid = true;
+            let errorMessage = '';
+
+            // Check each field
+            if (!packageSelect.value) {
+                packageSelect.style.borderColor = '#ff4444';
+                isValid = false;
+                errorMessage = 'Please select a package.';
+            } else {
+                packageSelect.style.borderColor = '';
+            }
+
+            if (!clientName.value.trim()) {
+                clientName.style.borderColor = '#ff4444';
+                isValid = false;
+                errorMessage = errorMessage || 'Please enter your full name.';
+            } else {
+                clientName.style.borderColor = '';
+            }
+
+            if (!clientEmail.value.trim()) {
+                clientEmail.style.borderColor = '#ff4444';
+                isValid = false;
+                errorMessage = errorMessage || 'Please enter your email address.';
+            } else if (!isValidEmail(clientEmail.value)) {
+                clientEmail.style.borderColor = '#ff4444';
+                isValid = false;
+                errorMessage = errorMessage || 'Please enter a valid email address.';
+            } else {
+                clientEmail.style.borderColor = '';
+            }
+
+            if (!clientPhone.value.trim()) {
+                clientPhone.style.borderColor = '#ff4444';
+                isValid = false;
+                errorMessage = errorMessage || 'Please enter your phone number.';
+            } else {
+                clientPhone.style.borderColor = '';
+            }
+
+            if (!eventType.value) {
+                eventType.style.borderColor = '#ff4444';
+                isValid = false;
+                errorMessage = errorMessage || 'Please select an event type.';
+            } else {
+                eventType.style.borderColor = '';
+            }
+
+            if (!guestCount.value || guestCount.value < 1) {
+                guestCount.style.borderColor = '#ff4444';
+                isValid = false;
+                errorMessage = errorMessage || 'Please enter a valid guest count.';
+            } else {
+                guestCount.style.borderColor = '';
+            }
+
+            if (!eventDate.value) {
+                eventDate.style.borderColor = '#ff4444';
+                isValid = false;
+                errorMessage = errorMessage || 'Please select an event date.';
+            } else {
+                eventDate.style.borderColor = '';
+            }
+
+            if (!ingressTime.value) {
+                ingressTime.style.borderColor = '#ff4444';
+                isValid = false;
+                errorMessage = errorMessage || 'Please select an ingress time.';
+            } else {
+                ingressTime.style.borderColor = '';
+            }
+
+            // If validation fails, show error and stop
+            if (!isValid) {
+                showToast('⚠️ ' + errorMessage, 'error');
+                
+                // Scroll to first invalid field
+                const firstInvalid = document.querySelector('.form-control[style*="border-color: rgb(255, 68, 54)"]');
+                if (firstInvalid) {
+                    firstInvalid.focus();
+                    firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
                 return;
             }
 
-            // Check availability
-            const bookings = getBookings();
-            if (bookings.some(b => b.eventDate === eventDate && b.status !== 'cancelled')) {
-                showToast('❌ Date already booked!', 'error');
-                return;
+            // Validation passed! Process the booking
+            console.log('✅ Validation passed! Processing booking...');
+
+            try {
+                // Gather booking data
+                const packageData = packageSelect.value.split('|');
+                const packageName = packageData[0];
+                const basePrice = parseInt(packageData[1]);
+
+                // Calculate addons
+                let addons = [];
+                let addonTotal = 0;
+                document.querySelectorAll('input[name="addon"]:checked').forEach(addon => {
+                    const [name, price] = addon.value.split('|');
+                    addons.push(name.replace('_', ' '));
+                    addonTotal += parseInt(price);
+                });
+
+                const totalAmount = basePrice + addonTotal;
+                const initialDeposit = Math.round(totalAmount * 0.5);
+
+                // Create booking object
+                const bookingData = {
+                    clientName: clientName.value.trim(),
+                    clientEmail: clientEmail.value.trim(),
+                    clientPhone: clientPhone.value.trim(),
+                    eventType: eventType.value,
+                    guestCount: guestCount.value,
+                    specialRequests: specialRequests.value.trim(),
+                    packageType: packageName,
+                    packagePrice: basePrice,
+                    eventDate: eventDate.value,
+                    ingressTime: ingressTime.value,
+                    addons: addons,
+                    addonCost: addonTotal,
+                    totalAmount: totalAmount,
+                    initialDeposit: initialDeposit,
+                    cleaningDeposit: 1000,
+                    totalDueNow: initialDeposit + 1000
+                };
+
+                // Check availability again before saving
+                const bookings = getBookings();
+                const isDateBooked = bookings.some(b => b.eventDate === bookingData.eventDate && b.status !== 'cancelled');
+                
+                if (isDateBooked) {
+                    showToast('❌ This date is already booked! Please select another date.', 'error');
+                    return;
+                }
+
+                // Save booking to localStorage
+                const newBooking = addBooking(bookingData);
+                
+                // Store current booking data for PDF generation
+                currentBookingData = newBooking;
+
+                console.log('💾 Booking saved successfully!', newBooking);
+
+                // Show success message
+                showToast(`🎉 Booking submitted successfully! Reference: ${newBooking.id}`, 'success');
+
+                // Show PDF download section
+                document.getElementById('bookingRefNumber').textContent = newBooking.id;
+                document.getElementById('pdfDownloadSection').classList.add('show');
+
+                // Scroll to PDF section
+                setTimeout(() => {
+                    document.getElementById('pdfDownloadSection').scrollIntoView({ behavior: 'smooth' });
+                }, 500);
+
+                // Reset form (optional - comment out if you want to keep data)
+                /*
+                setTimeout(() => {
+                    document.getElementById('packageSelect').value = '';
+                    clientName.value = '';
+                    clientEmail.value = '';
+                    clientPhone.value = '';
+                    eventType.value = '';
+                    guestCount.value = '';
+                    eventDate.value = '';
+                    ingressTime.value = '';
+                    specialRequests.value = '';
+                    document.querySelectorAll('input[name="addon"]').forEach(cb => cb.checked = false);
+                    updateBookingSummary();
+                    document.getElementById('availabilityStatus').innerHTML = '';
+                    document.getElementById('pdfDownloadSection').classList.remove('show');
+                }, 3000);
+                */
+
+            } catch (error) {
+                console.error('❌ Error submitting booking:', error);
+                showToast('❌ An error occurred. Please try again.', 'error');
             }
-
-            const [pkgName, price] = packageSelect.split('|');
-            const basePrice = parseInt(price);
-            
-            pendingBookingData = {
-                clientName, clientEmail, clientPhone,
-                eventDate: eventDate,
-                ingressTime: document.getElementById('ingressTime').value,
-                eventType: document.getElementById('eventType').value,
-                guestCount: document.getElementById('guestCount').value,
-                packageType: pkgName,
-                totalAmount: basePrice,
-                initialDeposit: Math.round(basePrice * 0.5),
-                cleaningDeposit: 1000
-            };
-
-            // Reset modal inputs
-            document.getElementById('modalAgreeTerms').checked = false;
-            document.getElementById('modalSignature').value = '';
-            document.getElementById('modalReferralName').value = '';
-            
-            document.getElementById('agreementModal').classList.add('active');
         }
 
-        function closeAgreementModal() {
-            document.getElementById('agreementModal').classList.remove('active');
+        // Email validation helper
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
         }
 
-        // Finalize inside Modal
-        function finalizeBooking() {
-            const isAgreed = document.getElementById('modalAgreeTerms').checked;
-            const signature = document.getElementById('modalSignature').value.trim();
-            const referral = document.getElementById('modalReferralName').value.trim();
+        // =====================================================
+        // PDF GENERATION FUNCTIONS
+        // =====================================================
 
-            if (!isAgreed) {
-                showToast('⚠️ You must agree to the Terms and Conditions.', 'error');
-                return;
-            }
-            if (!signature) {
-                showToast('⚠️ Please provide your digital signature.', 'error');
-                return;
-            }
-
-            // Combine data
-            currentBookingData = {
-                ...pendingBookingData,
-                id: 'BK' + Date.now(),
-                status: 'pending',
-                referralName: referral,
-                clientSignature: signature,
-                agreedToTerms: true,
-                createdAt: new Date().toISOString()
-            };
-
-            const bookings = getBookings();
-            bookings.unshift(currentBookingData);
-            saveBookings(bookings);
-
-            closeAgreementModal();
-            showToast(`🎉 Booking submitted! Ref: ${currentBookingData.id}`, 'success');
-            
-            document.getElementById('bookingRefNumber').textContent = currentBookingData.id;
-            document.getElementById('pdfDownloadSection').classList.add('show');
-            setTimeout(() => document.getElementById('pdfDownloadSection').scrollIntoView({ behavior: 'smooth' }), 500);
-        }
-
-        // PDF Generators
         function generateContractPDF() {
-            if (!currentBookingData) return;
+            if (!currentBookingData) {
+                showToast('No booking data available.', 'error');
+                return;
+            }
+
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            
-            doc.setFillColor(212, 175, 55);
-            doc.rect(0, 0, 210, 40, 'F');
-            doc.setTextColor(10, 10, 10);
-            doc.setFontSize(22);
-            doc.text('CLIENT BOOKING AGREEMENT', 105, 25, { align: 'center' });
-            
+
+            // Set colors
+            const goldColor = [212, 175, 55];
+            const blackColor = [10, 10, 10];
+
+            // Header
+            doc.setFillColor(...goldColor);
+            doc.rect(0, 0, 210, 50, 'F');
+            doc.setTextColor(...blackColor);
+            doc.setFontSize(28);
+            doc.text('PRESENCIA', 105, 30, { align: 'center' });
+            doc.setFontSize(14);
+            doc.text('VENUE MANAGEMENT', 105, 42, { align: 'center' });
+
+            // Title
+            doc.setTextColor(...blackColor);
+            doc.setFontSize(24);
+            doc.text('EVENT BOOKING CONTRACT', 105, 70, { align: 'center' });
+
+            // Contract info
             doc.setFontSize(11);
-            doc.text(`Ref ID: ${currentBookingData.id}`, 20, 50);
-            doc.text(`Date: ${new Date().toLocaleDateString()}`, 150, 50);
+            doc.text(`Contract No: ${currentBookingData.id}`, 20, 90);
+            doc.text(`Date: ${new Date().toLocaleDateString()}`, 150, 90);
+
+            // Parties
+            doc.setFontSize(13);
+            doc.setTextColor(...goldColor);
+            doc.text('PARTIES:', 20, 110);
             
+            doc.setTextColor(...blackColor);
+            doc.setFontSize(11);
+            doc.text('THE COMPANY:', 20, 125);
+            doc.text('PRESENCIA Venue Management', 20, 133);
+            doc.text('Horizon PH Events Place', 20, 141);
+            doc.text('New Lower Bicutan, Taguig City', 20, 149);
+            doc.text('Contact: 09916596381', 20, 157);
+            doc.text('Email: presenciavenue@gmail.com', 20, 165);
+
+            doc.text('THE CLIENT:', 120, 125);
+            doc.text(`Name: ${currentBookingData.clientName}`, 120, 133);
+            doc.text(`Email: ${currentBookingData.clientEmail}`, 120, 141);
+            doc.text(`Phone: ${currentBookingData.clientPhone}`, 120, 149);
+
+            // Event Details
+            doc.setFillColor(245, 229, 176);
+            doc.rect(20, 180, 170, 60, 'F');
+            doc.setTextColor(...blackColor);
             doc.setFontSize(12);
-            doc.setTextColor(212, 175, 55);
-            doc.text('CLIENT DETAILS', 20, 65);
-            doc.setTextColor(10, 10, 10);
-            doc.text(`Name: ${currentBookingData.clientName}`, 20, 75);
-            doc.text(`Email: ${currentBookingData.clientEmail}`, 20, 82);
-            doc.text(`Phone: ${currentBookingData.clientPhone}`, 20, 89);
-            
-            doc.setTextColor(212, 175, 55);
-            doc.text('EVENT DETAILS', 120, 65);
-            doc.setTextColor(10, 10, 10);
-            doc.text(`Date: ${currentBookingData.eventDate}`, 120, 75);
-            doc.text(`Package: ${currentBookingData.packageType.toUpperCase()}`, 120, 82);
-            doc.text(`Guests: ${currentBookingData.guestCount}`, 120, 89);
-
-            doc.setFillColor(245, 245, 245);
-            doc.rect(20, 100, 170, 60, 'F');
+            doc.text('EVENT DETAILS', 25, 192);
             doc.setFontSize(10);
-            doc.text('TERMS AGREEMENT ACKNOWLEDGMENT', 25, 110);
-            doc.setFontSize(9);
-            doc.text('The client acknowledges and agrees to the full Terms and Conditions of', 25, 120);
-            doc.text('PRESENCIA Venue Management, including:', 25, 126);
-            doc.text('- Non-refundable 50% reservation deposit.', 30, 134);
-            doc.text('- Cleaning deposit of PHP 1,000 (Refundable post-event).', 30, 140);
-            doc.text('- Strict adherence to venue capacity and no-damage policies.', 30, 146);
-            
-            doc.setFontSize(11);
-            doc.text('DIGITAL SIGNATURE:', 20, 180);
-            doc.text(currentBookingData.clientSignature, 20, 190);
-            doc.line(20, 192, 80, 192);
-            doc.setFontSize(9);
-            doc.text('Client Signature / Printed Name', 20, 198);
+            doc.text(`Event Type: ${currentBookingData.eventType}`, 25, 205);
+            doc.text(`Date: ${currentBookingData.eventDate}`, 25, 215);
+            doc.text(`Ingress Time: ${currentBookingData.ingressTime}`, 25, 225);
+            doc.text(`Expected Guests: ${currentBookingData.guestCount}`, 25, 235);
 
-            if(currentBookingData.referralName) {
-                doc.text(`Referred by: ${currentBookingData.referralName}`, 120, 190);
+            // Package Details
+            doc.setTextColor(...goldColor);
+            doc.setFontSize(12);
+            doc.text('PACKAGE SELECTED:', 20, 255);
+            
+            doc.setTextColor(...blackColor);
+            doc.setFontSize(11);
+            doc.text(`${currentBookingData.packageType.toUpperCase()} Package - ₱${currentBookingData.packagePrice.toLocaleString()}`, 20, 268);
+            
+            if (currentBookingData.addons && currentBookingData.addons.length > 0) {
+                doc.text('Add-Ons: ' + currentBookingData.addons.join(', '), 20, 278);
             }
 
+            // Financial Summary
+            doc.setFillColor(240, 240, 240);
+            doc.rect(20, 295, 170, 50, 'F');
+            doc.setTextColor(...blackColor);
+            doc.setFontSize(11);
+            doc.text('FINANCIAL SUMMARY', 25, 305);
+            doc.text(`Total Amount: ₱${currentBookingData.totalAmount.toLocaleString()}`, 25, 317);
+            doc.text(`Initial Deposit (50%): ₱${currentBookingData.initialDeposit.toLocaleString()}`, 25, 327);
+            doc.text(`Cleaning Deposit: ₱${currentBookingData.cleaningDeposit.toLocaleString()}`, 25, 337);
+
+            // Terms
+            doc.setTextColor(...goldColor);
+            doc.setFontSize(12);
+            doc.text('TERMS & CONDITIONS:', 20, 360);
+            
+            doc.setTextColor(...blackColor);
+            doc.setFontSize(9);
+            const terms = [
+                '1. A 50% initial deposit is required to confirm this booking.',
+                '2. Remaining balance must be paid 3 days before the event.',
+                '3. Cleaning deposit of ₱1,000 is refundable after venue inspection.',
+                '4. Cancellations made less than 7 days before event forfeit the deposit.',
+                '5. Client agrees to follow all venue rules and regulations.',
+                '6. PRESENCIA reserves the right to refuse entry for violation of terms.'
+            ];
+            
+            let yPos = 375;
+            terms.forEach(term => {
+                doc.text(term, 20, yPos);
+                yPos += 12;
+            });
+
+            // Signatures
+            doc.setTextColor(...blackColor);
+            doc.setFontSize(11);
+            doc.text('SIGNATURES:', 20, yPos + 15);
+            
+            doc.line(20, yPos + 25, 90, yPos + 25);
+            doc.text('Client Signature', 25, yPos + 35);
+            doc.text('Date: _____________', 25, yPos + 45);
+
+            doc.line(120, yPos + 25, 190, yPos + 25);
+            doc.text('PRESENCIA Representative', 130, yPos + 35);
+            doc.text('Date: _____________', 130, yPos + 45);
+
+            // Footer
+            doc.setFillColor(...goldColor);
+            doc.rect(0, 280, 210, 5, 'F');
+            
+            // Save the PDF
             doc.save(`PRESENCIA_Contract_${currentBookingData.id}.pdf`);
+            showToast('📄 Contract PDF downloaded successfully!', 'success');
         }
 
         function generateInvoicePDF() {
-            if (!currentBookingData) return;
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            doc.setFillColor(212, 175, 55);
-            doc.rect(0, 0, 210, 40, 'F');
-            doc.setTextColor(10, 10, 10);
-            doc.setFontSize(24);
-            doc.text('INVOICE', 105, 25, { align: 'center' });
-            
-            doc.setFontSize(12);
-            doc.text(`Invoice #: INV-${currentBookingData.id}`, 20, 60);
-            doc.text(`Total Package: ₱${currentBookingData.totalAmount.toLocaleString()}`, 20, 80);
-            doc.text(`50% Deposit Due: ₱${currentBookingData.initialDeposit.toLocaleString()}`, 20, 90);
-            doc.text(`Cleaning Deposit: ₱${currentBookingData.cleaningDeposit.toLocaleString()}`, 20, 100);
-            
-            doc.setFontSize(14);
-            doc.text(`TOTAL AMOUNT DUE NOW: ₱${(currentBookingData.initialDeposit + currentBookingData.cleaningDeposit).toLocaleString()}`, 20, 120);
-            
-            doc.save(`PRESENCIA_Invoice_${currentBookingData.id}.pdf`);
-        }
-
-        // =====================================
-        // MANAGER DASHBOARD LOGIC
-        // =====================================
-        
-        function updatePublicStats() {
-            const bookings = getBookings();
-            const rev = bookings.reduce((sum, b) => sum + (b.totalAmount || 0), 0);
-            document.getElementById('publicTotalBookings').textContent = bookings.length;
-            document.getElementById('publicRevenue').textContent = '₱' + rev.toLocaleString();
-        }
-
-        function showManagerLogin() { document.getElementById('managerModal').classList.add('active'); }
-        function closeManagerLogin() { document.getElementById('managerModal').classList.remove('active'); }
-
-        function handleManagerLogin(e) {
-            e.preventDefault();
-            const u = document.getElementById('managerUsername').value;
-            const p = document.getElementById('managerPassword').value;
-            if ((u === 'admin' || u === 'kint') && p === 'admin123') {
-                closeManagerLogin();
-                showToast('🔐 Welcome Manager!', 'success');
-                
-                document.getElementById('loginBtn').style.display = 'none';
-                document.getElementById('logoutBtn').style.display = 'inline-block';
-                document.getElementById('dashboardContentPublic').style.display = 'none';
-                document.getElementById('dashboardContentSecure').style.display = 'block';
-                
-                renderAdminTable();
-            } else {
-                showToast('❌ Invalid credentials.', 'error');
-            }
-        }
-
-        function handleLogout() {
-            document.getElementById('loginBtn').style.display = 'inline-block';
-            document.getElementById('logoutBtn').style.display = 'none';
-            document.getElementById('dashboardContentPublic').style.display = 'block';
-            document.getElementById('dashboardContentSecure').style.display = 'none';
-            showToast('Logged out successfully.');
-        }
-
-        function renderAdminTable() {
-            const tbody = document.getElementById('adminBookingTableBody');
-            const bookings = getBookings();
-            tbody.innerHTML = '';
-            
-            if(bookings.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No bookings found.</td></tr>';
+            if (!currentBookingData) {
+                showToast('No booking data available.', 'error');
                 return;
             }
 
-            bookings.forEach(b => {
-                const tr = document.createElement('tr');
-                let statusClass = `status-${b.status.toLowerCase()}`;
-                
-                tr.innerHTML = `
-                    <td><strong>${b.id}</strong></td>
-                    <td>${b.clientName}</td>
-                    <td>${b.clientPhone}<br><small style="color:var(--text-gray)">${b.clientEmail}</small></td>
-                    <td>${b.packageType.toUpperCase()}<br><small style="color:var(--gold-primary)">${b.eventDate}</small></td>
-                    <td><span class="status-badge ${statusClass}">${b.status}</span></td>
-                    <td>
-                        <select class="action-select" onchange="updateBookingStatus('${b.id}', this.value)">
-                            <option value="">Actions...</option>
-                            <option value="Confirmed" ${b.status==='Confirmed'?'disabled':''}>Confirm</option>
-                            <option value="Rescheduled" ${b.status==='Rescheduled'?'disabled':''}>Reschedule</option>
-                            <option value="Cancelled" ${b.status==='Cancelled'?'disabled':''}>Cancel</option>
-                        </select>
-                    </td>
-                `;
-                tbody.appendChild(tr);
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const goldColor = [212, 175, 55];
+
+            // Header
+            doc.setFillColor(...goldColor);
+            doc.rect(0, 0, 210, 45, 'F');
+            doc.setTextColor(10, 10, 10);
+            doc.setFontSize(24);
+            doc.text('INVOICE', 105, 25, { align: 'center' });
+            doc.setFontSize(12);
+            doc.text('PRESENCIA VENUE MANAGEMENT', 105, 38, { align: 'center' });
+
+            // Invoice details
+            doc.setTextColor(10, 10, 10);
+            doc.setFontSize(11);
+            doc.text(`Invoice #: INV-${currentBookingData.id}`, 20, 60);
+            doc.text(`Date: ${new Date().toLocaleDateString()}`, 150, 60);
+            doc.text(`Due Date: ${new Date(Date.parse(currentBookingData.eventDate) - 3 * 24 * 60 * 60 * 1000).toLocaleDateString()}`, 150, 70);
+
+            // Bill To
+            doc.setFillColor(245, 229, 176);
+            doc.rect(20, 85, 170, 45, 'F');
+            doc.setFontSize(12);
+            doc.setTextColor(...goldColor);
+            doc.text('BILL TO:', 25, 97);
+            doc.setTextColor(10, 10, 10);
+            doc.setFontSize(11);
+            doc.text(currentBookingData.clientName, 25, 110);
+            doc.text(currentBookingData.clientEmail, 25, 120);
+            doc.text(currentBookingData.clientPhone, 25, 130);
+
+            // Items Table
+            doc.setTextColor(...goldColor);
+            doc.setFontSize(13);
+            doc.text('ITEM DESCRIPTION', 20, 145);
+            doc.text('QTY', 140, 145);
+            doc.text('AMOUNT', 170, 145);
+
+            doc.setDrawColor(200, 200, 200);
+            doc.line(20, 152, 190, 152);
+
+            doc.setTextColor(10, 10, 10);
+            doc.setFontSize(10);
+            doc.text(`${currentBookingData.packageType.toUpperCase()} Package`, 25, 160);
+            doc.text('1', 145, 160);
+            doc.text(`₱${currentBookingData.packagePrice.toLocaleString()}`, 165, 160);
+
+            // Add-ons
+            if (currentBookingData.addons && currentBookingData.addons.length > 0) {
+                currentBookingData.addons.forEach((addon, index) => {
+                    const y = 172 + (index * 12);
+                    doc.text(`  • ${addon}`, 25, y);
+                    doc.text('-', 147, y);
+                    doc.text('+ Add-on', 165, y);
+                });
+            }
+
+            // Totals
+            doc.setDrawColor(200, 200, 200);
+            let totalY = 180 + (currentBookingData.addons ? currentBookingData.addons.length * 12 : 0);
+            doc.line(20, totalY, 190, totalY);
+
+            doc.setFontSize(11);
+            doc.text('Subtotal:', 25, totalY + 10);
+            doc.text(`₱${currentBookingData.totalAmount.toLocaleString()}`, 155, totalY + 10);
+
+            doc.text('Initial Deposit (50%):', 25, totalY + 22);
+            doc.setTextColor(212, 175, 55);
+            doc.text(`₱${currentBookingData.initialDeposit.toLocaleString()}`, 155, totalY + 22);
+
+            doc.setTextColor(10, 10, 10);
+            doc.text('Cleaning Deposit (Refundable):', 25, totalY + 34);
+            doc.text(`₱${currentBookingData.cleaningDeposit.toLocaleString()}`, 155, totalY + 34);
+
+            // Total
+            doc.setFillColor(212, 175, 55);
+            doc.rect(20, totalY + 48, 170, 20, 'F');
+            doc.setTextColor(10, 10, 10);
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text(`TOTAL DUE NOW: ₱${currentBookingData.totalDueNow.toLocaleString()}`, 105, totalY + 62, { align: 'center' });
+
+            // Payment Methods
+            doc.setTextColor(...goldColor);
+            doc.setFontSize(12);
+            doc.text('PAYMENT METHODS:', 20, totalY + 82);
+            
+            doc.setTextColor(10, 10, 10);
+            doc.setFontSize(10);
+            doc.text('GCash: 09770264721', 25, totalY + 95);
+            doc.text('Maya: 09770264721', 25, totalY + 105);
+            doc.text('Vybe by BPI: 09770264721', 25, totalY + 115);
+
+            // Note
+            doc.setFillColor(245, 229, 176);
+            doc.rect(20, totalY + 128, 170, 25, 'F');
+            doc.setFontSize(9);
+            doc.setTextColor(10, 10, 10);
+            doc.text('Please send proof of payment to presenciavenue@gmail.com to confirm your booking.', 25, totalY + 142);
+
+            // Footer
+            doc.setFillColor(...goldColor);
+            doc.rect(0, 280, 210, 5, 'F');
+            doc.setTextColor(10, 10, 10);
+            doc.setFontSize(9);
+            doc.text('Thank you for choosing PRESENCIA! Where Presence Becomes Experience.', 105, 290, { align: 'center' });
+
+            // Save
+            doc.save(`PRESENCIA_Invoice_${currentBookingData.id}.pdf`);
+            showToast('🧾 Invoice PDF downloaded successfully!', 'success');
+        }
+
+        function generatePartnershipPDF() {
+            const partnerBusinessName = document.getElementById('partnerBusinessName')?.value || 'Partner Business';
+            const partnerContactPerson = document.getElementById('partnerContactPerson')?.value || 'Contact Person';
+            const partnerPhone = document.getElementById('partnerPhone')?.value || 'XXXXXXXXX';
+            const partnerEmail = document.getElementById('partnerEmail')?.value || 'email@example.com';
+            const partnerServices = document.getElementById('partnerServices')?.value || 'Services';
+            const partnerReason = document.getElementById('partnerReason')?.value || 'Reason';
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const goldColor = [212, 175, 55];
+
+            // Header
+            doc.setFillColor(...goldColor);
+            doc.rect(0, 0, 210, 50, 'F');
+            doc.setTextColor(10, 10, 10);
+            doc.setFontSize(24);
+            doc.text('PARTNERSHIP AGREEMENT', 105, 25, { align: 'center' });
+            doc.setFontSize(12);
+            doc.text('PRESENCIA VENUE MANAGEMENT', 105, 40, { align: 'center' });
+
+            // Title
+            doc.setTextColor(10, 10, 10);
+            doc.setFontSize(16);
+            doc.text('This agreement is made on ' + new Date().toLocaleDateString(), 20, 70);
+
+            // Parties
+            doc.setTextColor(...goldColor);
+            doc.setFontSize(13);
+            doc.text('BETWEEN:', 20, 90);
+            
+            doc.setTextColor(10, 10, 10);
+            doc.setFontSize(11);
+            doc.text('THE COMPANY:', 20, 103);
+            doc.text('PRESENCIA Venue Management', 20, 113);
+            doc.text('Horizon PH Events Place', 20, 121);
+            doc.text('New Lower Bicutan, Taguig City', 20, 129);
+            doc.text('(Represented by KINT LACSI)', 20, 137);
+
+            doc.text('AND:', 20, 153);
+            doc.text('THE PARTNER:', 20, 166);
+            doc.text(partnerBusinessName, 20, 179);
+            doc.text(`Contact: ${partnerContactPerson}`, 20, 189);
+            doc.text(`Phone: ${partnerPhone}`, 20, 199);
+            doc.text(`Email: ${partnerEmail}`, 20, 209);
+            doc.text(`Services: ${partnerServices}`, 20, 219);
+
+            // Agreement Terms
+            doc.setFillColor(245, 229, 176);
+            doc.rect(20, 235, 170, 8, 'F');
+            doc.setTextColor(...goldColor);
+            doc.setFontSize(13);
+            doc.text('AGREMENT TERMS', 25, 241);
+
+            doc.setTextColor(10, 10, 10);
+            doc.setFontSize(9);
+            const terms = [
+                '1. PARTNERSHIP SCOPE',
+                `   Partner agrees to promote PRESENCIA services to their clients and network.`,
+                '',
+                '2. REFERRAL COMMISSION',
+                '   Partner will receive commission for each confirmed referral (details TBD).',
+                '',
+                '3. CO-MARKETING',
+                '   Both parties agree to cross-promote each other\'s services when appropriate.',
+                '',
+                '4. EXCLUSIVITY',
+                '   This agreement does not grant exclusive territory rights unless specified separately.',
+                '',
+                '5. TERM',
+                '   This agreement remains in effect until terminated by either party with 30 days notice.',
+                '',
+                '6. CONFIDENTIALITY',
+                '   Both parties agree to keep confidential information private.',
+                '',
+                '7. LIABILITY',
+                '   Each party is responsible for their own actions and liabilities.'
+            ];
+
+            let yPos = 255;
+            terms.forEach(term => {
+                if (term === '') {
+                    yPos += 4;
+                } else {
+                    doc.text(term, 25, yPos);
+                    yPos += 10;
+                }
+            });
+
+            // Partner's Reason
+            doc.setFillColor(240, 240, 240);
+            doc.rect(20, yPos + 5, 170, 35, 'F');
+            doc.setTextColor(...goldColor);
+            doc.setFontSize(11);
+            doc.text("PARTNER'S INTEREST:", 25, yPos + 15);
+            doc.setTextColor(10, 10, 10);
+            doc.setFontSize(9);
+            
+            // Wrap long text
+            const splitReason = doc.splitTextToSize(partnerReason, 160);
+            doc.text(splitReason, 25, yPos + 27);
+
+            // Signatures
+            const sigY = yPos + 50;
+            doc.setTextColor(10, 10, 10);
+            doc.setFontSize(11);
+            doc.text('SIGNATURES:', 20, sigY);
+            
+            doc.line(20, sigY + 10, 90, sigY + 10);
+            doc.text('For PRESENCIA:', 25, sigY + 20);
+            doc.text('KINT LACSI, Manager', 25, sigY + 30);
+            doc.text('Date: _______________', 25, sigY + 40);
+
+            doc.line(120, sigY + 10, 190, sigY + 10);
+            doc.text('For Partner:', 130, sigY + 20);
+            doc.text(partnerContactPerson, 130, sigY + 30);
+            doc.text('Date: _______________', 130, sigY + 40);
+
+            // Footer
+            doc.setFillColor(...goldColor);
+            doc.rect(0, 280, 210, 5, 'F');
+
+            // Save
+            doc.save(`PRESENCIA_Partnership_Agreement_${Date.now()}.pdf`);
+            showToast('🤝 Partnership Agreement PDF downloaded successfully!', 'success');
+        }
+
+        // =====================================================
+        // PARTNERSHIP FORM SUBMISSION
+        // =====================================================
+        
+        function submitPartnership(e) {
+            e.preventDefault();
+            
+            // Simple validation
+            const businessName = document.getElementById('partnerBusinessName');
+            const contactPerson = document.getElementById('partnerContactPerson');
+            const phone = document.getElementById('partnerPhone');
+            const email = document.getElementById('partnerEmail');
+            const services = document.getElementById('partnerServices');
+            const reason = document.getElementById('partnerReason');
+
+            if (!businessName.value || !contactPerson.value || !phone.value || !email.value || !services.value || !reason.value) {
+                showToast('⚠ Please fill in all required fields.', 'error');
+                return;
+            }
+
+            // Show success and PDF download section
+            showToast('🤝 Partnership application submitted successfully!', 'success');
+            document.getElementById('partnershipPdfSection').classList.add('show');
+            
+            setTimeout(() => {
+                document.getElementById('partnershipPdfSection').scrollIntoView({ behavior: 'smooth' });
+            }, 500);
+        }
+
+        // =====================================================
+        // COPY TO CLIPBOARD
+        // =====================================================
+        
+        function copyToClipboard(text, service) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(`${service} number copied to clipboard!`);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
             });
         }
 
-        function updateBookingStatus(id, newStatus) {
-            if(!newStatus) return;
-            const bookings = getBookings();
-            const index = bookings.findIndex(b => b.id === id);
+        // =====================================================
+        // TOAST NOTIFICATIONS
+        // =====================================================
+        
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show ' + type;
             
-            if(index > -1) {
-                if(confirm(`Are you sure you want to mark booking ${id} as ${newStatus}?`)) {
-                    bookings[index].status = newStatus;
-                    saveBookings(bookings);
-                    showToast(`Booking ${id} is now ${newStatus}.`, 'success');
-                } else {
-                    renderAdminTable(); // reset dropdown visually
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // =====================================================
+        // PUBLIC STATS UPDATE
+        // =====================================================
+        
+        function updatePublicStats() {
+            const bookings = getBookings();
+            const total = bookings.length;
+            const revenue = bookings.reduce((sum, b) => sum + (b.totalAmount || 0), 0);
+            const pending = bookings.filter(b => b.status === 'pending').length;
+
+            document.getElementById('publicTotalBookings').textContent = total;
+            document.getElementById('publicRevenue').textContent = '₱' + revenue.toLocaleString();
+            document.getElementById('publicPending').textContent = pending;
+        }
+
+        // =====================================================
+        // MANAGER LOGIN (Simplified)
+        // =====================================================
+        
+        function showManagerLogin() {
+            document.getElementById('managerModal').classList.add('active');
+        }
+
+        function closeManagerLogin() {
+            document.getElementById('managerModal').classList.remove('active');
+        }
+
+        function handleManagerLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('managerUsername').value;
+            const password = document.getElementById('managerPassword').value;
+
+            if ((username === 'admin' || username.toLowerCase() === 'kint') && password === 'admin123') {
+                closeManagerLogin();
+                showToast('🔐 Welcome to Dashboard! (Full dashboard coming soon)', 'success');
+                // For now, just show success - full dashboard would go here
+            } else {
+                showToast('❌ Invalid credentials. Try: admin / admin123', 'error');
+            }
+        }
+
+        // =====================================================
+        // SMOOTH SCROLL
+        // =====================================================
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
+            });
+        });
+
+        // Close modals on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('managerModal');
+            if (event.target === modal) {
+                closeManagerLogin();
             }
         }
     </script>
+
 </body>
 </html>

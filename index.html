@@ -1510,14 +1510,17 @@ tailwind.config = {
       }
 
 // Send Emails (if EmailJS configured)
-if (CONFIG.EMAILJS_USER_ID !== 'D7NhYeENC9IWTKyUd') {
+// Send Emails (EmailJS Debug Version)
+console.log("Attempting to send emails...");
+console.log("User ID:", CONFIG.EMAILJS_USER_ID);
+console.log("Service ID:", CONFIG.EMAILJS_SERVICE_ID);
+
+if (CONFIG.EMAILJS_USER_ID !== 'D7NhYeENC9IWTKyUd' && window.emailjs) {
   try {
     emailjs.init(CONFIG.EMAILJS_USER_ID);
 
-    // Calculate remaining balance
     const remainingBalance = booking.totalBalance;
 
-    // Common template parameters
     const templateParams = {
       client_name: booking.clientName,
       client_email: booking.email,
@@ -1540,27 +1543,33 @@ if (CONFIG.EMAILJS_USER_ID !== 'D7NhYeENC9IWTKyUd') {
       admin_phone: '09916596381',
     };
 
+    console.log("Template Params prepared:", templateParams);
+
     // 1. Send Client Confirmation Email
     emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_CLIENT_CONFIRMATION, templateParams)
-      .then(function() {
+      .then(function(response) {
+        console.log("✅ Client Email SUCCESS:", response);
         showToast('Confirmation email sent to client! 📧', 'success');
       })
       .catch(function(err) {
-        console.warn('Client email error:', err);
+        console.error("❌ Client Email FAILED:", err);
+        showToast('Client email failed to send. Check console.', 'error');
       });
 
     // 2. Send Owner & Manager Notification Email
     emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_OWNER_NOTIFICATION, templateParams)
-      .then(function() {
-        console.log('Owner notification sent');
+      .then(function(response) {
+        console.log("✅ Owner Email SUCCESS:", response);
       })
       .catch(function(err) {
-        console.warn('Owner email error:', err);
+        console.error("❌ Owner Email FAILED:", err);
       });
 
   } catch(err) {
-    console.warn('EmailJS initialization error:', err);
+    console.error("EmailJS Initialization Error:", err);
   }
+} else {
+  console.warn("EmailJS skipped. Check if User ID is replaced or if emailjs script is loaded.");
 }
 
       // Success

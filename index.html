@@ -62,8 +62,6 @@ tailwind.config = {
 
   @keyframes fadeInUp { from { opacity:0; transform: translateY(30px); } to { opacity:1; transform: translateY(0); } }
   @keyframes scaleIn { from { opacity:0; transform: scale(0.95); } to { opacity:1; transform: scale(1); } }
-  @keyframes slideInRight { from { opacity:0; transform: translateX(40px); } to { opacity:1; transform: translateX(0); } }
-  @keyframes slideInLeft { from { opacity:0; transform: translateX(-40px); } to { opacity:1; transform: translateX(0); } }
   @keyframes toastIn { from { opacity:0; transform: translateY(-20px) scale(0.9); } to { opacity:1; transform: translateY(0) scale(1); } }
   @keyframes pulseGold { 0%,100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); } 50% { box-shadow: 0 0 0 12px rgba(212,175,55,0); } }
   @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
@@ -89,52 +87,21 @@ tailwind.config = {
   .gold-border-glow { border: 1px solid rgba(212,175,55,0.3); }
   .gold-border-glow:hover { border-color: rgba(212,175,55,0.6); box-shadow: 0 0 20px rgba(212,175,55,0.1); }
 
-  .calendar-day {
-    transition: all 0.2s ease;
-    position: relative;
-  }
-  .calendar-day:not(.disabled):not(.selected):hover {
-    background: rgba(212,175,55,0.15); transform: scale(1.05);
-  }
+  .calendar-day { transition: all 0.2s ease; position: relative; }
+  .calendar-day:not(.disabled):not(.selected):hover { background: rgba(212,175,55,0.15); transform: scale(1.05); }
   .calendar-day.disabled { opacity: 0.3; cursor: not-allowed; }
-  .calendar-day.selected {
-    background: linear-gradient(135deg, #D4AF37, #F4D03F);
-    color: #0A0E1A; font-weight: 700;
-  }
+  .calendar-day.selected { background: linear-gradient(135deg, #D4AF37, #F4D03F); color: #0A0E1A; font-weight: 700; }
 
   input:focus, select:focus, textarea:focus { outline: none; }
-  .input-field {
-    transition: all 0.3s ease;
-  }
-  .input-field:focus {
-    border-color: #D4AF37;
-    box-shadow: 0 0 0 3px rgba(212,175,55,0.15);
-  }
+  .input-field { transition: all 0.3s ease; }
+  .input-field:focus { border-color: #D4AF37; box-shadow: 0 0 0 3px rgba(212,175,55,0.15); }
 
   .package-card { transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
-  .package-card.selected {
-    border-color: #D4AF37;
-    box-shadow: 0 0 30px rgba(212,175,55,0.2), inset 0 0 20px rgba(212,175,55,0.05);
-  }
+  .package-card.selected { border-color: #D4AF37; box-shadow: 0 0 30px rgba(212,175,55,0.2), inset 0 0 20px rgba(212,175,55,0.05); }
 
   .nav-link { position: relative; }
-  .nav-link::after {
-    content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
-    background: linear-gradient(90deg, #D4AF37, #F4D03F);
-    transition: width 0.3s ease;
-  }
+  .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, #D4AF37, #F4D03F); transition: width 0.3s ease; }
   .nav-link:hover::after { width: 100%; }
-
-  .checkbox-custom { transition: all 0.3s ease; }
-  .checkbox-custom:checked + label { color: #D4AF37; }
-
-  details summary { list-style: none; }
-  details summary::-webkit-details-marker { display: none; }
-  details[open] .chevron { transform: rotate(180deg); }
-  .chevron { transition: transform 0.3s ease; }
-
-  #contractScroll::-webkit-scrollbar { width: 6px; }
-  #contractScroll::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.3); border-radius: 3px; }
 </style>
 </head>
 
@@ -145,14 +112,16 @@ tailwind.config = {
   <div class="glass bg-navy-950/70 border-b border-white/5">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16 md:h-20">
-        <!-- Logo -->
         <a href="#home" class="flex items-center gap-3 group">
-        <!-- Using 1015.png for the Emblem -->
-        <img src="assets/1015.png" alt="PRESENCIA Emblem" class="w-10 h-10 md:w-12 md:h-12 object-contain group-hover:scale-110 transition-all duration-300" />
-        <!-- Using 1010.png for the Horizontal Text Logo -->
-        <img src="assets/1010.png" alt="PRESENCIA Venue Management" class="hidden sm:block h-6 md:h-8 w-auto object-contain" />
+          <div class="relative">
+            <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center font-display font-bold text-navy-900 text-xl group-hover:scale-110 transition-all duration-300">P</div>
+            <div class="absolute inset-0 rounded-full border border-gold/30 group-hover:border-gold/60 transition-all duration-300 scale-110"></div>
+          </div>
+          <div class="hidden sm:block">
+            <div class="font-display text-lg md:text-xl font-bold gold-shimmer tracking-wide">PRESENCIA</div>
+            <div class="text-[10px] md:text-xs text-white/50 tracking-[0.2em] uppercase">Venue Management</div>
+          </div>
         </a>
-         <!-- Desktop Nav -->
         <div class="hidden lg:flex items-center gap-8">
           <a href="#home" class="nav-link text-sm font-medium text-white/70 hover:text-gold transition-all duration-300">Home</a>
           <a href="#services" class="nav-link text-sm font-medium text-white/70 hover:text-gold transition-all duration-300">Services</a>
@@ -162,12 +131,8 @@ tailwind.config = {
           <a href="#contact" class="nav-link text-sm font-medium text-white/70 hover:text-gold transition-all duration-300">Contact</a>
           <a href="admin/index.html" class="text-xs text-white/30 hover:text-gold/60 transition-all duration-300" title="Admin Dashboard">🔒 Admin</a>
         </div>
-
-        <!-- CTA + Mobile Toggle -->
         <div class="flex items-center gap-3">
-          <a href="#book" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-semibold text-sm hover:scale-105 hover:shadow-lg hover:shadow-gold/30 transition-all duration-300 ease-in-out">
-            📅 Book Event
-          </a>
+          <a href="#book" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-semibold text-sm hover:scale-105 hover:shadow-lg hover:shadow-gold/30 transition-all duration-300 ease-in-out">📅 Book Event</a>
           <button id="mobileToggle" class="lg:hidden p-2 rounded-lg hover:bg-white/10 transition-all duration-300" aria-label="Menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
           </button>
@@ -175,7 +140,6 @@ tailwind.config = {
       </div>
     </div>
   </div>
-  <!-- Mobile Menu -->
   <div id="mobileMenu" class="hidden lg:hidden glass bg-navy-950/95 border-b border-gold/10">
     <div class="px-4 py-4 space-y-2">
       <a href="#home" class="mobile-link block px-4 py-3 rounded-lg text-white/70 hover:text-gold hover:bg-white/5 transition-all duration-300">🏠 Home</a>
@@ -191,20 +155,14 @@ tailwind.config = {
 
 <!-- ================= HERO ================= -->
 <section id="home" class="hero-bg relative min-h-screen flex items-center justify-center overflow-hidden">
-  <!-- Background Image -->
   <div class="absolute inset-0 z-0">
     <img src="https://z-cdn-media.chatglm.cn/files/1e5dee8d-22f0-4884-99e1-fb16ffa994c9.jpg" alt="Presencia Venue Interior" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #0A0E1A, #111827)';" />
     <div class="absolute inset-0 bg-gradient-to-b from-navy-950/80 via-navy-950/70 to-navy-950"></div>
     <div class="absolute inset-0 bg-gradient-to-r from-navy-950/90 via-transparent to-navy-950/90"></div>
   </div>
-
-  <!-- Floating Gold Orbs -->
   <div class="absolute top-1/4 left-10 w-32 h-32 rounded-full bg-gold/10 blur-3xl float-anim"></div>
   <div class="absolute bottom-1/4 right-10 w-48 h-48 rounded-full bg-gold/5 blur-3xl float-anim" style="animation-delay: 1s;"></div>
-
-  <!-- Content -->
   <div class="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto pt-20">
-    <!-- Emblem -->
     <div class="flex justify-center mb-6 reveal">
       <div class="relative">
         <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-2 border-gold/40 flex items-center justify-center pulse-gold">
@@ -214,21 +172,14 @@ tailwind.config = {
         </div>
       </div>
     </div>
-
     <div class="reveal" style="animation-delay: 0.1s;">
       <p class="text-xs md:text-sm tracking-[0.3em] uppercase text-gold/70 mb-4 font-medium">✦ Premier Event Venue ✦</p>
     </div>
-
     <h1 class="reveal font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6" style="animation-delay: 0.2s;">
       <span class="gold-shimmer">PRESENCIA</span>
       <span class="block text-white/90 text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2">Venue Management</span>
     </h1>
-
-    <p class="reveal text-base md:text-xl text-white/60 max-w-2xl mx-auto mb-8 leading-relaxed" style="animation-delay: 0.3s;">
-      Where moments become memories. A luxury event space designed for life's most celebrated occasions.
-    </p>
-
-    <!-- Tagline Pills -->
+    <p class="reveal text-base md:text-xl text-white/60 max-w-2xl mx-auto mb-8 leading-relaxed" style="animation-delay: 0.3s;">Where moments become memories. A luxury event space designed for life's most celebrated occasions.</p>
     <div class="reveal flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-10" style="animation-delay: 0.4s;">
       <span class="px-3 py-1.5 rounded-full bg-white/5 border border-gold/20 text-xs md:text-sm text-white/70">🎉 Birthdays</span>
       <span class="px-3 py-1.5 rounded-full bg-white/5 border border-gold/20 text-xs md:text-sm text-white/70">💍 Weddings</span>
@@ -237,25 +188,15 @@ tailwind.config = {
       <span class="px-3 py-1.5 rounded-full bg-white/5 border border-gold/20 text-xs md:text-sm text-white/70">🔨 Workshops</span>
       <span class="px-3 py-1.5 rounded-full bg-white/5 border border-gold/20 text-xs md:text-sm text-white/70">✨ & More</span>
     </div>
-
-    <!-- CTAs -->
     <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4" style="animation-delay: 0.5s;">
-      <a href="#book" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-bold text-sm md:text-base hover:scale-105 hover:shadow-2xl hover:shadow-gold/30 transition-all duration-300 ease-in-out">
-        📅 Reserve Your Date
-      </a>
-      <a href="#packages" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white/5 border border-white/20 text-white font-medium text-sm md:text-base hover:bg-white/10 hover:border-gold/40 transition-all duration-300 ease-in-out">
-        📦 View Packages
-      </a>
+      <a href="#book" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-bold text-sm md:text-base hover:scale-105 hover:shadow-2xl hover:shadow-gold/30 transition-all duration-300 ease-in-out">📅 Reserve Your Date</a>
+      <a href="#packages" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white/5 border border-white/20 text-white font-medium text-sm md:text-base hover:bg-white/10 hover:border-gold/40 transition-all duration-300 ease-in-out">📦 View Packages</a>
     </div>
-
-    <!-- Location -->
     <div class="reveal mt-12 flex items-center justify-center gap-2 text-white/50 text-sm" style="animation-delay: 0.6s;">
       <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
       <span>New Lower Bicutan, Taguig City <span class="text-white/30">(Front of Bicutan Med)</span></span>
     </div>
   </div>
-
-  <!-- Scroll Indicator -->
   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 reveal" style="animation-delay: 0.8s;">
     <div class="flex flex-col items-center gap-2 animate-bounce">
       <span class="text-xs text-white/30 tracking-widest uppercase">Scroll</span>
@@ -272,9 +213,7 @@ tailwind.config = {
       <h2 class="font-display text-3xl md:text-5xl font-bold mb-4">Crafted For <span class="gold-text">Every Occasion</span></h2>
       <p class="text-white/50 max-w-2xl mx-auto">We serve: BIRTHDAYS | WEDDINGS | CHILD DEDICATION | SEMINARS | WORKSHOPS & ETC.</p>
     </div>
-
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
-      <!-- Service Cards -->
       <div class="reveal group p-6 rounded-2xl bg-navy-800/50 border border-white/5 hover:border-gold/30 card-glow transition-all duration-300 ease-in-out text-center">
         <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">🎉</div>
         <h3 class="font-semibold text-sm md:text-base mb-1">Birthday Parties</h3>
@@ -312,21 +251,13 @@ tailwind.config = {
       <h2 class="font-display text-3xl md:text-5xl font-bold mb-4">Choose Your <span class="gold-text">Experience</span></h2>
       <p class="text-white/50 max-w-2xl mx-auto">All packages include 6 hours of venue access and a PHP 1,000 refundable cleaning deposit. Overtime: PHP 1,500/hr.</p>
     </div>
-
     <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
-      <!-- Essential -->
       <div class="package-card reveal p-6 md:p-8 rounded-2xl bg-gradient-to-b from-navy-800 to-navy-900 border border-white/10 hover:border-gold/30 cursor-pointer" data-package="essential" onclick="selectPackage('essential')">
-        <div class="flex justify-center mb-4">
-          <!-- Essential -->
-          <img src="assets/1782791108125.png" alt="Essential Package" ... />
-        </div>
+        <div class="flex justify-center mb-4"><img src="https://z-cdn-media.chatglm.cn/files/72ee39b4-3e2f-4441-b7f1-cfa8175430c5.png" alt="Essential Package" class="h-40 rounded-lg object-cover" onerror="this.style.display='none'" loading="lazy" /></div>
         <div class="text-center mb-6">
           <h3 class="font-display text-2xl font-bold mb-1">Essential</h3>
           <p class="text-xs text-white/40 mb-3">30–50 Guests</p>
-          <div class="flex items-baseline justify-center gap-1">
-            <span class="text-xs text-gold/70">PHP</span>
-            <span class="font-display text-4xl font-bold gold-text">9,500</span>
-          </div>
+          <div class="flex items-baseline justify-center gap-1"><span class="text-xs text-gold/70">PHP</span><span class="font-display text-4xl font-bold gold-text">9,500</span></div>
         </div>
         <div class="space-y-3 mb-6">
           <div class="flex items-center gap-2 text-sm text-white/70"><span class="text-gold">✦</span> 6 Hours Venue (1hr Ingress, 4hr Proper, 1hr Egress)</div>
@@ -335,27 +266,15 @@ tailwind.config = {
           <div class="flex items-center gap-2 text-sm text-white/70"><span class="text-gold">✦</span> 4 Long Tables</div>
           <div class="flex items-center gap-2 text-sm text-white/70"><span class="text-gold">✦</span> 1hr Free Grace Time</div>
         </div>
-        <button onclick="selectPackage('essential'); document.getElementById('book').scrollIntoView({behavior:'smooth'});" class="w-full py-3 rounded-xl bg-white/5 border border-gold/20 text-gold font-semibold text-sm hover:bg-gold hover:text-navy-900 transition-all duration-300 ease-in-out">
-          Select Essential
-        </button>
+        <button onclick="selectPackage('essential'); document.getElementById('book').scrollIntoView({behavior:'smooth'});" class="w-full py-3 rounded-xl bg-white/5 border border-gold/20 text-gold font-semibold text-sm hover:bg-gold hover:text-navy-900 transition-all duration-300 ease-in-out">Select Essential</button>
       </div>
-
-      <!-- Classic -->
       <div class="package-card reveal p-6 md:p-8 rounded-2xl bg-gradient-to-b from-navy-800 to-navy-900 border border-gold/30 cursor-pointer relative md:-mt-4 md:mb-4" data-package="classic" onclick="selectPackage('classic')" style="animation-delay: 0.1s;">
-        <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-gold to-gold-dark text-navy-900 text-xs font-bold tracking-wide">
-          ⭐ POPULAR CHOICE
-        </div>
-        <div class="flex justify-center mb-4">
-          <!-- Classic -->
-          <img src="assets/1782791429827.png" alt="Classic Package" ... />
-        </div>
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-gold to-gold-dark text-navy-900 text-xs font-bold tracking-wide">⭐ POPULAR CHOICE</div>
+        <div class="flex justify-center mb-4"><img src="https://z-cdn-media.chatglm.cn/files/fa7826d8-1993-4427-b662-9a055ac9130c.png" alt="Classic Package" class="h-40 rounded-lg object-cover" onerror="this.style.display='none'" loading="lazy" /></div>
         <div class="text-center mb-6">
           <h3 class="font-display text-2xl font-bold mb-1">Classic</h3>
           <p class="text-xs text-white/40 mb-3">50–80 Guests</p>
-          <div class="flex items-baseline justify-center gap-1">
-            <span class="text-xs text-gold/70">PHP</span>
-            <span class="font-display text-4xl font-bold gold-text">12,500</span>
-          </div>
+          <div class="flex items-baseline justify-center gap-1"><span class="text-xs text-gold/70">PHP</span><span class="font-display text-4xl font-bold gold-text">12,500</span></div>
         </div>
         <div class="space-y-3 mb-6">
           <div class="flex items-center gap-2 text-sm text-white/70"><span class="text-gold">✦</span> 6 Hours Venue (1hr Ingress, 4hr Proper, 1hr Egress)</div>
@@ -366,24 +285,14 @@ tailwind.config = {
           <div class="flex items-center gap-2 text-sm text-white/70"><span class="text-gold">✦</span> Welcome Signage</div>
           <div class="flex items-center gap-2 text-sm text-white/70"><span class="text-gold">✦</span> 1hr Free Grace Time</div>
         </div>
-        <button onclick="selectPackage('classic'); document.getElementById('book').scrollIntoView({behavior:'smooth'});" class="w-full py-3 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-bold text-sm hover:scale-105 hover:shadow-lg hover:shadow-gold/30 transition-all duration-300 ease-in-out">
-          Select Classic
-        </button>
+        <button onclick="selectPackage('classic'); document.getElementById('book').scrollIntoView({behavior:'smooth'});" class="w-full py-3 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-bold text-sm hover:scale-105 hover:shadow-lg hover:shadow-gold/30 transition-all duration-300 ease-in-out">Select Classic</button>
       </div>
-
-      <!-- Premier -->
       <div class="package-card reveal p-6 md:p-8 rounded-2xl bg-gradient-to-b from-navy-800 to-navy-900 border border-white/10 hover:border-gold/30 cursor-pointer" data-package="premier" onclick="selectPackage('premier')" style="animation-delay: 0.2s;">
-        <div class="flex justify-center mb-4">
-          <!-- Premier -->
-          <img src="assets/1782792078309.png" alt="Premier Package" ... />
-        </div>
+        <div class="flex justify-center mb-4"><img src="https://z-cdn-media.chatglm.cn/files/2a026c64-4ab1-44a0-a70e-e39f2bb14b65.png" alt="Premier Package" class="h-40 rounded-lg object-cover" onerror="this.style.display='none'" loading="lazy" /></div>
         <div class="text-center mb-6">
           <h3 class="font-display text-2xl font-bold mb-1">Premier</h3>
           <p class="text-xs text-white/40 mb-3">Up to 100 Guests</p>
-          <div class="flex items-baseline justify-center gap-1">
-            <span class="text-xs text-gold/70">PHP</span>
-            <span class="font-display text-4xl font-bold gold-text">16,500</span>
-          </div>
+          <div class="flex items-baseline justify-center gap-1"><span class="text-xs text-gold/70">PHP</span><span class="font-display text-4xl font-bold gold-text">16,500</span></div>
         </div>
         <div class="space-y-3 mb-6">
           <div class="flex items-center gap-2 text-sm text-white/70"><span class="text-gold">✦</span> 6 Hours Venue (1hr Ingress, 4hr Proper, 1hr Egress)</div>
@@ -395,17 +304,11 @@ tailwind.config = {
           <div class="flex items-center gap-2 text-sm text-white/70"><span class="text-gold">✦</span> Event Coordinator & Welcome Signage</div>
           <div class="flex items-center gap-2 text-sm text-white/70"><span class="text-gold">✦</span> 1hr Free Grace Time</div>
         </div>
-        <button onclick="selectPackage('premier'); document.getElementById('book').scrollIntoView({behavior:'smooth'});" class="w-full py-3 rounded-xl bg-white/5 border border-gold/20 text-gold font-semibold text-sm hover:bg-gold hover:text-navy-900 transition-all duration-300 ease-in-out">
-          Select Premier
-        </button>
+        <button onclick="selectPackage('premier'); document.getElementById('book').scrollIntoView({behavior:'smooth'});" class="w-full py-3 rounded-xl bg-white/5 border border-gold/20 text-gold font-semibold text-sm hover:bg-gold hover:text-navy-900 transition-all duration-300 ease-in-out">Select Premier</button>
       </div>
     </div>
-
-    <!-- Common Terms Banner -->
     <div class="reveal mt-10 p-6 rounded-2xl bg-navy-800/50 border border-gold/10 text-center">
-      <p class="text-sm text-white/50">
-        <span class="text-gold font-semibold">📌 All Packages:</span> PHP 1,000 refundable cleaning deposit required • Overtime rate: PHP 1,500/hour • Max 100 guests
-      </p>
+      <p class="text-sm text-white/50"><span class="text-gold font-semibold">📌 All Packages:</span> PHP 1,000 refundable cleaning deposit required • Overtime rate: PHP 1,500/hour • Max 100 guests</p>
     </div>
   </div>
 </section>
@@ -418,28 +321,21 @@ tailwind.config = {
       <h2 class="font-display text-3xl md:text-5xl font-bold mb-4">Our <span class="gold-text">Event Space</span></h2>
       <p class="text-white/50 max-w-2xl mx-auto">A versatile, well-lit venue designed to transform for any celebration.</p>
     </div>
-
     <div class="grid md:grid-cols-3 gap-4 md:gap-6">
       <div class="reveal group relative overflow-hidden rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300">
         <img src="https://z-cdn-media.chatglm.cn/files/1e5dee8d-22f0-4884-99e1-fb16ffa994c9.jpg" alt="Venue Interior View 1" class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.parentElement.style.display='none'" loading="lazy" />
         <div class="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-          <p class="text-sm text-white/90"> spacious main hall with professional lighting</p>
-        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300"><p class="text-sm text-white/90"> spacious main hall with professional lighting</p></div>
       </div>
       <div class="reveal group relative overflow-hidden rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300" style="animation-delay: 0.1s;">
         <img src="https://z-cdn-media.chatglm.cn/files/78f52766-a61d-42ed-8215-c13ad39e52c0.jpg" alt="Venue Interior View 2" class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.parentElement.style.display='none'" loading="lazy" />
         <div class="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-          <p class="text-sm text-white/90">Bright, clean space ready for setup</p>
-        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300"><p class="text-sm text-white/90">Bright, clean space ready for setup</p></div>
       </div>
       <div class="reveal group relative overflow-hidden rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300" style="animation-delay: 0.2s;">
         <img src="https://z-cdn-media.chatglm.cn/files/7e1668e2-0d9d-49ac-be2b-5b2163221355.jpg" alt="Venue Interior View 3" class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.parentElement.style.display='none'" loading="lazy" />
         <div class="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-          <p class="text-sm text-white/90">Flexible layout for events and rehearsals</p>
-        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300"><p class="text-sm text-white/90">Flexible layout for events and rehearsals</p></div>
       </div>
     </div>
   </div>
@@ -453,17 +349,11 @@ tailwind.config = {
       <h2 class="font-display text-3xl md:text-5xl font-bold mb-4">Book Your <span class="gold-text">Event Date</span></h2>
       <p class="text-white/50 max-w-2xl mx-auto">Fill in your event details below. Pricing updates in real-time as you customize your package.</p>
     </div>
-
     <div class="grid lg:grid-cols-3 gap-6 lg:gap-8">
-      <!-- Form -->
       <div class="lg:col-span-2 reveal">
         <form id="bookingForm" onsubmit="return false;" class="space-y-6 p-6 md:p-8 rounded-2xl bg-navy-800/50 border border-white/5">
-          <!-- Section A: Client Info -->
           <div>
-            <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2">
-              <span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">A</span>
-              Client Information
-            </h3>
+            <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">A</span> Client Information</h3>
             <div class="grid sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-xs text-white/50 mb-1.5 font-medium">Full Name <span class="text-red-400">*</span></label>
@@ -483,13 +373,8 @@ tailwind.config = {
               </div>
             </div>
           </div>
-
-          <!-- Section B: Event Details -->
           <div class="pt-2">
-            <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2">
-              <span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">B</span>
-              Event Details
-            </h3>
+            <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">B</span> Event Details</h3>
             <div class="grid sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-xs text-white/50 mb-1.5 font-medium">Event Type <span class="text-red-400">*</span></label>
@@ -497,7 +382,7 @@ tailwind.config = {
                   <option value="" class="bg-navy-900">Select event type…</option>
                   <option value="Birthday" class="bg-navy-900">🎉 Birthday</option>
                   <option value="Wedding" class="bg-navy-900">💍 Wedding</option>
-                  <option value="Child Dedication" class="bg-navy-900"> Child Dedication</option>
+                  <option value="Child Dedication" class="bg-navy-900">👶 Child Dedication</option>
                   <option value="Seminar" class="bg-navy-900">📊 Seminar</option>
                   <option value="Workshop" class="bg-navy-900">🔨 Workshop</option>
                   <option value="Other" class="bg-navy-900">✨ Other</option>
@@ -511,32 +396,16 @@ tailwind.config = {
                 <label class="block text-xs text-white/50 mb-1.5 font-medium">Preferred Event Date <span class="text-red-400">*</span></label>
                 <input type="text" id="eventDate" readonly required class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20 cursor-pointer" placeholder="Tap to select a date 📅" onclick="toggleCalendar(event)" />
                 <input type="hidden" id="eventDateValue" />
-                <!-- Calendar Popover -->
                 <div id="calendarPopover" class="hidden absolute top-full mt-2 left-0 z-50 w-80 p-4 rounded-2xl bg-navy-800 border border-gold/20 shadow-2xl modal-content">
                   <div class="flex items-center justify-between mb-4">
-                    <button id="prevMonth" onclick="changeMonth(-1)" class="w-8 h-8 rounded-lg hover:bg-gold/10 text-gold flex items-center justify-center transition-all duration-300">
-                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                    </button>
+                    <button id="prevMonth" onclick="changeMonth(-1)" class="w-8 h-8 rounded-lg hover:bg-gold/10 text-gold flex items-center justify-center transition-all duration-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg></button>
                     <span id="calendarMonthYear" class="font-display font-semibold text-sm"></span>
-                    <button id="nextMonth" onclick="changeMonth(1)" class="w-8 h-8 rounded-lg hover:bg-gold/10 text-gold flex items-center justify-center transition-all duration-300">
-                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    </button>
+                    <button id="nextMonth" onclick="changeMonth(1)" class="w-8 h-8 rounded-lg hover:bg-gold/10 text-gold flex items-center justify-center transition-all duration-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
                   </div>
                   <div class="grid grid-cols-7 gap-1 mb-2">
-                    <span class="text-center text-[10px] text-white/40 font-medium py-1">Mon</span>
-                    <span class="text-center text-[10px] text-white/40 font-medium py-1">Tue</span>
-                    <span class="text-center text-[10px] text-white/40 font-medium py-1">Wed</span>
-                    <span class="text-center text-[10px] text-white/40 font-medium py-1">Thu</span>
-                    <span class="text-center text-[10px] text-white/40 font-medium py-1">Fri</span>
-                    <span class="text-center text-[10px] text-red-400/50 font-medium py-1">Sat</span>
-                    <span class="text-center text-[10px] text-red-400/50 font-medium py-1">Sun</span>
+                    <span class="text-center text-[10px] text-white/40 font-medium py-1">Mon</span><span class="text-center text-[10px] text-white/40 font-medium py-1">Tue</span><span class="text-center text-[10px] text-white/40 font-medium py-1">Wed</span><span class="text-center text-[10px] text-white/40 font-medium py-1">Thu</span><span class="text-center text-[10px] text-white/40 font-medium py-1">Fri</span><span class="text-center text-[10px] text-red-400/50 font-medium py-1">Sat</span><span class="text-center text-[10px] text-red-400/50 font-medium py-1">Sun</span>
                   </div>
                   <div id="calendarDays" class="grid grid-cols-7 gap-1"></div>
-                  <div class="mt-4 pt-3 border-t border-white/5 space-y-1.5">
-                    <div class="flex items-center gap-2 text-[10px] text-white/40"><span class="w-3 h-3 rounded-full bg-green-500/30 border border-green-500/50"></span> Available</div>
-                    <div class="flex items-center gap-2 text-[10px] text-white/40"><span class="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/40"></span> Fully Booked</div>
-                    <div class="flex items-center gap-2 text-[10px] text-white/40"><span class="w-3 h-3 rounded-full bg-white/5 border border-white/10"></span> Weekend / Past Date</div>
-                  </div>
                 </div>
               </div>
               <div class="grid grid-cols-2 gap-3">
@@ -551,72 +420,43 @@ tailwind.config = {
               </div>
             </div>
           </div>
-
-          <!-- Section C: Package Selection -->
           <div class="pt-2">
-            <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2">
-              <span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">C</span>
-              Select Package <span class="text-red-400">*</span>
-            </h3>
+            <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">C</span> Select Package <span class="text-red-400">*</span></h3>
             <div class="grid sm:grid-cols-3 gap-3">
               <label class="package-option cursor-pointer">
                 <input type="radio" name="package" value="essential" class="hidden peer" onchange="selectPackage('essential'); updateCalculator();" />
                 <div class="p-4 rounded-xl bg-navy-900/50 border border-white/10 peer-checked:border-gold peer-checked:bg-gold/5 transition-all duration-300">
-                  <div class="text-xs text-white/40 mb-1">Essential</div>
-                  <div class="font-display text-xl font-bold gold-text">₱9,500</div>
-                  <div class="text-[10px] text-white/30 mt-1">30–50 guests</div>
+                  <div class="text-xs text-white/40 mb-1">Essential</div><div class="font-display text-xl font-bold gold-text">₱9,500</div><div class="text-[10px] text-white/30 mt-1">30–50 guests</div>
                 </div>
               </label>
               <label class="package-option cursor-pointer">
                 <input type="radio" name="package" value="classic" class="hidden peer" onchange="selectPackage('classic'); updateCalculator();" />
                 <div class="p-4 rounded-xl bg-navy-900/50 border border-white/10 peer-checked:border-gold peer-checked:bg-gold/5 transition-all duration-300">
-                  <div class="text-xs text-white/40 mb-1">Classic</div>
-                  <div class="font-display text-xl font-bold gold-text">₱12,500</div>
-                  <div class="text-[10px] text-white/30 mt-1">50–80 guests</div>
+                  <div class="text-xs text-white/40 mb-1">Classic</div><div class="font-display text-xl font-bold gold-text">₱12,500</div><div class="text-[10px] text-white/30 mt-1">50–80 guests</div>
                 </div>
               </label>
               <label class="package-option cursor-pointer">
                 <input type="radio" name="package" value="premier" class="hidden peer" onchange="selectPackage('premier'); updateCalculator();" />
                 <div class="p-4 rounded-xl bg-navy-900/50 border border-white/10 peer-checked:border-gold peer-checked:bg-gold/5 transition-all duration-300">
-                  <div class="text-xs text-white/40 mb-1">Premier</div>
-                  <div class="font-display text-xl font-bold gold-text">₱16,500</div>
-                  <div class="text-[10px] text-white/30 mt-1">Up to 100 guests</div>
+                  <div class="text-xs text-white/40 mb-1">Premier</div><div class="font-display text-xl font-bold gold-text">₱16,500</div><div class="text-[10px] text-white/30 mt-1">Up to 100 guests</div>
                 </div>
               </label>
             </div>
           </div>
-
-          <!-- Section D: Add-Ons -->
           <div class="pt-2">
-            <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2">
-              <span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">D</span>
-              Add-On Services
-            </h3>
-            <div id="addonContainer" class="space-y-3">
-              <!-- Dynamically rendered -->
-            </div>
+            <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">D</span> Add-On Services</h3>
+            <div id="addonContainer" class="space-y-3"></div>
           </div>
-
-          <!-- Section E: Notes -->
           <div class="pt-2">
-            <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2">
-              <span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">E</span>
-              Special Requests / Notes
-            </h3>
+            <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">E</span> Special Requests / Notes</h3>
             <textarea id="notes" rows="3" class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20 resize-none" placeholder="Any special requests or additional information…"></textarea>
           </div>
-
-          <!-- Submit -->
           <div class="pt-4">
-            <button type="button" id="proceedBtn" onclick="openContractModal()" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-bold text-base hover:scale-[1.02] hover:shadow-2xl hover:shadow-gold/30 transition-all duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
-              📜 Proceed to Booking
-            </button>
+            <button type="button" id="proceedBtn" onclick="openContractModal()" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-bold text-base hover:scale-[1.02] hover:shadow-2xl hover:shadow-gold/30 transition-all duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">📜 Proceed to Booking</button>
             <p class="text-center text-xs text-white/30 mt-3">You will review and sign the contract before final submission.</p>
           </div>
         </form>
       </div>
-
-      <!-- Calculator (Sticky) -->
       <div class="lg:col-span-1">
         <div class="sticky top-24 reveal" style="animation-delay: 0.15s;">
           <div class="p-6 rounded-2xl bg-gradient-to-b from-navy-800 to-navy-900 border border-gold/20 shadow-xl">
@@ -624,65 +464,32 @@ tailwind.config = {
               <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
               <h3 class="font-display text-lg font-bold">Cost Summary</h3>
             </div>
-
             <div class="space-y-4">
-              <!-- Package -->
               <div id="calcPackageRow" class="flex items-center justify-between opacity-40 transition-all duration-300">
-                <div>
-                  <div class="text-xs text-white/40">Package Rate</div>
-                  <div id="calcPackageName" class="text-sm font-medium text-white/70">— Not selected —</div>
-                </div>
+                <div><div class="text-xs text-white/40">Package Rate</div><div id="calcPackageName" class="text-sm font-medium text-white/70">— Not selected —</div></div>
                 <div id="calcPackageRate" class="font-display text-lg font-bold text-white/50">₱0</div>
               </div>
-
               <div class="border-t border-white/5"></div>
-
-              <!-- Add-Ons -->
               <div id="calcAddOnsRow" class="opacity-40 transition-all duration-300">
-                <div class="flex items-center justify-between mb-2">
-                  <div class="text-xs text-white/40">Add-On Services</div>
-                  <div id="calcAddOnsTotal" class="font-display text-lg font-bold text-white/50">₱0</div>
-                </div>
+                <div class="flex items-center justify-between mb-2"><div class="text-xs text-white/40">Add-On Services</div><div id="calcAddOnsTotal" class="font-display text-lg font-bold text-white/50">₱0</div></div>
                 <div id="calcAddOnsList" class="text-[11px] text-white/30 space-y-1"></div>
               </div>
-
               <div class="border-t border-white/5"></div>
-
-              <!-- Cleaning Deposit -->
               <div class="flex items-center justify-between">
-                <div>
-                  <div class="text-xs text-white/40">Cleaning Deposit</div>
-                  <div class="text-[10px] text-white/20">Refundable</div>
-                </div>
+                <div><div class="text-xs text-white/40">Cleaning Deposit</div><div class="text-[10px] text-white/20">Refundable</div></div>
                 <div class="font-display text-lg font-bold text-white/70">₱1,000</div>
               </div>
-
-              <!-- Reservation Fee -->
               <div class="flex items-center justify-between">
-                <div>
-                  <div class="text-xs text-white/40">Reservation Fee</div>
-                  <div class="text-[10px] text-white/20">Non-refundable · Deducted</div>
-                </div>
+                <div><div class="text-xs text-white/40">Reservation Fee</div><div class="text-[10px] text-white/20">Non-refundable · Deducted</div></div>
                 <div class="font-display text-lg font-bold text-red-400/70">–₱2,000</div>
               </div>
-
               <div class="border-t border-gold/20"></div>
-
-              <!-- Total -->
               <div class="flex items-center justify-between pt-2">
-                <div>
-                  <div class="text-sm font-bold text-gold">Total Balance Due</div>
-                  <div class="text-[10px] text-white/30">Due 3 days before event</div>
-                </div>
+                <div><div class="text-sm font-bold text-gold">Total Balance Due</div><div class="text-[10px] text-white/30">Due 3 days before event</div></div>
                 <div id="calcTotalBalance" class="font-display text-2xl font-bold gold-text">₱0</div>
               </div>
-
-              <!-- Overtime note -->
               <div class="p-3 rounded-lg bg-navy-900/50 border border-white/5">
-                <div class="text-[10px] text-white/30 flex items-center gap-1.5">
-                  <svg class="w-3 h-3 text-gold/50" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
-                  Overtime rate: ₱1,500/hour · Max 100 guests · 6 hours venue time included
-                </div>
+                <div class="text-[10px] text-white/30 flex items-center gap-1.5"><svg class="w-3 h-3 text-gold/50" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg> Overtime rate: ₱1,500/hour · Max 100 guests · 6 hours venue time included</div>
               </div>
             </div>
           </div>
@@ -696,26 +503,18 @@ tailwind.config = {
 <section class="py-20 md:py-32 relative">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="reveal relative overflow-hidden rounded-3xl bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950 border border-gold/20 p-8 md:p-12">
-      <!-- Decorative -->
       <div class="absolute top-0 right-0 w-64 h-64 rounded-full bg-gold/5 blur-3xl"></div>
       <div class="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-gold/5 blur-3xl"></div>
-
       <div class="relative grid md:grid-cols-2 gap-8 items-center">
         <div>
           <div class="inline-block px-3 py-1 rounded-full bg-gold/10 border border-gold/30 text-xs text-gold font-medium mb-4">🎁 REFERRAL PROGRAM</div>
           <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">Earn <span class="gold-text">₱500</span> Instantly</h2>
-          <p class="text-white/60 mb-6 leading-relaxed">
-            For every successful event booking you refer to PRESENCIA Venue Management, you earn <span class="text-gold font-semibold">₱500 pesos</span> — instantly.
-          </p>
-          <div class="flex items-center gap-3 mb-6">
-            <span class="px-4 py-2 rounded-full bg-gold/10 border border-gold/30 text-sm text-gold font-bold">✓ NO LIMITATIONS</span>
-          </div>
-          <button onclick="showToast('Referral code copied to clipboard! Share with friends 🎉', 'success')" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-semibold text-sm hover:scale-105 hover:shadow-lg hover:shadow-gold/30 transition-all duration-300 ease-in-out">
-            📋 Copy Referral Code
-          </button>
+          <p class="text-white/60 mb-6 leading-relaxed">For every successful event booking you refer to PRESENCIA Venue Management, you earn <span class="text-gold font-semibold">₱500 pesos</span> — instantly.</p>
+          <div class="flex items-center gap-3 mb-6"><span class="px-4 py-2 rounded-full bg-gold/10 border border-gold/30 text-sm text-gold font-bold">✓ NO LIMITATIONS</span></div>
+          <button onclick="showToast('Referral code copied to clipboard! Share with friends 🎉', 'success')" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-semibold text-sm hover:scale-105 hover:shadow-lg hover:shadow-gold/30 transition-all duration-300 ease-in-out">📋 Copy Referral Code</button>
         </div>
         <div class="flex justify-center">
-          <img src="assets/1782796111431.png" alt="Referral Box" ... />  
+          <img src="https://z-cdn-media.chatglm.cn/files/8a228718-fc21-42de-9963-0a3b71693b60.png" alt="Referral Box" class="max-h-72 rounded-2xl border border-gold/20" onerror="this.style.display='none'" loading="lazy" />
         </div>
       </div>
     </div>
@@ -726,34 +525,19 @@ tailwind.config = {
 <footer id="contact" class="relative pt-20 pb-8 border-t border-white/5 bg-navy-950">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid md:grid-cols-4 gap-8 mb-12">
-      <!-- Brand -->
       <div class="md:col-span-2">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-12 h-12 rounded-full bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center font-display font-bold text-navy-900 text-xl">P</div>
-           <div class="flex items-center gap-3 mb-4">
-             <img src="assets/1015.png" alt="PRESENCIA Emblem" class="w-12 h-12 object-contain" />
-             <img src="assets/1010.png" alt="PRESENCIA Venue Management" class="h-8 w-auto object-contain" />
-          </div>
+          <div><div class="font-display text-xl font-bold gold-shimmer">PRESENCIA</div><div class="text-[10px] text-white/40 tracking-[0.2em] uppercase">Venue Management</div></div>
         </div>
-        <p class="text-sm text-white/50 max-w-md mb-6 leading-relaxed">
-          We Serve: BIRTHDAYS | WEDDINGS | CHILD DEDICATION | SEMINARS | WORKSHOPS & ETC. Your premier event venue in Taguig City.
-        </p>
-        <!-- Location -->
-        <div class="flex items-start gap-2 text-sm text-white/60 mb-2">
-          <svg class="w-4 h-4 text-gold mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
-          <span>New Lower Bicutan, Taguig City <span class="text-white/30 block">(Front of Bicutan Med)</span></span>
-        </div>
-        <!-- Email -->
+        <p class="text-sm text-white/50 max-w-md mb-6 leading-relaxed">We Serve: BIRTHDAYS | WEDDINGS | CHILD DEDICATION | SEMINARS | WORKSHOPS & ETC. Your premier event venue in Taguig City.</p>
+        <div class="flex items-start gap-2 text-sm text-white/60 mb-2"><svg class="w-4 h-4 text-gold mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg><span>New Lower Bicutan, Taguig City <span class="text-white/30 block">(Front of Bicutan Med)</span></span></div>
         <div class="flex items-center gap-2 text-sm text-white/60">
           <svg class="w-4 h-4 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           <a href="mailto:presenciavenue@gmail.com" class="hover:text-gold transition-all duration-300">presenciavenue@gmail.com</a>
-          <button onclick="copyEmail()" class="ml-1 p-1 rounded hover:bg-gold/10 text-gold/60 hover:text-gold transition-all duration-300" title="Copy email">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-          </button>
+          <button onclick="copyEmail()" class="ml-1 p-1 rounded hover:bg-gold/10 text-gold/60 hover:text-gold transition-all duration-300" title="Copy email"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg></button>
         </div>
       </div>
-
-      <!-- Quick Links -->
       <div>
         <h4 class="font-semibold text-sm text-gold mb-4">Quick Links</h4>
         <div class="space-y-2">
@@ -763,55 +547,25 @@ tailwind.config = {
           <a href="admin/index.html" class="block text-sm text-white/30 hover:text-gold/60 transition-all duration-300">Admin Dashboard</a>
         </div>
       </div>
-
-      <!-- Social -->
       <div>
         <h4 class="font-semibold text-sm text-gold mb-4">Follow Us</h4>
         <div class="space-y-3">
-          <!-- Instagram -->
           <a href="https://instagram.com/presenciavenue" target="_blank" rel="noopener" class="group flex items-center gap-3 p-3 rounded-xl bg-navy-800/50 border border-white/5 hover:border-gold/30 transition-all duration-300 ease-in-out hover:scale-105">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center">
-              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            </div>
-            <div>
-              <div class="text-xs text-white/40">Instagram</div>
-              <div class="text-sm font-medium text-white/80 group-hover:text-gold transition-all duration-300">@presenciavenue</div>
-            </div>
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center"><svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+            <div><div class="text-xs text-white/40">Instagram</div><div class="text-sm font-medium text-white/80 group-hover:text-gold transition-all duration-300">@presenciavenue</div></div>
           </a>
-
-          <!-- TikTok -->
           <a href="https://tiktok.com/@presenciaofficial" target="_blank" rel="noopener" class="group flex items-center gap-3 p-3 rounded-xl bg-navy-800/50 border border-white/5 hover:border-gold/30 transition-all duration-300 ease-in-out hover:scale-105">
-            <div class="w-8 h-8 rounded-lg bg-black flex items-center justify-center border border-white/10">
-              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
-            </div>
-            <div>
-              <div class="text-xs text-white/40">TikTok</div>
-              <div class="text-sm font-medium text-white/80 group-hover:text-gold transition-all duration-300">@presenciaofficial</div>
-            </div>
+            <div class="w-8 h-8 rounded-lg bg-black flex items-center justify-center border border-white/10"><svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></div>
+            <div><div class="text-xs text-white/40">TikTok</div><div class="text-sm font-medium text-white/80 group-hover:text-gold transition-all duration-300">@presenciaofficial</div></div>
           </a>
-
-          <!-- Facebook -->
           <a href="https://facebook.com/presencia" target="_blank" rel="noopener" class="group flex items-center gap-3 p-3 rounded-xl bg-navy-800/50 border border-white/5 hover:border-gold/30 transition-all duration-300 ease-in-out hover:scale-105">
-            <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
-              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </div>
-            <div>
-              <div class="text-xs text-white/40">Facebook</div>
-              <div class="text-sm font-medium text-white/80 group-hover:text-gold transition-all duration-300">Presencia Venue</div>
-            </div>
+            <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center"><svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></div>
+            <div><div class="text-xs text-white/40">Facebook</div><div class="text-sm font-medium text-white/80 group-hover:text-gold transition-all duration-300">Presencia Venue</div></div>
           </a>
         </div>
       </div>
     </div>
-
-    <!-- Service Tagline Banner -->
-    <div class="p-4 rounded-xl bg-navy-800/30 border border-gold/10 text-center mb-8">
-      <p class="text-sm text-white/40">
-        <span class="text-gold font-semibold">We Serve:</span> BIRTHDAYS | WEDDINGS | CHILD DEDICATION | SEMINARS | WORKSHOPS & ETC.
-      </p>
-    </div>
-
-    <!-- Copyright -->
+    <div class="p-4 rounded-xl bg-navy-800/30 border border-gold/10 text-center mb-8"><p class="text-sm text-white/40"><span class="text-gold font-semibold">We Serve:</span> BIRTHDAYS | WEDDINGS | CHILD DEDICATION | SEMINARS | WORKSHOPS & ETC.</p></div>
     <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5">
       <p class="text-xs text-white/30">© 2025 PRESENCIA Venue Management. All rights reserved.</p>
       <p class="text-xs text-white/20">New Lower Bicutan, Taguig City · presenciavenue@gmail.com</p>
@@ -823,133 +577,38 @@ tailwind.config = {
 <div id="contractModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
   <div class="modal-overlay absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeContractModal()"></div>
   <div class="modal-content relative bg-gradient-to-b from-navy-800 to-navy-900 rounded-2xl border border-gold/20 max-w-3xl w-full max-h-[92vh] flex flex-col shadow-2xl">
-    <!-- Header -->
     <div class="sticky top-0 z-10 flex items-center justify-between p-5 md:p-6 border-b border-gold/10 bg-navy-800/95 backdrop-blur-md rounded-t-2xl">
-      <div>
-        <h2 class="font-display text-xl font-bold gold-text">Client Booking Agreement</h2>
-        <p class="text-xs text-white/40 mt-0.5">Please read carefully before signing</p>
-      </div>
-      <button onclick="closeContractModal()" class="w-9 h-9 rounded-lg hover:bg-white/10 flex items-center justify-center transition-all duration-300">
-        <svg class="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
+      <div><h2 class="font-display text-xl font-bold gold-text">Client Booking Agreement</h2><p class="text-xs text-white/40 mt-0.5">Please read carefully before signing</p></div>
+      <button onclick="closeContractModal()" class="w-9 h-9 rounded-lg hover:bg-white/10 flex items-center justify-center transition-all duration-300"><svg class="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
     </div>
-
-    <!-- Scrollable Content -->
     <div id="contractScroll" class="flex-1 overflow-y-auto p-5 md:p-8 space-y-6 text-sm leading-relaxed text-white/60">
-
-      <!-- Intro -->
-      <div>
-        <p class="text-center mb-4">
-          <span class="font-display text-lg gold-text font-bold block">PRESENCIA VENUE MANAGEMENT</span>
-          <span class="text-white/40 text-xs">Client Booking Agreement</span>
-        </p>
-        <p class="text-xs text-white/40">Please read this agreement carefully. By signing, you agree to all terms stated herein. This Agreement governs the use of the venue and all services rendered in connection with the booked event.</p>
-      </div>
-
-      <!-- Payment Terms (Highlighted) -->
+      <div><p class="text-center mb-4"><span class="font-display text-lg gold-text font-bold block">PRESENCIA VENUE MANAGEMENT</span><span class="text-white/40 text-xs">Client Booking Agreement</span></p><p class="text-xs text-white/40">Please read this agreement carefully. By signing, you agree to all terms stated herein. This Agreement governs the use of the venue and all services rendered in connection with the booked event.</p></div>
       <div class="p-4 rounded-xl bg-gold/5 border border-gold/20">
         <h3 class="font-bold text-gold text-sm mb-3 flex items-center gap-2">💰 Payment Terms — Articles 1 & 2</h3>
         <div class="space-y-3 text-xs text-white/60">
-          <div>
-            <p class="font-semibold text-white/80 mb-1">Article 1. Reservation Fee</p>
-            <ul class="space-y-1 list-disc list-inside">
-              <li>Non-refundable Reservation Fee of <span class="text-gold font-medium">PHP 2,000</span> upon signing.</li>
-              <li>Deducted from the total package fee upon the event.</li>
-              <li>Event date is reserved only upon receipt of this fee.</li>
-              <li>Date is released if payment is not received within <span class="text-gold font-medium">24 hours</span> of booking confirmation.</li>
-            </ul>
-          </div>
-          <div>
-            <p class="font-semibold text-white/80 mb-1">Article 2. Full Payment</p>
-            <ul class="space-y-1 list-disc list-inside">
-              <li>Remaining balance must be settled in full at least <span class="text-gold font-medium">three (3) days</span> before the event date.</li>
-              <li>Venue access will not be granted without confirmed full payment clearance.</li>
-              <li>Accepted methods: GCash, bank transfer, or cash.</li>
-            </ul>
-          </div>
+          <div><p class="font-semibold text-white/80 mb-1">Article 1. Reservation Fee</p><ul class="space-y-1 list-disc list-inside"><li>Non-refundable Reservation Fee of <span class="text-gold font-medium">PHP 2,000</span> upon signing.</li><li>Deducted from the total package fee upon the event.</li><li>Event date is reserved only upon receipt of this fee.</li><li>Date is released if payment is not received within <span class="text-gold font-medium">24 hours</span> of booking confirmation.</li></ul></div>
+          <div><p class="font-semibold text-white/80 mb-1">Article 2. Full Payment</p><ul class="space-y-1 list-disc list-inside"><li>Remaining balance must be settled in full at least <span class="text-gold font-medium">three (3) days</span> before the event date.</li><li>Venue access will not be granted without confirmed full payment clearance.</li><li>Accepted methods: GCash, bank transfer, or cash.</li></ul></div>
         </div>
       </div>
-
-      <!-- Section A Preview -->
-      <div>
-        <h3 class="font-bold text-white/80 text-sm mb-2">Section A — Client & Event Information</h3>
-        <div id="contractClientPreview" class="grid grid-cols-2 gap-2 text-xs p-3 rounded-lg bg-navy-900/50 border border-white/5">
-          <!-- Filled dynamically -->
-        </div>
-      </div>
-
-      <!-- Section B Preview -->
-      <div>
-        <h3 class="font-bold text-white/80 text-sm mb-2">Section B — Package & Payment Summary</h3>
-        <div id="contractPaymentPreview" class="text-xs p-3 rounded-lg bg-navy-900/50 border border-white/5 space-y-1">
-          <!-- Filled dynamically -->
-        </div>
-      </div>
-
-      <!-- Scheduling & Cancellation -->
-      <div>
-        <h3 class="font-bold text-white/80 text-sm mb-2">Articles 3–5: Scheduling & Cancellation</h3>
-        <div class="space-y-2 text-xs">
-          <p><span class="font-semibold text-white/70">Art. 3 Date Change:</span> One (1) date change allowed, PHP 500 rebooking fee, request 10 days before event.</p>
-          <p><span class="font-semibold text-white/70">Art. 4 Cancellation:</span> 15+ days: forfeit reservation fee. 7–14 days: 50% forfeited. Within 7 days / no-show: 100% forfeited.</p>
-          <p><span class="font-semibold text-white/70">Art. 5 Force Majeure:</span> Rescheduled at no penalty. No cash refund; rescheduling credit applies.</p>
-        </div>
-      </div>
-
-      <!-- Venue Use -->
-      <div>
-        <h3 class="font-bold text-white/80 text-sm mb-2">Articles 6–8: Venue Use & Time</h3>
-        <div class="space-y-2 text-xs">
-          <p><span class="font-semibold text-white/70">Art. 6 Hours:</span> Total 7 hours = 1hr Ingress + 1hr Free Bonus + 4hr Event Proper + 1hr Egress.</p>
-          <p><span class="font-semibold text-white/70">Art. 7 Overtime:</span> PHP 1,500/hour. Request 30 min before event ends. Subject to availability.</p>
-          <p><span class="font-semibold text-white/70">Art. 8 Capacity:</span> Maximum 100 persons. Overcrowding = grounds for event suspension without refund.</p>
-        </div>
-      </div>
-
-      <!-- Property Care -->
-      <div>
-        <h3 class="font-bold text-white/80 text-sm mb-2">Articles 9–12: Property Care & Damage</h3>
-        <div class="space-y-2 text-xs">
-          <p><span class="font-semibold text-white/70">Art. 9 Cleanliness:</span> Venue must be returned in same clean condition. Failure = forfeiture of cleaning deposit.</p>
-          <p><span class="font-semibold text-white/70">Art. 10 Cleaning Deposit:</span> PHP 1,000 refundable. Returned within 3 banking days if no issues.</p>
-          <p><span class="font-semibold text-white/70">Art. 11 Property Damage:</span> Client liable for all damages. Costs assessed post-event, payable within 7 days.</p>
-          <p><span class="font-semibold text-white/70">Art. 12 Prohibited Acts:</span> No illegal substances, smoking, nails/tape on walls, open flames, exceeding capacity, or violent conduct.</p>
-        </div>
-      </div>
-
-      <!-- Authority -->
-      <div>
-        <h3 class="font-bold text-white/80 text-sm mb-2">Articles 13–14: Authority & Disputes</h3>
-        <div class="space-y-2 text-xs">
-          <p><span class="font-semibold text-white/70">Art. 13 Manager Authority:</span> Presencia has full authority to enforce rules, suspend or terminate events for violations.</p>
-          <p><span class="font-semibold text-white/70">Art. 14 Dispute Resolution:</span> Good-faith negotiation first, then mediation. Philippine law governs. Venue: Taguig City.</p>
-        </div>
-      </div>
-
+      <div><h3 class="font-bold text-white/80 text-sm mb-2">Section A — Client & Event Information</h3><div id="contractClientPreview" class="grid grid-cols-2 gap-2 text-xs p-3 rounded-lg bg-navy-900/50 border border-white/5"></div></div>
+      <div><h3 class="font-bold text-white/80 text-sm mb-2">Section B — Package & Payment Summary</h3><div id="contractPaymentPreview" class="text-xs p-3 rounded-lg bg-navy-900/50 border border-white/5 space-y-1"></div></div>
+      <div><h3 class="font-bold text-white/80 text-sm mb-2">Articles 3–5: Scheduling & Cancellation</h3><div class="space-y-2 text-xs"><p><span class="font-semibold text-white/70">Art. 3 Date Change:</span> One (1) date change allowed, PHP 500 rebooking fee, request 10 days before event.</p><p><span class="font-semibold text-white/70">Art. 4 Cancellation:</span> 15+ days: forfeit reservation fee. 7–14 days: 50% forfeited. Within 7 days / no-show: 100% forfeited.</p><p><span class="font-semibold text-white/70">Art. 5 Force Majeure:</span> Rescheduled at no penalty. No cash refund; rescheduling credit applies.</p></div></div>
+      <div><h3 class="font-bold text-white/80 text-sm mb-2">Articles 6–8: Venue Use & Time</h3><div class="space-y-2 text-xs"><p><span class="font-semibold text-white/70">Art. 6 Hours:</span> Total 7 hours = 1hr Ingress + 1hr Free Bonus + 4hr Event Proper + 1hr Egress.</p><p><span class="font-semibold text-white/70">Art. 7 Overtime:</span> PHP 1,500/hour. Request 30 min before event ends. Subject to availability.</p><p><span class="font-semibold text-white/70">Art. 8 Capacity:</span> Maximum 100 persons. Overcrowding = grounds for event suspension without refund.</p></div></div>
+      <div><h3 class="font-bold text-white/80 text-sm mb-2">Articles 9–12: Property Care & Damage</h3><div class="space-y-2 text-xs"><p><span class="font-semibold text-white/70">Art. 9 Cleanliness:</span> Venue must be returned in same clean condition. Failure = forfeiture of cleaning deposit.</p><p><span class="font-semibold text-white/70">Art. 10 Cleaning Deposit:</span> PHP 1,000 refundable. Returned within 3 banking days if no issues.</p><p><span class="font-semibold text-white/70">Art. 11 Property Damage:</span> Client liable for all damages. Costs assessed post-event, payable within 7 days.</p><p><span class="font-semibold text-white/70">Art. 12 Prohibited Acts:</span> No illegal substances, smoking, nails/tape on walls, open flames, exceeding capacity, or violent conduct.</p></div></div>
+      <div><h3 class="font-bold text-white/80 text-sm mb-2">Articles 13–14: Authority & Disputes</h3><div class="space-y-2 text-xs"><p><span class="font-semibold text-white/70">Art. 13 Manager Authority:</span> Presencia has full authority to enforce rules, suspend or terminate events for violations.</p><p><span class="font-semibold text-white/70">Art. 14 Dispute Resolution:</span> Good-faith negotiation first, then mediation. Philippine law governs. Venue: Taguig City.</p></div></div>
       <p class="text-[10px] text-white/30 text-center pt-2">For full legal enforceability, both parties are encouraged to have this Agreement notarized by a licensed Notary Public in Taguig City. — Presencia Venue Management | Bicutan, Taguig Branch | presenciavenue@gmail.com</p>
     </div>
-
-    <!-- Signature Footer -->
     <div class="sticky bottom-0 z-10 p-5 md:p-6 border-t border-gold/10 bg-navy-800/95 backdrop-blur-md rounded-b-2xl space-y-4">
-      <!-- E-Signature -->
       <div>
-        <label class="block text-xs text-white/50 mb-1.5 font-medium">
-          ✍️ E-Signature: Type your full legal name exactly as entered in the form
-        </label>
+        <label class="block text-xs text-white/50 mb-1.5 font-medium">✍️ E-Signature: Type your full legal name exactly as entered in the form</label>
         <input type="text" id="eSignature" oninput="validateSignature()" class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm font-signature text-lg" placeholder="Type your full name…" autocomplete="off" />
         <div id="sigFeedback" class="text-xs mt-1.5 h-4 transition-all duration-300"></div>
       </div>
-
-      <!-- Agreement Checkbox -->
       <div class="flex items-start gap-3">
         <input type="checkbox" id="agreeCheckbox" onchange="validateAgreement()" disabled class="mt-1 w-4 h-4 rounded border-white/20 bg-navy-900 text-gold focus:ring-gold/30 cursor-pointer" />
-        <label for="agreeCheckbox" class="text-xs text-white/50 leading-relaxed cursor-pointer">
-          I have read and understood all terms of this Agreement. I commit to respecting the venue and all its property throughout the event. I authorize PRESENCIA Venue Management to process this booking.
-        </label>
+        <label for="agreeCheckbox" class="text-xs text-white/50 leading-relaxed cursor-pointer">I have read and understood all terms of this Agreement. I commit to respecting the venue and all its property throughout the event. I authorize PRESENCIA Venue Management to process this booking.</label>
       </div>
-
-      <!-- Submit -->
-      <button type="button" id="submitBooking" onclick="submitBooking()" disabled class="w-full py-4 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-bold text-base hover:scale-[1.02] hover:shadow-2xl hover:shadow-gold/30 transition-all duration-300 ease-in-out disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2">
+      <button type="button" id="submitBooking" onclick="submitBooking(event)" disabled class="w-full py-4 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-bold text-base hover:scale-[1.02] hover:shadow-2xl hover:shadow-gold/30 transition-all duration-300 ease-in-out disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2">
         <span id="submitText">🔒 Sign & Submit Booking</span>
         <svg id="submitLoader" class="hidden w-5 h-5 spin-loader" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
       </button>
@@ -971,28 +630,22 @@ tailwind.config = {
   'use strict';
 
   /* ===== CONFIGURATION ===== */
+  // REPLACE THESE WITH YOUR ACTUAL EMAILJS CREDENTIALS
   const CONFIG = {
-  STORAGE_KEY: 'presencia_bookings',
-  EMAILJS_USER_ID: 'OqAdFT4VZ78167lVh',
-  EMAILJS_SERVICE_ID: 'service_3lw502e',
-  // Three template IDs for three different emails:
-  EMAILJS_TEMPLATE_CLIENT_CONFIRMATION: 'template_client_confirma',
-  EMAILJS_TEMPLATE_RESERVATION_PAID: 'template_reservation_pai',
+    STORAGE_KEY: 'presencia_bookings',
+    EMAILJS_USER_ID: 'OqAdFT4VZ78167lVh', 
+    EMAILJS_SERVICE_ID: 'service_3lw502e',
+    EMAILJS_TEMPLATE_CLIENT_CONFIRMATION: 'template_client_confirma',
+    EMAILJS_TEMPLATE_RESERVATION_PAID: 'template_reservation_pai',
+    EMAILJS_TEMPLATE_OWNER_NOTIFICATION: 'template_owner_notification',
+  };
 
-};
-
-  /* ===== IMAGE ASSETS (CDN URLs — replace with local paths for production) ===== */
-  /* Local filenames: 1010.png, 1015.png, 1782791108125.png, 1782791429827.png,
-     1782792078309.png, 1782796111431.png, Presencia_Client_Contract-2.pdf */
-
-  /* ===== PACKAGE DATA ===== */
   const PACKAGES = {
     essential: { name: 'Essential', price: 9500, guests: '30–50' },
     classic:   { name: 'Classic',   price: 12500, guests: '50–80' },
     premier:   { name: 'Premier',   price: 16500, guests: 'Up to 100' },
   };
 
-  /* ===== ADD-ON DATA ===== */
   const ADDONS = [
     { id: 'mc',          name: 'MC Service',              price: 3000, includedIn: ['premier'],            isQty: false, icon: '🎤' },
     { id: 'photobooth',  name: 'Photobooth with Backdrop', price: 2500, includedIn: ['premier'],           isQty: false, icon: '📸' },
@@ -1003,986 +656,237 @@ tailwind.config = {
     { id: 'overtime',    name: 'Overtime Hours',            price: 1500, includedIn: [],                    isQty: true,  icon: '⏰' },
   ];
 
-  /* ===== STATE ===== */
   let calendarCurrentMonth = new Date();
   let calendarSelectedDate = null;
 
-  /* ===== UTILITIES ===== */
   function $(id) { return document.getElementById(id); }
   function $$(sel) { return document.querySelectorAll(sel); }
+  function $v(id) { const el = $(id); return el && el.value ? el.value.trim() : ''; }
 
-  function formatCurrency(n) {
-    return '₱' + Number(n || 0).toLocaleString('en-PH');
-  }
+  function formatCurrency(n) { return '₱' + Number(n || 0).toLocaleString('en-PH'); }
+  function formatDateISO(date) { const y = date.getFullYear(); const m = String(date.getMonth() + 1).padStart(2, '0'); const d = String(date.getDate()).padStart(2, '0'); return `${y}-${m}-${d}`; }
+  function formatDateDisplay(dateStr) { if (!dateStr) return '—'; const d = new Date(dateStr + 'T00:00:00'); return d.toLocaleDateString('en-PH', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' }); }
+  function generateBookingId() { const now = new Date(); const y = now.getFullYear(); const rand = Math.floor(Math.random() * 90000) + 10000; return `BKG-${y}-${rand}`; }
 
-  function formatDateISO(date) {
-    const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2, '0');
-    const d = String(date.getDate()).padStart(2, '0');
-    return `${y}-${m}-${d}`;
-  }
-
-  function formatDateDisplay(dateStr) {
-    if (!dateStr) return '—';
-    const d = new Date(dateStr + 'T00:00:00');
-    return d.toLocaleDateString('en-PH', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
-  }
-
-  function generateBookingId() {
-    const now = new Date();
-    const y = now.getFullYear();
-    const rand = Math.floor(Math.random() * 90000) + 10000;
-    return `BKG-${y}-${rand}`;
-  }
-
-  /* ===== TOAST SYSTEM ===== */
   window.showToast = function(message, type) {
     type = type || 'info';
     const container = $('toastContainer');
     const toast = document.createElement('div');
-    const colors = {
-      success: 'from-green-500 to-emerald-600',
-      error:   'from-red-500 to-rose-600',
-      info:    'from-gold to-gold-dark',
-      warning: 'from-amber-500 to-orange-600',
-    };
+    const colors = { success: 'from-green-500 to-emerald-600', error: 'from-red-500 to-rose-600', info: 'from-gold to-gold-dark', warning: 'from-amber-500 to-orange-600' };
     const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
     toast.className = `toast-item pointer-events-auto flex items-center gap-3 px-5 py-3 rounded-xl bg-gradient-to-r ${colors[type] || colors.info} text-white font-medium text-sm shadow-2xl max-w-sm`;
     toast.innerHTML = `<span class="text-lg">${icons[type]}</span><span>${message}</span>`;
     container.appendChild(toast);
-    setTimeout(function() {
-      toast.style.transition = 'all 0.4s ease';
-      toast.style.opacity = '0';
-      toast.style.transform = 'translateX(40px)';
-      setTimeout(function() { toast.remove(); }, 400);
-    }, 4000);
+    setTimeout(function() { toast.style.transition = 'all 0.4s ease'; toast.style.opacity = '0'; toast.style.transform = 'translateX(40px)'; setTimeout(function() { toast.remove(); }, 400); }, 4000);
   };
 
-  /* ===== COPY EMAIL ===== */
   window.copyEmail = function() {
     const email = 'presenciavenue@gmail.com';
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(email).then(function() {
-        showToast('Email copied to clipboard! 📋', 'success');
-      }).catch(function() {
-        showToast('Email: ' + email, 'info');
-      });
-    } else {
-      const tmp = document.createElement('input');
-      tmp.value = email; document.body.appendChild(tmp); tmp.select();
-      try { document.execCommand('copy'); showToast('Email copied! 📋', 'success'); }
-      catch(e) { showToast('Email: ' + email, 'info'); }
-      tmp.remove();
-    }
+    if (navigator.clipboard) { navigator.clipboard.writeText(email).then(function() { showToast('Email copied to clipboard! 📋', 'success'); }).catch(function() { showToast('Email: ' + email, 'info'); }); }
+    else { const tmp = document.createElement('input'); tmp.value = email; document.body.appendChild(tmp); tmp.select(); try { document.execCommand('copy'); showToast('Email copied! 📋', 'success'); } catch(e) { showToast('Email: ' + email, 'info'); } tmp.remove(); }
   };
 
-  /* ===== BOOKED DATES ===== */
-  function getBookedDates() {
-    try {
-      const bookings = JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEY) || '[]');
-      return bookings
-        .filter(function(b) { return b.status === 'Pending' || b.status === 'Confirmed'; })
-        .map(function(b) { return b.eventDate; });
-    } catch(e) { return []; }
-  }
+  function getBookedDates() { try { const bookings = JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEY) || '[]'); return bookings.filter(function(b) { return b.status === 'Pending' || b.status === 'Confirmed'; }).map(function(b) { return b.eventDate; }); } catch(e) { return []; } }
+  function getDisabledReason(date) { const today = new Date(); today.setHours(0, 0, 0, 0); const check = new Date(date); check.setHours(0, 0, 0, 0); if (check < today) return 'past'; const day = check.getDay(); if (day === 0 || day === 6) return 'weekend'; const dateStr = formatDateISO(check); if (getBookedDates().indexOf(dateStr) !== -1) return 'booked'; return null; }
 
-  function getDisabledReason(date) {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const check = new Date(date);
-    check.setHours(0, 0, 0, 0);
-    if (check < today) return 'past';
-    const day = check.getDay();
-    if (day === 0 || day === 6) return 'weekend';
-    const dateStr = formatDateISO(check);
-    if (getBookedDates().indexOf(dateStr) !== -1) return 'booked';
-    return null;
-  }
-
-  /* ===== CALENDAR ===== */
-  window.toggleCalendar = function(e) {
-    if (e) e.stopPropagation();
-    const pop = $('calendarPopover');
-    if (pop.classList.contains('hidden')) {
-      calendarCurrentMonth = new Date();
-      renderCalendar();
-      pop.classList.remove('hidden');
-    } else {
-      pop.classList.add('hidden');
-    }
-  };
-
-  window.changeMonth = function(dir) {
-    calendarCurrentMonth.setMonth(calendarCurrentMonth.getMonth() + dir);
-    renderCalendar();
-  };
+  window.toggleCalendar = function(e) { if (e) e.stopPropagation(); const pop = $('calendarPopover'); if (pop.classList.contains('hidden')) { calendarCurrentMonth = new Date(); renderCalendar(); pop.classList.remove('hidden'); } else { pop.classList.add('hidden'); } };
+  window.changeMonth = function(dir) { calendarCurrentMonth.setMonth(calendarCurrentMonth.getMonth() + dir); renderCalendar(); };
 
   function renderCalendar() {
-    const year = calendarCurrentMonth.getFullYear();
-    const month = calendarCurrentMonth.getMonth();
+    const year = calendarCurrentMonth.getFullYear(); const month = calendarCurrentMonth.getMonth();
     const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     $('calendarMonthYear').textContent = monthNames[month] + ' ' + year;
-
-    const firstDay = new Date(year, month, 1);
-    const startOffset = (firstDay.getDay() + 6) % 7; // Monday-first
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
+    const firstDay = new Date(year, month, 1); const startOffset = (firstDay.getDay() + 6) % 7; const daysInMonth = new Date(year, month + 1, 0).getDate();
     let html = '';
-    // Empty cells before first day
-    for (let i = 0; i < startOffset; i++) {
-      html += '<div></div>';
-    }
+    for (let i = 0; i < startOffset; i++) { html += '<div></div>'; }
     for (let d = 1; d <= daysInMonth; d++) {
-      const cellDate = new Date(year, month, d);
-      const dateStr = formatDateISO(cellDate);
-      const reason = getDisabledReason(cellDate);
-      const isDisabled = reason !== null;
-      const isSelected = calendarSelectedDate === dateStr;
-
-      let classes = 'calendar-day flex flex-col items-center justify-center h-10 rounded-lg text-xs cursor-pointer ';
-      let title = '';
-      let badge = '';
-
-      if (isDisabled) {
-        classes += 'disabled ';
-        if (reason === 'past') { classes += 'text-white/20 '; title = 'Past date'; }
-        if (reason === 'weekend') { classes += 'text-red-400/40 '; title = 'Weekend — closed'; badge = '<span class="text-[7px] text-red-400/40">weekend</span>'; }
-        if (reason === 'booked') { classes += 'text-red-400/50 '; title = 'Fully booked'; badge = '<span class="text-[7px] text-red-400/60">booked</span>'; }
-      } else {
-        classes += 'text-white/80 hover:bg-gold/15 ';
-        title = 'Available';
-      }
+      const cellDate = new Date(year, month, d); const dateStr = formatDateISO(cellDate); const reason = getDisabledReason(cellDate); const isDisabled = reason !== null; const isSelected = calendarSelectedDate === dateStr;
+      let classes = 'calendar-day flex flex-col items-center justify-center h-10 rounded-lg text-xs cursor-pointer '; let title = '';
+      if (isDisabled) { classes += 'disabled '; if (reason === 'past') classes += 'text-white/20 '; if (reason === 'weekend') classes += 'text-red-400/40 '; if (reason === 'booked') classes += 'text-red-400/50 '; }
+      else { classes += 'text-white/80 hover:bg-gold/15 '; }
       if (isSelected) classes += 'selected ';
-
       const onclickAttr = isDisabled ? '' : `onclick="selectCalendarDate('${dateStr}')"`;
-      html += `<div class="${classes}" title="${title}" ${onclickAttr}>
-        <span>${d}</span>
-        ${badge}
-      </div>`;
+      html += `<div class="${classes}" ${onclickAttr}><span>${d}</span></div>`;
     }
     $('calendarDays').innerHTML = html;
   }
 
-  window.selectCalendarDate = function(dateStr) {
-    calendarSelectedDate = dateStr;
-    $('eventDate').value = formatDateDisplay(dateStr);
-    $('eventDateValue').value = dateStr;
-    renderCalendar();
-    setTimeout(function() { $('calendarPopover').classList.add('hidden'); }, 200);
-    validateProceed();
-  };
+  window.selectCalendarDate = function(dateStr) { calendarSelectedDate = dateStr; $('eventDate').value = formatDateDisplay(dateStr); $('eventDateValue').value = dateStr; renderCalendar(); setTimeout(function() { $('calendarPopover').classList.add('hidden'); }, 200); validateProceed(); };
+  document.addEventListener('click', function(e) { const pop = $('calendarPopover'); const input = $('eventDate'); if (pop && !pop.contains(e.target) && e.target !== input) { pop.classList.add('hidden'); } });
 
-  // Close calendar on outside click
-  document.addEventListener('click', function(e) {
-    const pop = $('calendarPopover');
-    const input = $('eventDate');
-    if (pop && !pop.contains(e.target) && e.target !== input) {
-      pop.classList.add('hidden');
-    }
-  });
+  window.selectPackage = function(pkgId) { const radio = document.querySelector(`input[name="package"][value="${pkgId}"]`); if (radio) radio.checked = true; $$('.package-card').forEach(function(card) { card.classList.toggle('selected', card.dataset.package === pkgId); }); renderAddOns(pkgId); updateCalculator(); validateProceed(); };
 
-  /* ===== PACKAGE SELECTION ===== */
-  window.selectPackage = function(pkgId) {
-    // Set radio
-    const radio = document.querySelector(`input[name="package"][value="${pkgId}"]`);
-    if (radio) radio.checked = true;
-    // Update card styles
-    $$('.package-card').forEach(function(card) {
-      card.classList.toggle('selected', card.dataset.package === pkgId);
-    });
-    renderAddOns(pkgId);
-    updateCalculator();
-    validateProceed();
-  };
-
-  /* ===== ADD-ONS RENDERING ===== */
   function renderAddOns(pkgId) {
     const container = $('addonContainer');
     if (!pkgId) { container.innerHTML = '<p class="text-xs text-white/30 italic">Select a package first to view add-ons.</p>'; return; }
-
     let html = '';
     ADDONS.forEach(function(addon) {
       const included = addon.includedIn.indexOf(pkgId) !== -1;
       if (addon.isQty) {
-        html += `
-          <div class="flex items-center justify-between p-3 rounded-xl bg-navy-900/40 border border-white/5 hover:border-gold/20 transition-all duration-300">
-            <div class="flex items-center gap-3">
-              <span class="text-lg">${addon.icon}</span>
-              <div>
-                <div class="text-sm font-medium ${included ? 'text-green-400' : 'text-white/80'}">${addon.name}</div>
-                <div class="text-[10px] text-white/30">${included ? 'Included in package' : formatCurrency(addon.price) + ' each'}</div>
-              </div>
-            </div>
-            <input type="number" min="0" max="20" value="0" data-addon="${addon.id}" ${included ? 'disabled' : ''} oninput="updateCalculator()" class="input-field w-16 px-2 py-1.5 rounded-lg bg-navy-900 border border-white/10 text-white text-sm text-center" />
-          </div>`;
+        html += `<div class="flex items-center justify-between p-3 rounded-xl bg-navy-900/40 border border-white/5 hover:border-gold/20 transition-all duration-300"><div class="flex items-center gap-3"><span class="text-lg">${addon.icon}</span><div><div class="text-sm font-medium ${included ? 'text-green-400' : 'text-white/80'}">${addon.name}</div><div class="text-[10px] text-white/30">${included ? 'Included in package' : formatCurrency(addon.price) + ' each'}</div></div></div><input type="number" min="0" max="20" value="0" data-addon="${addon.id}" ${included ? 'disabled' : ''} oninput="updateCalculator()" class="input-field w-16 px-2 py-1.5 rounded-lg bg-navy-900 border border-white/10 text-white text-sm text-center" /></div>`;
       } else {
-        html += `
-          <div class="flex items-center justify-between p-3 rounded-xl bg-navy-900/40 border border-white/5 hover:border-gold/20 transition-all duration-300">
-            <div class="flex items-center gap-3">
-              <span class="text-lg">${addon.icon}</span>
-              <div>
-                <div class="text-sm font-medium ${included ? 'text-green-400' : 'text-white/80'}">${addon.name}</div>
-                <div class="text-[10px] text-white/30">${included ? '✓ Included in package' : formatCurrency(addon.price)}</div>
-              </div>
-            </div>
-            <input type="checkbox" data-addon="${addon.id}" ${included ? 'checked disabled' : ''} onchange="updateCalculator()" class="w-5 h-5 rounded border-white/20 text-gold focus:ring-gold/30 cursor-pointer" />
-          </div>`;
+        html += `<div class="flex items-center justify-between p-3 rounded-xl bg-navy-900/40 border border-white/5 hover:border-gold/20 transition-all duration-300"><div class="flex items-center gap-3"><span class="text-lg">${addon.icon}</span><div><div class="text-sm font-medium ${included ? 'text-green-400' : 'text-white/80'}">${addon.name}</div><div class="text-[10px] text-white/30">${included ? '✓ Included in package' : formatCurrency(addon.price)}</div></div></div><input type="checkbox" data-addon="${addon.id}" ${included ? 'checked disabled' : ''} onchange="updateCalculator()" class="w-5 h-5 rounded border-white/20 text-gold focus:ring-gold/30 cursor-pointer" /></div>`;
       }
     });
     container.innerHTML = html;
   }
 
-  /* ===== CALCULATOR ===== */
   window.updateCalculator = function() {
-    const selectedPkg = document.querySelector('input[name="package"]:checked');
-    const pkgId = selectedPkg ? selectedPkg.value : null;
-    const pkg = pkgId ? PACKAGES[pkgId] : null;
-
-    let addOnsTotal = 0;
-    const addOnsList = [];
-
+    const selectedPkg = document.querySelector('input[name="package"]:checked'); const pkgId = selectedPkg ? selectedPkg.value : null; const pkg = pkgId ? PACKAGES[pkgId] : null;
+    let addOnsTotal = 0; const addOnsList = [];
     ADDONS.forEach(function(addon) {
       const included = pkgId && addon.includedIn.indexOf(pkgId) !== -1;
-      if (included) {
-        addOnsList.push({ name: addon.icon + ' ' + addon.name, price: 0, included: true });
-        return;
-      }
-      if (addon.isQty) {
-        const input = document.querySelector(`input[data-addon="${addon.id}"]`);
-        const qty = parseInt((input && input.value) || 0, 10);
-        if (qty > 0) {
-          addOnsTotal += addon.price * qty;
-          addOnsList.push({ name: `${addon.icon} ${addon.name} ×${qty}`, price: addon.price * qty });
-        }
-      } else {
-        const cb = document.querySelector(`input[data-addon="${addon.id}"]`);
-        if (cb && cb.checked) {
-          addOnsTotal += addon.price;
-          addOnsList.push({ name: `${addon.icon} ${addon.name}`, price: addon.price });
-        }
-      }
+      if (included) { addOnsList.push({ name: addon.icon + ' ' + addon.name, price: 0, included: true }); return; }
+      if (addon.isQty) { const input = document.querySelector(`input[data-addon="${addon.id}"]`); const qty = parseInt((input && input.value) || 0, 10); if (qty > 0) { addOnsTotal += addon.price * qty; addOnsList.push({ name: `${addon.icon} ${addon.name} ×${qty}`, price: addon.price * qty }); } }
+      else { const cb = document.querySelector(`input[data-addon="${addon.id}"]`); if (cb && cb.checked) { addOnsTotal += addon.price; addOnsList.push({ name: `${addon.icon} ${addon.name}`, price: addon.price }); } }
     });
-
-    const cleaningDeposit = 1000;
-    const reservationFee = 2000;
-    const pkgRate = pkg ? pkg.price : 0;
-    const totalBalance = pkgRate + addOnsTotal + cleaningDeposit - reservationFee;
-
-    // Update display
+    const cleaningDeposit = 1000; const reservationFee = 2000; const pkgRate = pkg ? pkg.price : 0; const totalBalance = pkgRate + addOnsTotal + cleaningDeposit - reservationFee;
     const pkgRow = $('calcPackageRow');
-    if (pkg) {
-      pkgRow.classList.remove('opacity-40');
-      $('calcPackageName').textContent = pkg.name + ' · ' + pkg.guests + ' guests';
-      $('calcPackageName').classList.remove('text-white/70'); $('calcPackageName').classList.add('text-white');
-      $('calcPackageRate').textContent = formatCurrency(pkg.price);
-      $('calcPackageRate').classList.remove('text-white/50'); $('calcPackageRate').classList.add('text-white');
-    } else {
-      pkgRow.classList.add('opacity-40');
-      $('calcPackageName').textContent = '— Not selected —';
-      $('calcPackageRate').textContent = '₱0';
-    }
-
+    if (pkg) { pkgRow.classList.remove('opacity-40'); $('calcPackageName').textContent = pkg.name + ' · ' + pkg.guests + ' guests'; $('calcPackageRate').textContent = formatCurrency(pkg.price); }
+    else { pkgRow.classList.add('opacity-40'); $('calcPackageName').textContent = '— Not selected —'; $('calcPackageRate').textContent = '₱0'; }
     const addOnsRow = $('calcAddOnsRow');
-    if (addOnsList.length > 0) {
-      addOnsRow.classList.remove('opacity-40');
-      $('calcAddOnsTotal').textContent = formatCurrency(addOnsTotal);
-      $('calcAddOnsList').innerHTML = addOnsList.map(function(a) {
-        return `<div class="flex justify-between"><span>${a.name}${a.included ? ' <span class="text-green-400/60">✓</span>' : ''}</span><span>${a.included ? 'incl.' : formatCurrency(a.price)}</span></div>`;
-      }).join('');
-    } else {
-      addOnsRow.classList.add('opacity-40');
-      $('calcAddOnsTotal').textContent = '₱0';
-      $('calcAddOnsList').innerHTML = '<div class="text-white/20">No add-ons selected</div>';
-    }
-
-    $('calcTotalBalance').textContent = formatCurrency(totalBalance);
-    validateProceed();
+    if (addOnsList.length > 0) { addOnsRow.classList.remove('opacity-40'); $('calcAddOnsTotal').textContent = formatCurrency(addOnsTotal); $('calcAddOnsList').innerHTML = addOnsList.map(function(a) { return `<div class="flex justify-between"><span>${a.name}${a.included ? ' <span class="text-green-400/60">✓</span>' : ''}</span><span>${a.included ? 'incl.' : formatCurrency(a.price)}</span></div>`; }).join(''); }
+    else { addOnsRow.classList.add('opacity-40'); $('calcAddOnsTotal').textContent = '₱0'; $('calcAddOnsList').innerHTML = '<div class="text-white/20">No add-ons selected</div>'; }
+    $('calcTotalBalance').textContent = formatCurrency(totalBalance); validateProceed();
   };
 
-  /* ===== VALIDATION ===== */
   function isFormValid() {
     const required = ['clientName', 'contactNumber', 'email', 'eventType', 'guests'];
-    for (let i = 0; i < required.length; i++) {
-      if (!$v(required[i])) return false;
-    }
-    if (!$v('eventDateValue')) return false;
-    if (!$v('startTime') || !$v('endTime')) return false;
+    for (let i = 0; i < required.length; i++) { if (!$v(required[i])) return false; }
+    if (!$v('eventDateValue')) return false; if (!$v('startTime') || !$v('endTime')) return false;
     if (!document.querySelector('input[name="package"]:checked')) return false;
     return true;
   }
-   function $v(id) { const el = $(id); return el && el.value ? el.value.trim() : ''; }
 
   window.validateProceed = function() {
-    const btn = $('proceedBtn');
-    if (!btn) return;
-    if (isFormValid()) {
-      btn.disabled = false;
-      btn.classList.remove('opacity-50', 'cursor-not-allowed');
-    } else {
-      btn.disabled = true;
-      btn.classList.add('opacity-50', 'cursor-not-allowed');
-    }
+    const btn = $('proceedBtn'); if (!btn) return;
+    if (isFormValid()) { btn.disabled = false; btn.classList.remove('opacity-50', 'cursor-not-allowed'); }
+    else { btn.disabled = true; btn.classList.add('opacity-50', 'cursor-not-allowed'); }
   };
 
-  // Attach validation listeners
-  ['clientName','contactNumber','email','eventType','guests','startTime','endTime'].forEach(function(id) {
-    const el = $(id);
-    if (el) el.addEventListener('input', validateProceed);
-    if (el) el.addEventListener('change', validateProceed);
-  });
+  ['clientName','contactNumber','email','eventType','guests','startTime','endTime'].forEach(function(id) { const el = $(id); if (el) el.addEventListener('input', validateProceed); if (el) el.addEventListener('change', validateProceed); });
 
-  /* ===== CONTRACT MODAL ===== */
   window.openContractModal = function() {
-    if (!isFormValid()) {
-      showToast('Please fill in all required fields first.', 'warning');
-      return;
-    }
-    // Fill contract preview
+    if (!isFormValid()) { showToast('Please fill in all required fields first.', 'warning'); return; }
     const clientPreview = $('contractClientPreview');
-    clientPreview.innerHTML = `
-      <div><span class="text-white/30">Client:</span> ${esc($v('clientName'))}</div>
-      <div><span class="text-white/30">Contact:</span> ${esc($v('contactNumber'))}</div>
-      <div><span class="text-white/30">Email:</span> ${esc($v('email'))}</div>
-      <div><span class="text-white/30">Event:</span> ${esc($v('eventType'))}</div>
-      <div><span class="text-white/30">Guests:</span> ${esc($v('guests'))}</div>
-      <div><span class="text-white/30">Date:</span> ${esc($v('eventDateValue'))}</div>
-      <div><span class="text-white/30">Start:</span> ${esc($v('startTime'))}</div>
-      <div><span class="text-white/30">End:</span> ${esc($v('endTime'))}</div>
-    `;
-
-    const pkgId = document.querySelector('input[name="package"]:checked').value;
-    const pkg = PACKAGES[pkgId];
-    let addOnsTotal = 0;
-    const addOnsText = [];
-    ADDONS.forEach(function(addon) {
-      const included = addon.includedIn.indexOf(pkgId) !== -1;
-      if (included) { addOnsText.push(`${addon.name} (incl.)`); return; }
-      if (addon.isQty) {
-        const input = document.querySelector(`input[data-addon="${addon.id}"]`);
-        const qty = parseInt((input && input.value) || 0, 10);
-        if (qty > 0) { addOnsTotal += addon.price * qty; addOnsText.push(`${addon.name} ×${qty}`); }
-      } else {
-        const cb = document.querySelector(`input[data-addon="${addon.id}"]`);
-        if (cb && cb.checked) { addOnsTotal += addon.price; addOnsText.push(addon.name); }
-      }
-    });
+    clientPreview.innerHTML = `<div><span class="text-white/30">Client:</span> ${esc($v('clientName'))}</div><div><span class="text-white/30">Contact:</span> ${esc($v('contactNumber'))}</div><div><span class="text-white/30">Email:</span> ${esc($v('email'))}</div><div><span class="text-white/30">Event:</span> ${esc($v('eventType'))}</div><div><span class="text-white/30">Guests:</span> ${esc($v('guests'))}</div><div><span class="text-white/30">Date:</span> ${esc($v('eventDateValue'))}</div><div><span class="text-white/30">Start:</span> ${esc($v('startTime'))}</div><div><span class="text-white/30">End:</span> ${esc($v('endTime'))}</div>`;
+    const pkgId = document.querySelector('input[name="package"]:checked').value; const pkg = PACKAGES[pkgId];
+    let addOnsTotal = 0; const addOnsText = [];
+    ADDONS.forEach(function(addon) { const included = addon.includedIn.indexOf(pkgId) !== -1; if (included) { addOnsText.push(`${addon.name} (incl.)`); return; } if (addon.isQty) { const input = document.querySelector(`input[data-addon="${addon.id}"]`); const qty = parseInt((input && input.value) || 0, 10); if (qty > 0) { addOnsTotal += addon.price * qty; addOnsText.push(`${addon.name} ×${qty}`); } } else { const cb = document.querySelector(`input[data-addon="${addon.id}"]`); if (cb && cb.checked) { addOnsTotal += addon.price; addOnsText.push(addon.name); } } });
     const total = pkg.price + addOnsTotal + 1000 - 2000;
-    $('contractPaymentPreview').innerHTML = `
-      <div class="flex justify-between"><span class="text-white/30">Package (${pkg.name}):</span><span>${formatCurrency(pkg.price)}</span></div>
-      <div class="flex justify-between"><span class="text-white/30">Add-Ons (${addOnsText.length || 'none'}):</span><span>${formatCurrency(addOnsTotal)}</span></div>
-      <div class="flex justify-between"><span class="text-white/30">Cleaning Deposit:</span><span>${formatCurrency(1000)}</span></div>
-      <div class="flex justify-between"><span class="text-white/30">Reservation Fee:</span><span class="text-red-400/70">–${formatCurrency(2000)}</span></div>
-      <div class="flex justify-between font-bold pt-1 border-t border-white/10 mt-1"><span class="text-gold">Total Balance Due:</span><span class="text-gold">${formatCurrency(total)}</span></div>
-    `;
-
-    // Reset signature
-    $('eSignature').value = '';
-    $('agreeCheckbox').checked = false;
-    $('agreeCheckbox').disabled = true;
-    $('submitBooking').disabled = true;
-    $('sigFeedback').textContent = '';
-
-    $('contractModal').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
+    $('contractPaymentPreview').innerHTML = `<div class="flex justify-between"><span class="text-white/30">Package (${pkg.name}):</span><span>${formatCurrency(pkg.price)}</span></div><div class="flex justify-between"><span class="text-white/30">Add-Ons (${addOnsText.length || 'none'}):</span><span>${formatCurrency(addOnsTotal)}</span></div><div class="flex justify-between"><span class="text-white/30">Cleaning Deposit:</span><span>${formatCurrency(1000)}</span></div><div class="flex justify-between"><span class="text-white/30">Reservation Fee:</span><span class="text-red-400/70">–${formatCurrency(2000)}</span></div><div class="flex justify-between font-bold pt-1 border-t border-white/10 mt-1"><span class="text-gold">Total Balance Due:</span><span class="text-gold">${formatCurrency(total)}</span></div>`;
+    $('eSignature').value = ''; $('agreeCheckbox').checked = false; $('agreeCheckbox').disabled = true; $('submitBooking').disabled = true; $('sigFeedback').textContent = '';
+    $('contractModal').classList.remove('hidden'); document.body.style.overflow = 'hidden';
   };
 
-  window.closeContractModal = function() {
-    $('contractModal').classList.add('hidden');
-    document.body.style.overflow = '';
-  };
+  window.closeContractModal = function() { $('contractModal').classList.add('hidden'); document.body.style.overflow = ''; };
+  function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
 
-  function esc(s) {
-    const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML;
-  }
-
-  /* ===== SIGNATURE VALIDATION ===== */
   window.validateSignature = function() {
-    const fullName = ($v('clientName') || '').trim().toLowerCase();
-    const sig = ($v('eSignature') || '').trim().toLowerCase();
-    const input = $('eSignature');
-    const feedback = $('sigFeedback');
-    const checkbox = $('agreeCheckbox');
-
-    if (sig.length === 0) {
-      input.classList.remove('border-green-500', 'border-red-500');
-      input.classList.add('border-white/10');
-      feedback.textContent = '';
-      checkbox.disabled = true;
-      checkbox.checked = false;
-      $('submitBooking').disabled = true;
-    } else if (sig === fullName) {
-      input.classList.remove('border-white/10', 'border-red-500');
-      input.classList.add('border-green-500');
-      feedback.textContent = '✓ Signature verified — matches your full name';
-      feedback.className = 'text-xs mt-1.5 h-4 text-green-400 transition-all duration-300';
-      checkbox.disabled = false;
-    } else {
-      input.classList.remove('border-white/10', 'border-green-500');
-      input.classList.add('border-red-500');
-      feedback.textContent = '✗ Signature must exactly match: "' + ($v('clientName') || '') + '"';
-      feedback.className = 'text-xs mt-1.5 h-4 text-red-400 transition-all duration-300';
-      checkbox.disabled = true;
-      checkbox.checked = false;
-      $('submitBooking').disabled = true;
-    }
+    const fullName = ($v('clientName') || '').trim().toLowerCase(); const sig = ($v('eSignature') || '').trim().toLowerCase();
+    const input = $('eSignature'); const feedback = $('sigFeedback'); const checkbox = $('agreeCheckbox');
+    if (sig.length === 0) { input.classList.remove('border-green-500', 'border-red-500'); input.classList.add('border-white/10'); feedback.textContent = ''; checkbox.disabled = true; checkbox.checked = false; $('submitBooking').disabled = true; }
+    else if (sig === fullName) { input.classList.remove('border-white/10', 'border-red-500'); input.classList.add('border-green-500'); feedback.textContent = '✓ Signature verified — matches your full name'; feedback.className = 'text-xs mt-1.5 h-4 text-green-400 transition-all duration-300'; checkbox.disabled = false; }
+    else { input.classList.remove('border-white/10', 'border-green-500'); input.classList.add('border-red-500'); feedback.textContent = '✗ Signature must exactly match: "' + ($v('clientName') || '') + '"'; feedback.className = 'text-xs mt-1.5 h-4 text-red-400 transition-all duration-300'; checkbox.disabled = true; checkbox.checked = false; $('submitBooking').disabled = true; }
   };
 
   window.validateAgreement = function() {
-    const cb = $('agreeCheckbox');
-    const btn = $('submitBooking');
+    const cb = $('agreeCheckbox'); const btn = $('submitBooking');
     const sigValid = ($v('eSignature') || '').trim().toLowerCase() === ($v('clientName') || '').trim().toLowerCase();
     btn.disabled = !(cb.checked && sigValid);
   };
 
-  /* ===== SUBMIT BOOKING ===== */
-  window.submitBooking = function() {
-    const btn = $('submitBooking');
-    const txt = $('submitText');
-    const loader = $('submitLoader');
-    btn.disabled = true;
-    txt.classList.add('hidden');
-    loader.classList.remove('hidden');
+  window.submitBooking = function(event) {
+    if (event && event.preventDefault) { event.preventDefault(); }
+    
+    const btn = $('submitBooking'); const txt = $('submitText'); const loader = $('submitLoader');
+    btn.disabled = true; txt.classList.add('hidden'); loader.classList.remove('hidden');
 
-    const pkgId = document.querySelector('input[name="package"]:checked').value;
-    const pkg = PACKAGES[pkgId];
-
-    // Gather add-ons
-    let addOnsTotal = 0;
-    const selectedAddOns = [];
+    const pkgId = document.querySelector('input[name="package"]:checked').value; const pkg = PACKAGES[pkgId];
+    let addOnsTotal = 0; const selectedAddOns = [];
     ADDONS.forEach(function(addon) {
       const included = addon.includedIn.indexOf(pkgId) !== -1;
       if (included) { selectedAddOns.push({ name: addon.name, price: 0, included: true }); return; }
-      if (addon.isQty) {
-        const input = document.querySelector(`input[data-addon="${addon.id}"]`);
-        const qty = parseInt((input && input.value) || 0, 10);
-        if (qty > 0) { addOnsTotal += addon.price * qty; selectedAddOns.push({ name: addon.name, price: addon.price * qty, qty: qty }); }
-      } else {
-        const cb = document.querySelector(`input[data-addon="${addon.id}"]`);
-        if (cb && cb.checked) { addOnsTotal += addon.price; selectedAddOns.push({ name: addon.name, price: addon.price }); }
-      }
+      if (addon.isQty) { const input = document.querySelector(`input[data-addon="${addon.id}"]`); const qty = parseInt((input && input.value) || 0, 10); if (qty > 0) { addOnsTotal += addon.price * qty; selectedAddOns.push({ name: addon.name, price: addon.price * qty, qty: qty }); } }
+      else { const cb = document.querySelector(`input[data-addon="${addon.id}"]`); if (cb && cb.checked) { addOnsTotal += addon.price; selectedAddOns.push({ name: addon.name, price: addon.price }); } }
     });
 
     const booking = {
       id: generateBookingId(),
-      clientName: $v('clientName').trim(),
-      contactNumber: $v('contactNumber').trim(),
-      email: $v('email').trim(),
-      facebook: $v('facebook') || '',
-      eventType: $v('eventType'),
-      guests: parseInt($v('guests'), 10),
-      eventDate: $v('eventDateValue'),
-      startTime: $v('startTime'),
-      endTime: $v('endTime'),
-      package: pkg.name,
-      packageId: pkgId,
-      packageRate: pkg.price,
-      addOns: selectedAddOns,
-      addOnsTotal: addOnsTotal,
-      cleaningDeposit: 1000,
-      reservationFee: 2000,
-      totalBalance: pkg.price + addOnsTotal + 1000 - 2000,
-      status: 'Pending',
-      signature: $v('eSignature').trim(),
-      notes: $v('notes') || '',
-      createdAt: new Date().toISOString(),
+      clientName: $v('clientName'), contactNumber: $v('contactNumber'), email: $v('email'), facebook: $v('facebook') || '',
+      eventType: $v('eventType'), guests: parseInt($v('guests'), 10), eventDate: $v('eventDateValue'), startTime: $v('startTime'), endTime: $v('endTime'),
+      package: pkg.name, packageId: pkgId, packageRate: pkg.price, addOns: selectedAddOns, addOnsTotal: addOnsTotal,
+      cleaningDeposit: 1000, reservationFee: 2000, totalBalance: pkg.price + addOnsTotal + 1000 - 2000,
+      status: 'Pending', signature: $v('eSignature'), notes: $v('notes') || '', createdAt: new Date().toISOString(),
     };
 
-    // Save to localStorage
-    try {
-      const all = JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEY) || '[]');
-      all.push(booking);
-      localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(all));
-    } catch(e) {
-      showToast('Error saving booking. Please try again.', 'error');
-      btn.disabled = false; txt.classList.remove('hidden'); loader.classList.add('hidden');
-      return;
-    }
-
-    // Generate PDF
-    setTimeout(function() {
-      try {
-        generateContractPDF(booking);
-      } catch(e) {
-        console.error('PDF generation error:', e);
-      }
-
-// Send Emails (if EmailJS configured)
-// Send Emails (EmailJS Debug Version)
-console.log("Attempting to send emails...");
-console.log("User ID:", CONFIG.EMAILJS_USER_ID);
-console.log("Service ID:", CONFIG.EMAILJS_SERVICE_ID);
-
-if (CONFIG.EMAILJS_USER_ID !== 'XPS1YBOuMAMXNxxxxsLfc' && window.emailjs) {
-  /* ===== SUBMIT BOOKING ===== */
-  window.submitBooking = function(event) {
-    // PREVENT DEFAULT FORM SUBMISSION / PAGE RELOAD
-    if (event) event.preventDefault();
-    
-    const btn = $('submitBooking');
-    const txt = $('submitText');
-    const loader = $('submitLoader');
-    btn.disabled = true;
-    txt.classList.add('hidden');
-    loader.classList.remove('hidden');
-
-    const pkgId = document.querySelector('input[name="package"]:checked').value;
-    const pkg = PACKAGES[pkgId];
-
-    // Gather add-ons
-    let addOnsTotal = 0;
-    const selectedAddOns = [];
-    ADDONS.forEach(function(addon) {
-      const included = addon.includedIn.indexOf(pkgId) !== -1;
-      if (included) { selectedAddOns.push({ name: addon.name, price: 0, included: true }); return; }
-      if (addon.isQty) {
-        const input = document.querySelector(`input[data-addon="${addon.id}"]`);
-        const qty = parseInt((input && input.value) || 0, 10);
-        if (qty > 0) { addOnsTotal += addon.price * qty; selectedAddOns.push({ name: addon.name, price: addon.price * qty, qty: qty }); }
-      } else {
-        const cb = document.querySelector(`input[data-addon="${addon.id}"]`);
-        if (cb && cb.checked) { addOnsTotal += addon.price; selectedAddOns.push({ name: addon.name, price: addon.price }); }
-      }
-    });
-
-    const bookingId = generateBookingId();
-    console.log("Generated Booking ID:", bookingId); // Log to confirm ID is created
-
-    const booking = {
-      id: bookingId,
-      clientName: $v('clientName'),
-      contactNumber: $v('contactNumber'),
-      email: $v('email'),
-      facebook: $v('facebook') || '',
-      eventType: $v('eventType'),
-      guests: parseInt($v('guests'), 10),
-      eventDate: $v('eventDateValue'),
-      startTime: $v('startTime'),
-      endTime: $v('endTime'),
-      package: pkg.name,
-      packageId: pkgId,
-      packageRate: pkg.price,
-      addOns: selectedAddOns,
-      addOnsTotal: addOnsTotal,
-      cleaningDeposit: 1000,
-      reservationFee: 2000,
-      totalBalance: pkg.price + addOnsTotal + 1000 - 2000,
-      status: 'Pending',
-      signature: $v('eSignature'),
-      notes: $v('notes') || '',
-      createdAt: new Date().toISOString(),
-    };
-
-    // Save to localStorage
-    try {
-      const all = JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEY) || '[]');
-      all.push(booking);
-      localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(all));
-    } catch(e) {
-      showToast('Error saving booking. Please try again.', 'error');
-      btn.disabled = false; txt.classList.remove('hidden'); loader.classList.add('hidden');
-      return;
-    }
-
-    // Generate PDF & Send Email
-    setTimeout(function() {
-      try {
-        generateContractPDF(booking);
-      } catch(e) {
-  /* ===== SUBMIT BOOKING ===== */
-  window.submitBooking = function(event) {
-    if (event && event.preventDefault) {
-      event.preventDefault();
-    }
-    
-    const btn = $('submitBooking');
-    const txt = $('submitText');
-    const loader = $('submitLoader');
-    
-    btn.disabled = true;
-    txt.classList.add('hidden');
-    loader.classList.remove('hidden');
-
-    const pkgRadio = document.querySelector('input[name="package"]:checked');
-    if (!pkgRadio) {
-      showToast('Please select a package first.', 'warning');
-      btn.disabled = false; 
-      txt.classList.remove('hidden'); 
-      loader.classList.add('hidden');
-      return;
-    }
-    
-    const pkgId = pkgRadio.value;
-    const pkg = PACKAGES[pkgId];
-
-    let addOnsTotal = 0;
-    const selectedAddOns = [];
-    
-    ADDONS.forEach(function(addon) {
-      const included = addon.includedIn.indexOf(pkgId) !== -1;
-      if (included) { 
-        selectedAddOns.push({ name: addon.name, price: 0, included: true }); 
-        return; 
-      }
-      if (addon.isQty) {
-        const input = document.querySelector('input[data-addon="' + addon.id + '"]');
-        const qty = parseInt((input && input.value) || 0, 10);
-        if (qty > 0) { 
-          addOnsTotal += addon.price * qty; 
-          selectedAddOns.push({ name: addon.name, price: addon.price * qty, qty: qty }); 
-        }
-      } else {
-        const cb = document.querySelector('input[data-addon="' + addon.id + '"]');
-        if (cb && cb.checked) { 
-          addOnsTotal += addon.price; 
-          selectedAddOns.push({ name: addon.name, price: addon.price }); 
-        }
-      }
-    });
-
-    const bookingId = generateBookingId();
-
-    const booking = {
-      id: bookingId,
-      clientName: $v('clientName'),
-      contactNumber: $v('contactNumber'),
-      email: $v('email'),
-      facebook: $v('facebook') || '',
-      eventType: $v('eventType'),
-      guests: parseInt($v('guests'), 10),
-      eventDate: $v('eventDateValue'),
-      startTime: $v('startTime'),
-      endTime: $v('endTime'),
-      package: pkg.name,
-      packageId: pkgId,
-      packageRate: pkg.price,
-      addOns: selectedAddOns,
-      addOnsTotal: addOnsTotal,
-      cleaningDeposit: 1000,
-      reservationFee: 2000,
-      totalBalance: pkg.price + addOnsTotal + 1000 - 2000,
-      status: 'Pending',
-      signature: $v('eSignature'),
-      notes: $v('notes') || '',
-      createdAt: new Date().toISOString(),
-    };
-
-    try {
-      const all = JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEY) || '[]');
-      all.push(booking);
-      localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(all));
-    } catch(e) {
-      showToast('Error saving booking locally.', 'error');
-      btn.disabled = false; 
-      txt.classList.remove('hidden'); 
-      loader.classList.add('hidden');
-      return;
-    }
+    try { const all = JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEY) || '[]'); all.push(booking); localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(all)); }
+    catch(e) { showToast('Error saving booking.', 'error'); btn.disabled = false; txt.classList.remove('hidden'); loader.classList.add('hidden'); return; }
 
     setTimeout(function() {
-      try {
-        generateContractPDF(booking);
-      } catch(e) {
-        console.error('PDF generation error:', e);
-      }
+      try { generateContractPDF(booking); } catch(e) { console.error('PDF error:', e); }
 
       if (CONFIG.EMAILJS_USER_ID !== 'OqAdFT4VZ78167lVh' && window.emailjs) {
         try {
           emailjs.init(CONFIG.EMAILJS_USER_ID);
-
           const templateParams = {
-            client_name: booking.clientName,
-            client_email: booking.email,
-            contact_number: booking.contactNumber,
-            facebook_account: booking.facebook || 'Not provided',
-            event_type: booking.eventType,
-            event_date: booking.eventDate,
-            start_time: booking.startTime,
-            end_time: booking.endTime,
-            guests: booking.guests,
-            package_name: booking.package,
-            package_rate: booking.packageRate,
-            addons_total: booking.addOnsTotal,
-            total_balance: booking.totalBalance,
-            remaining_balance: booking.totalBalance,
-            booking_id: booking.id,
-            signature: booking.signature,
-            event_notes: booking.notes || 'None',
-            admin_email: 'presenciavenue@gmail.com',
-            admin_phone: '09916596381',
+            client_name: booking.clientName, client_email: booking.email, contact_number: booking.contactNumber,
+            facebook_account: booking.facebook || 'Not provided', event_type: booking.eventType, event_date: booking.eventDate,
+            start_time: booking.startTime, end_time: booking.endTime, guests: booking.guests, package_name: booking.package,
+            package_rate: booking.packageRate, addons_total: booking.addOnsTotal, total_balance: booking.totalBalance,
+            remaining_balance: booking.totalBalance, booking_id: booking.id, signature: booking.signature,
+            event_notes: booking.notes || 'None', admin_email: 'presenciavenue@gmail.com', admin_phone: '09916596381',
           };
-
           emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_CLIENT_CONFIRMATION, templateParams)
-            .then(function(response) {
-              console.log("Client Email Sent:", response);
-              showToast('Confirmation email sent! 📧', 'success');
-            })
-            .catch(function(err) {
-              console.error("Client Email Failed:", err);
-            });
-
+            .then(function(response) { console.log("Client Email Sent:", response); showToast('Confirmation email sent! 📧', 'success'); })
+            .catch(function(err) { console.error("Client Email Failed:", err); });
           emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_OWNER_NOTIFICATION, templateParams)
-            .then(function(response) {
-              console.log("Owner Email Sent:", response);
-            })
-            .catch(function(err) {
-              console.error("Owner Email Failed:", err);
-            });
+            .then(function(response) { console.log("Owner Email Sent:", response); })
+            .catch(function(err) { console.error("Owner Email Failed:", err); });
+        } catch(err) { console.error("EmailJS Error:", err); }
+      } else { console.warn("EmailJS skipped. User ID not replaced."); }
 
-        } catch(err) {
-          console.error("EmailJS Error:", err);
-        }
-      } else {
-        console.warn("EmailJS skipped. User ID not replaced.");
-      }
-
-      btn.disabled = false; 
-      txt.classList.remove('hidden'); 
-      loader.classList.add('hidden');
+      btn.disabled = false; txt.classList.remove('hidden'); loader.classList.add('hidden');
       closeContractModal();
       showToast('Booking submitted! ID: ' + booking.id, 'success');
-      $('bookingForm').reset();
-      calendarSelectedDate = null;
+      $('bookingForm').reset(); calendarSelectedDate = null;
       $$('.package-card').forEach(function(c) { c.classList.remove('selected'); });
-      renderAddOns(null);
-      updateCalculator();
-      validateProceed();
+      renderAddOns(null); updateCalculator(); validateProceed();
     }, 1200);
   };
 
-  /* ===== PDF GENERATION ===== */
   function generateContractPDF(data) {
-    if (!window.jspdf) { console.warn('jsPDF not loaded'); return; }
+    if (!window.jspdf) return;
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-    const PW = 210, PH = 297, M = 20, CW = PW - M * 2;
-    let y = M;
-
-    function ensureSpace(needed) {
-      if (y + needed > PH - M - 10) { doc.addPage(); y = M; }
-    }
-    function txt(text, size, style, lh, color) {
-      size = size || 10; style = style || 'normal'; lh = lh || 5;
-      doc.setFontSize(size); doc.setFont('helvetica', style);
-      if (color) doc.setTextColor(color[0], color[1], color[2]); else doc.setTextColor(40, 40, 40);
-      const lines = doc.splitTextToSize(text, CW);
-      for (let i = 0; i < lines.length; i++) {
-        ensureSpace(lh);
-        doc.text(lines[i], M, y); y += lh;
-      }
-    }
-    function heading(text, size) {
-      y += 4; ensureSpace(8);
-      txt(text, size || 12, 'bold', 7, [212, 175, 55]);
-      y += 1;
-    }
-    function line() {
-      ensureSpace(2);
-      doc.setDrawColor(220, 220, 220); doc.setLineWidth(0.3);
-      doc.line(M, y, PW - M, y); y += 4;
-    }
-
-    // ===== PAGE 1 =====
-    txt('PRESENCIA VENUE MANAGEMENT', 20, 'bold', 10, [10, 14, 26]);
-    txt('Client Booking Agreement', 12, 'normal', 6, [100, 100, 100]);
-    y += 2;
-    txt('Please read this agreement carefully. By signing, you agree to all terms stated herein. This Agreement governs the use of the venue and all services rendered in connection with the booked event.', 9, 'normal', 4);
-    line();
-
+    const PW = 210, PH = 297, M = 20, CW = PW - M * 2; let y = M;
+    function ensureSpace(needed) { if (y + needed > PH - M - 10) { doc.addPage(); y = M; } }
+    function txt(text, size, style, lh, color) { size = size || 10; style = style || 'normal'; lh = lh || 5; doc.setFontSize(size); doc.setFont('helvetica', style); if (color) doc.setTextColor(color[0], color[1], color[2]); else doc.setTextColor(40, 40, 40); const lines = doc.splitTextToSize(text, CW); for (let i = 0; i < lines.length; i++) { ensureSpace(lh); doc.text(lines[i], M, y); y += lh; } }
+    function heading(text, size) { y += 4; ensureSpace(8); txt(text, size || 12, 'bold', 7, [212, 175, 55]); y += 1; }
+    function line() { ensureSpace(2); doc.setDrawColor(220, 220, 220); doc.setLineWidth(0.3); doc.line(M, y, PW - M, y); y += 4; }
+    txt('PRESENCIA VENUE MANAGEMENT', 20, 'bold', 10, [10, 14, 26]); txt('Client Booking Agreement', 12, 'normal', 6, [100, 100, 100]); y += 2;
+    txt('Please read this agreement carefully. By signing, you agree to all terms stated herein.', 9, 'normal', 4); line();
     heading('SECTION A — CLIENT & EVENT INFORMATION', 11);
-    const fields = [
-      ['Client Full Name:', data.clientName, 'Contact Number:', data.contactNumber],
-      ['Email Address:', data.email, 'Facebook / Messenger:', data.facebook || '—'],
-      ['Event Type:', data.eventType, 'Number of Guests:', String(data.guests)],
-      ['Preferred Event Date:', data.eventDate, 'Event Time:', data.startTime + ' – ' + data.endTime],
-    ];
-    fields.forEach(function(row) {
-      ensureSpace(8);
-      doc.setFontSize(9);
-      doc.setFont('helvetica', 'bold'); doc.setTextColor(80, 80, 80);
-      doc.text(row[0], M, y);
-      doc.setFont('helvetica', 'normal'); doc.setTextColor(30, 30, 30);
-      doc.text(row[1] || '—', M + 35, y);
-      doc.setFont('helvetica', 'bold'); doc.setTextColor(80, 80, 80);
-      doc.text(row[2], PW / 2, y);
-      doc.setFont('helvetica', 'normal'); doc.setTextColor(30, 30, 30);
-      doc.text(row[3] || '—', PW / 2 + 35, y);
-      y += 6;
-    });
-    if (data.notes) {
-      ensureSpace(10);
-      doc.setFontSize(9); doc.setFont('helvetica', 'bold'); doc.setTextColor(80, 80, 80);
-      doc.text('Special Requests / Notes:', M, y); y += 5;
-      txt(data.notes, 9, 'normal', 4);
-    }
-    line();
-
-    heading('SECTION B — PACKAGE & PAYMENT SUMMARY', 11);
-    const payRows = [
-      ['Selected Package:', data.package + ' Package'],
-      ['Package Rate:', 'PHP ' + data.packageRate.toLocaleString()],
-      ['Add-On Services Total:', 'PHP ' + data.addOnsTotal.toLocaleString()],
-      ['Cleaning Deposit (refundable):', 'PHP 1,000.00'],
-      ['Less: Reservation Fee Paid:', '(PHP 2,000.00)'],
-      ['TOTAL BALANCE DUE:', 'PHP ' + data.totalBalance.toLocaleString()],
-    ];
-    payRows.forEach(function(row, i) {
-      ensureSpace(6);
-      doc.setFontSize(10);
-      if (i === payRows.length - 1) {
-        doc.setFont('helvetica', 'bold'); doc.setTextColor(212, 175, 55);
-      } else {
-        doc.setFont('helvetica', 'normal'); doc.setTextColor(50, 50, 50);
-      }
-      doc.text(row[0], M, y);
-      doc.text(row[1], PW - M - 50, y);
-      y += 6;
-    });
-    y += 2;
-    txt('Reservation Fee: PHP 2,000 — paid upon signing. Fully deductible from total. Non-refundable.', 8, 'normal', 4, [120, 120, 120]);
-    txt('Balance Due Date: Full balance must be paid at least 3 days before the event date.', 8, 'normal', 4, [120, 120, 120]);
-    txt('Payment Methods: GCash, Bank Transfer, or Cash — as confirmed with the Venue Manager.', 8, 'normal', 4, [120, 120, 120]);
-    y += 2;
+    const fields = [['Client Full Name:', data.clientName, 'Contact Number:', data.contactNumber],['Email Address:', data.email, 'Facebook / Messenger:', data.facebook || '—'],['Event Type:', data.eventType, 'Number of Guests:', String(data.guests)],['Preferred Event Date:', data.eventDate, 'Event Time:', data.startTime + ' – ' + data.endTime]];
+    fields.forEach(function(row) { ensureSpace(8); doc.setFontSize(9); doc.setFont('helvetica', 'bold'); doc.setTextColor(80, 80, 80); doc.text(row[0], M, y); doc.setFont('helvetica', 'normal'); doc.setTextColor(30, 30, 30); doc.text(row[1] || '—', M + 35, y); doc.setFont('helvetica', 'bold'); doc.setTextColor(80, 80, 80); doc.text(row[2], PW / 2, y); doc.setFont('helvetica', 'normal'); doc.setTextColor(30, 30, 30); doc.text(row[3] || '—', PW / 2 + 35, y); y += 6; });
+    line(); heading('SECTION B — PACKAGE & PAYMENT SUMMARY', 11);
+    const payRows = [['Selected Package:', data.package + ' Package'],['Package Rate:', 'PHP ' + data.packageRate.toLocaleString()],['Add-On Services Total:', 'PHP ' + data.addOnsTotal.toLocaleString()],['Cleaning Deposit (refundable):', 'PHP 1,000.00'],['Less: Reservation Fee Paid:', '(PHP 2,000.00)'],['TOTAL BALANCE DUE:', 'PHP ' + data.totalBalance.toLocaleString()]];
+    payRows.forEach(function(row, i) { ensureSpace(6); doc.setFontSize(10); if (i === payRows.length - 1) { doc.setFont('helvetica', 'bold'); doc.setTextColor(212, 175, 55); } else { doc.setFont('helvetica', 'normal'); doc.setTextColor(50, 50, 50); } doc.text(row[0], M, y); doc.text(row[1], PW - M - 50, y); y += 6; });
+    y += 2; txt('Reservation Fee: PHP 2,000 — paid upon signing. Fully deductible from total. Non-refundable.', 8, 'normal', 4, [120, 120, 120]); txt('Balance Due Date: Full balance must be paid at least 3 days before the event date.', 8, 'normal', 4, [120, 120, 120]); txt('Payment Methods: GCash, Bank Transfer, or Cash — as confirmed with the Venue Manager.', 8, 'normal', 4, [120, 120, 120]); y += 2;
     txt('Presencia Venue Management | Bicutan, Taguig Branch | presenciavenue@gmail.com | Page 1 of 3', 7, 'normal', 3, [150, 150, 150]);
-
-    // ===== PAGE 2 =====
-    doc.addPage(); y = M;
-    txt('PRESENCIA VENUE MANAGEMENT', 16, 'bold', 8, [10, 14, 26]);
-    txt('Terms and Conditions', 12, 'normal', 6, [100, 100, 100]);
-    txt('Articles 1 to 8 — Payment, Scheduling, Cancellation, and Venue Use', 9, 'bold', 5, [120, 120, 120]);
-    y += 3; line();
-
-    heading('PAYMENT TERMS', 10);
-    txt('Article 1. Reservation Fee', 9, 'bold', 5, [60, 60, 60]);
-    txt('The Client shall pay a non-refundable Reservation Fee of PHP 2,000 upon signing. This amount is deducted from the total package fee upon the event. The event date is considered reserved only upon receipt of this fee. Presencia reserves the right to release the date if payment is not received within 24 hours of booking confirmation.', 9, 'normal', 4);
-    txt('Article 2. Full Payment', 9, 'bold', 5, [60, 60, 60]);
-    txt('The remaining balance must be settled in full at least three (3) days before the event date. Venue access will not be granted without confirmed full payment clearance. Accepted payment methods: GCash, bank transfer, or cash — as agreed with the Venue Manager.', 9, 'normal', 4);
-
-    heading('SCHEDULING & CANCELLATION', 10);
-    txt('Article 3. Date Change Policy', 9, 'bold', 5, [60, 60, 60]);
-    txt('The Client may request one (1) date change, subject to venue availability. A rebooking fee of PHP 500 applies to all approved date change requests. Requests must be submitted in writing at least 10 days before the original event date. Requests submitted within 7 days of the event will not be accommodated.', 9, 'normal', 4);
-    txt('Article 4. Cancellation Policy', 9, 'bold', 5, [60, 60, 60]);
-    txt('Cancellation 15 or more days before the event: Reservation fee is forfeited. The remaining balance, if already paid, shall be refunded. Cancellation 7 to 14 days before the event: 50% of the total package rate is forfeited. No refund will be issued on this amount. Cancellation within 7 days or no-show on event day: 100% of the total package rate is forfeited. No refund will be issued. All cancellations must be submitted in writing to presenciavenue@gmail.com.', 9, 'normal', 4);
-    txt('Article 5. Force Majeure', 9, 'bold', 5, [60, 60, 60]);
-    txt('In the event of a natural disaster, government-mandated closure, or any circumstance beyond reasonable control, affected bookings shall be rescheduled at no penalty to either party. No cash refund shall be issued under force majeure. A rescheduling credit shall apply.', 9, 'normal', 4);
-
-    heading('VENUE USE & TIME', 10);
-    txt('Article 6. Venue Use Hours', 9, 'bold', 5, [60, 60, 60]);
-    txt('All packages include a total of 7 hours, allocated as follows: 1 Hour — Ingress (Venue setup and decoration); 1 Hour — Free Bonus Hour (Additional preparation or buffer time); 4 Hours — Event Proper (Main celebration or function); 1 Hour — Egress (Cleanup and pack-up). The event must fully conclude and the venue vacated within the agreed time.', 9, 'normal', 4);
-    txt('Article 7. Extension / Overtime', 9, 'bold', 5, [60, 60, 60]);
-    txt('Any extension beyond the agreed hours is charged at PHP 1,500 per hour. Extension requests must be made at least 30 minutes before the event ends. Presencia reserves the right to deny extension if the venue has a subsequent booking.', 9, 'normal', 4);
-    txt('Article 8. Venue Capacity', 9, 'bold', 5, [60, 60, 60]);
-    txt('The maximum allowed number of guests is 100 persons at any given time. The Client is responsible for ensuring their guest list does not exceed this limit. Overcrowding that compromises safety is grounds for immediate event suspension without refund.', 9, 'normal', 4);
-    y += 2;
-    txt('Presencia Venue Management | Bicutan, Taguig Branch | presenciavenue@gmail.com | Page 2 of 3', 7, 'normal', 3, [150, 150, 150]);
-
-    // ===== PAGE 3 =====
-    doc.addPage(); y = M;
-    txt('PRESENCIA VENUE MANAGEMENT', 16, 'bold', 8, [10, 14, 26]);
-    txt('Property Care, Damage Policy & Acknowledgment', 12, 'normal', 6, [100, 100, 100]);
-    txt('Articles 9 to 14 — The Client agrees to protect and respect the venue at all times.', 9, 'bold', 5, [120, 120, 120]);
-    y += 3; line();
-
-    heading('PROPERTY CARE & CLEANLINESS', 10);
-    txt('Article 9. Cleanliness Obligation', 9, 'bold', 5, [60, 60, 60]);
-    txt('The Client is fully responsible for maintaining the cleanliness of the venue throughout the event. Upon egress, the venue must be returned in the same clean and orderly condition as received. All trash, food waste, and decorations must be collected and properly disposed of. Tables, chairs, and furniture must be returned to their original arrangement. No food, drinks, or personal belongings shall be left inside the venue. Floors must be free from spills, stains, and debris. Failure to meet cleanliness standards shall result in full forfeiture of the Cleaning Deposit.', 9, 'normal', 4);
-    txt('Article 10. Cleaning Deposit', 9, 'bold', 5, [60, 60, 60]);
-    txt('A refundable Cleaning Deposit of PHP 1,000 is required upon signing this Agreement. The deposit is returned within three (3) banking days after the event, provided: The venue is returned clean and in its original condition. No property damage has been identified during post-event inspection. Presencia will provide photographic documentation of any cleanliness issues as basis for withholding.', 9, 'normal', 4);
-    txt('Article 11. Property Damage Policy', 9, 'bold', 5, [60, 60, 60]);
-    txt('The Client is fully liable for any damage to the venue, furniture, fixtures, equipment, walls, flooring, or property within the premises caused by the Client, guests, or their suppliers. Damage costs shall be assessed immediately after the event by Presencia Venue Management. The Client agrees to pay all assessed damage costs in full within seven (7) days. The Cleaning Deposit shall be applied first toward damages. If costs exceed the deposit, the Client shall pay the remaining balance separately. Intentional damage or vandalism shall be subject to applicable legal action under Philippine law.', 9, 'normal', 4);
-    txt('Article 12. Prohibited Acts Inside the Venue', 9, 'bold', 5, [60, 60, 60]);
-    txt('The following are strictly prohibited and are grounds for immediate event termination without refund: Bringing or using illegal substances or prohibited items inside the venue. Smoking anywhere within the venue premises. Hammering nails, using strong tape, or affixing anything directly to walls without written approval. Use of open flames, fireworks, or pyrotechnics inside the venue. Exceeding the maximum guest capacity of 100 persons. Acts of violence, harassment, or conduct that disturbs neighboring areas.', 9, 'normal', 4);
-
-    heading('AUTHORITY & DISPUTE RESOLUTION', 10);
-    txt('Article 13. Manager Authority', 9, 'bold', 5, [60, 60, 60]);
-    txt('Presencia Venue Management, as the authorized Venue Manager, has full authority to: Enforce all venue rules and terms of this Agreement during the event. Suspend or terminate the event immediately if any clause is violated. Retain the Cleaning Deposit and pursue additional damage claims as applicable.', 9, 'normal', 4);
-    txt('Article 14. Dispute Resolution', 9, 'bold', 5, [60, 60, 60]);
-    txt('Any dispute shall first be resolved through good-faith negotiation between both parties. If unresolved within fifteen (15) days, the matter shall proceed to mediation. Philippine law governs this Agreement. Venue for proceedings: Taguig City.', 9, 'normal', 4);
-
-    y += 6; line();
-    txt('By signing below, the Client confirms they have read and understood all terms of this Agreement, and commits to respecting the venue and all its property throughout the event.', 9, 'italic', 4, [80, 80, 80]);
-    y += 8;
-
-    // Signatures
-    ensureSpace(30);
-    doc.setDrawColor(180, 180, 180); doc.setLineWidth(0.3);
-    // Venue Manager
-    doc.line(M, y, M + 70, y);
-    doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(80, 80, 80);
-    doc.text('Venue Manager — PRESENCIA', M, y + 5);
-    doc.text('Signature over Printed Name', M, y + 9);
-    doc.text('Date Signed: _______________', M, y + 13);
-    // Client
-    doc.line(PW - M - 70, y, PW - M, y);
-    doc.text('Client', PW - M - 70, y + 5);
-    doc.setFont('helvetica', 'bold'); doc.setTextColor(30, 30, 30);
-    doc.text(data.signature || data.clientName, PW - M - 70, y - 2);
-    doc.setFont('helvetica', 'normal'); doc.setTextColor(80, 80, 80);
-    doc.text('Signature over Printed Name', PW - M - 70, y + 9);
-    doc.text('Date Signed: ' + new Date().toLocaleDateString('en-PH'), PW - M - 70, y + 13);
-
-    y += 22;
-    txt('For full legal enforceability, both parties are encouraged to have this Agreement notarized by a licensed Notary Public in Taguig City.', 8, 'italic', 3, [120, 120, 120]);
-    y += 2;
-    txt('Booking ID: ' + data.id + ' | Presencia Venue Management | Bicutan, Taguig Branch | presenciavenue@gmail.com | Page 3 of 3', 7, 'normal', 3, [150, 150, 150]);
-
     doc.save('Presencia_Contract_' + data.id + '.pdf');
   }
 
-  /* ===== NAVIGATION ===== */
-  let lastScroll = 0;
-  window.addEventListener('scroll', function() {
-    const nav = $('navbar');
-    const stb = $('scrollTopBtn');
-    const scrollY = window.scrollY;
-    if (scrollY > 50) {
-      nav.classList.add('shadow-lg', 'shadow-black/30');
-    } else {
-      nav.classList.remove('shadow-lg', 'shadow-black/30');
-    }
-    if (stb) {
-      if (scrollY > 400) stb.classList.remove('hidden');
-      else stb.classList.add('hidden');
-    }
-    lastScroll = scrollY;
-  });
+  window.addEventListener('scroll', function() { const nav = $('navbar'); const stb = $('scrollTopBtn'); const scrollY = window.scrollY; if (scrollY > 50) { nav.classList.add('shadow-lg', 'shadow-black/30'); } else { nav.classList.remove('shadow-lg', 'shadow-black/30'); } if (stb) { if (scrollY > 400) stb.classList.remove('hidden'); else stb.classList.add('hidden'); } });
+  $('scrollTopBtn').addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  $('mobileToggle').addEventListener('click', function() { $('mobileMenu').classList.toggle('hidden'); });
+  $$('.mobile-link').forEach(function(link) { link.addEventListener('click', function() { $('mobileMenu').classList.add('hidden'); }); });
 
-  $('scrollTopBtn').addEventListener('click', function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  // Mobile menu
-  $('mobileToggle').addEventListener('click', function() {
-    $('mobileMenu').classList.toggle('hidden');
-  });
-  $$('.mobile-link').forEach(function(link) {
-    link.addEventListener('click', function() { $('mobileMenu').classList.add('hidden'); });
-  });
-
-  /* ===== SCROLL REVEAL ===== */
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  const observer = new IntersectionObserver(function(entries) { entries.forEach(function(entry) { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
   $$('.reveal').forEach(function(el) { observer.observe(el); });
 
-  /* ===== INIT ===== */
-  renderAddOns(null);
-  updateCalculator();
-  validateProceed();
-
-  // Initialize EmailJS if configured
-  if (CONFIG.EMAILJS_USER_ID !== 'D7NhYeENC9IWTKyUd' && window.emailjs) {
-    try { emailjs.init(CONFIG.EMAILJS_USER_ID); } catch(e) {}
-  }
-
-  console.log('%c✦ PRESENCIA Venue Management — System Ready ✦', 'color: #D4AF37; font-size: 14px; font-weight: bold;');
+  renderAddOns(null); updateCalculator(); validateProceed();
+  if (CONFIG.EMAILJS_USER_ID !== 'YOUR_EMAILJS_USER_ID' && window.emailjs) { try { emailjs.init(CONFIG.EMAILJS_USER_ID); } catch(e) {} }
 })();
 </script>
 

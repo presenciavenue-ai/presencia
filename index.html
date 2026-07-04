@@ -147,19 +147,12 @@ tailwind.config = {
       <div class="flex items-center justify-between h-16 md:h-20">
         <!-- Logo -->
         <a href="#home" class="flex items-center gap-3 group">
-          <div class="relative">
-            <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center font-display font-bold text-navy-900 text-xl group-hover:scale-110 transition-all duration-300">
-              1015.png
-            </div>
-            <div class="absolute inset-0 rounded-full border border-gold/30 group-hover:border-gold/60 transition-all duration-300 scale-110"></div>
-          </div>
-          <div class="hidden sm:block">
-            <div class="font-display text-lg md:text-xl font-bold gold-shimmer tracking-wide">PRESENCIA</div>
-            <div class="text-[10px] md:text-xs text-white/50 tracking-[0.2em] uppercase">Venue Management</div>
-          </div>
+        <!-- Using 1015.png for the Emblem -->
+        <img src="assets/1015.png" alt="PRESENCIA Emblem" class="w-10 h-10 md:w-12 md:h-12 object-contain group-hover:scale-110 transition-all duration-300" />
+        <!-- Using 1010.png for the Horizontal Text Logo -->
+        <img src="assets/1010.png" alt="PRESENCIA Venue Management" class="hidden sm:block h-6 md:h-8 w-auto object-contain" />
         </a>
-
-        <!-- Desktop Nav -->
+         <!-- Desktop Nav -->
         <div class="hidden lg:flex items-center gap-8">
           <a href="#home" class="nav-link text-sm font-medium text-white/70 hover:text-gold transition-all duration-300">Home</a>
           <a href="#services" class="nav-link text-sm font-medium text-white/70 hover:text-gold transition-all duration-300">Services</a>
@@ -324,7 +317,8 @@ tailwind.config = {
       <!-- Essential -->
       <div class="package-card reveal p-6 md:p-8 rounded-2xl bg-gradient-to-b from-navy-800 to-navy-900 border border-white/10 hover:border-gold/30 cursor-pointer" data-package="essential" onclick="selectPackage('essential')">
         <div class="flex justify-center mb-4">
-          <img src="https://z-cdn-media.chatglm.cn/files/72ee39b4-3e2f-4441-b7f1-cfa8175430c5.png" alt="Essential Package" class="h-40 rounded-lg object-cover" onerror="this.style.display='none'" loading="lazy" />
+          <!-- Essential -->
+          <img src="assets/1782791108125.png" alt="Essential Package" ... />
         </div>
         <div class="text-center mb-6">
           <h3 class="font-display text-2xl font-bold mb-1">Essential</h3>
@@ -352,7 +346,8 @@ tailwind.config = {
           ⭐ POPULAR CHOICE
         </div>
         <div class="flex justify-center mb-4">
-          <img src="https://z-cdn-media.chatglm.cn/files/fa7826d8-1993-4427-b662-9a055ac9130c.png" alt="Classic Package" class="h-40 rounded-lg object-cover" onerror="this.style.display='none'" loading="lazy" />
+          <!-- Classic -->
+          <img src="assets/1782791429827.png" alt="Classic Package" ... />
         </div>
         <div class="text-center mb-6">
           <h3 class="font-display text-2xl font-bold mb-1">Classic</h3>
@@ -379,7 +374,8 @@ tailwind.config = {
       <!-- Premier -->
       <div class="package-card reveal p-6 md:p-8 rounded-2xl bg-gradient-to-b from-navy-800 to-navy-900 border border-white/10 hover:border-gold/30 cursor-pointer" data-package="premier" onclick="selectPackage('premier')" style="animation-delay: 0.2s;">
         <div class="flex justify-center mb-4">
-          <img src="https://z-cdn-media.chatglm.cn/files/2a026c64-4ab1-44a0-a70e-e39f2bb14b65.png" alt="Premier Package" class="h-40 rounded-lg object-cover" onerror="this.style.display='none'" loading="lazy" />
+          <!-- Premier -->
+          <img src="assets/1782792078309.png" alt="Premier Package" ... />
         </div>
         <div class="text-center mb-6">
           <h3 class="font-display text-2xl font-bold mb-1">Premier</h3>
@@ -719,7 +715,7 @@ tailwind.config = {
           </button>
         </div>
         <div class="flex justify-center">
-          <img src="https://z-cdn-media.chatglm.cn/files/8a228718-fc21-42de-9963-0a3b71693b60.png" alt="Referral Box" class="max-h-72 rounded-2xl border border-gold/20" onerror="this.style.display='none'" loading="lazy" />
+          <img src="assets/1782796111431.png" alt="Referral Box" ... />  
         </div>
       </div>
     </div>
@@ -734,9 +730,9 @@ tailwind.config = {
       <div class="md:col-span-2">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-12 h-12 rounded-full bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center font-display font-bold text-navy-900 text-xl">P</div>
-          <div>
-            <div class="font-display text-xl font-bold gold-shimmer">PRESENCIA</div>
-            <div class="text-[10px] text-white/40 tracking-[0.2em] uppercase">Venue Management</div>
+           <div class="flex items-center gap-3 mb-4">
+             <img src="assets/1015.png" alt="PRESENCIA Emblem" class="w-12 h-12 object-contain" />
+             <img src="assets/1010.png" alt="PRESENCIA Venue Management" class="h-8 w-auto object-contain" />
           </div>
         </div>
         <p class="text-sm text-white/50 max-w-md mb-6 leading-relaxed">

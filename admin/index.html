@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PRESENCIA Admin — Dashboard</title>
+<meta name="robots" content="noindex, nofollow" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        navy: { 950:'#060912', 900:'#0A0E1A', 800:'#0D1320', 700:'#111827', 600:'#1A1F2E', 500:'#252D3F' },
+        gold: { DEFAULT:'#D4AF37', light:'#F4D03F', dark:'#B8941F' },
+      },
+      fontFamily: {
+        display: ['"Playfair Display"', 'serif'],
+        body: ['Inter', 'sans-serif'],
+      },
+    },
+  },
+};
+</script>
+
+<style>
+  body { font-family: 'Inter', sans-serif; background: #060912; }
+  .font-display { font-family: 'Playfair Display', serif; }
+  .gold-text { background: linear-gradient(135deg, #D4AF37, #F4D03F, #D4AF37); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .gold-shimmer { background: linear-gradient(90deg, #B8941F, #D4AF37, #F4D03F, #D4AF37, #B8941F); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 4s linear infinite; }
+  @keyframes shimmer { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+  @keyframes fadeInUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+  @keyframes scaleIn { from { opacity:0; transform: scale(0.95); } to { opacity:1; transform: scale(1); } }
+  @keyframes toastIn { from { opacity:0; transform: translateY(-15px) scale(0.9); } to { opacity:1; transform: translateY(0) scale(1); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .modal-overlay { animation: fadeInUp 0.3s ease forwards; }
+  .modal-content { animation: scaleIn 0.35s cubic-bezier(0.16,1,0.3,1) forwards; }
+  .toast-item { animation: toastIn 0.4s cubic-bezier(0.16,1,0.3,1) forwards; }
+  .spin-loader { animation: spin 0.8s linear infinite; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #0A0E1A; }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #D4AF37, #B8941F); border-radius: 4px; }
+  .glass { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  input:focus, select:focus { outline: none; }
+  .input-field { transition: all 0.3s ease; }
+  .input-field:focus { border-color: #D4AF37; box-shadow: 0 0 0 3px rgba(212,175,55,0.15); }
+  .status-badge { transition: all 0.3s ease; }
+  .table-row { transition: all 0.3s ease; }
+  .table-row:hover { background: rgba(212,175,55,0.03); }
+  .metric-card { transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
+  .metric-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(212,175,55,0.1); }
+</style>
+</head>
+
+<body class="bg-navy-950 text-white antialiased min-h-screen">
+
+<!-- ================= LOGIN GATE ================= -->
+<div id="loginGate" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-navy-950">
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-gold/5 blur-3xl"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-gold/5 blur-3xl"></div>
+  </div>
+  <div class="modal-content relative w-full max-w-md">
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-gold to-gold-dark mb-4">
+        <span class="font-display text-3xl font-bold text-navy-900">P</span>
+      </div>
+      <h1 class="font-display text-2xl font-bold gold-shimmer">PRESENCIA</h1>
+      <p class="text-xs text-white/40 tracking-[0.2em] uppercase mt-1">Admin Dashboard</p>
+    </div>
+    <form id="loginForm" onsubmit="handleLogin(event)" class="glass bg-navy-800/60 rounded-2xl border border-gold/20 p-6 md:p-8 space-y-4">
+      <div>
+        <label class="block text-xs text-white/50 mb-2 font-medium">🔐 Access Key</label>
+        <input type="password" id="adminPin" required autofocus class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20" placeholder="Enter admin access key…" />
+        <p class="text-[10px] text-white/30 mt-2">Default key: <code class="text-gold/60">presencia2025</code></p>
+      </div>
+      <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-bold text-sm hover:scale-[1.02] hover:shadow-lg hover:shadow-gold/30 transition-all duration-300 ease-in-out">
+        Unlock Dashboard →
+      </button>
+      <div class="text-center">
+        <a href="../index.html" class="text-xs text-white/30 hover:text-gold/60 transition-all duration-300">← Back to main site</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div id="dashboard" class="hidden">
+
+  <!-- Top Bar -->
+  <header class="sticky top-0 z-40 glass bg-navy-950/80 border-b border-white/5">
+    <div class="max-w-[1600px] mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center font-display font-bold text-navy-900">P</div>
+          <div>
+            <div class="font-display text-sm font-bold gold-shimmer">PRESENCIA</div>
+            <div class="text-[10px] text-white/30 tracking-widest uppercase">Admin Dashboard</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button onclick="loadDemoData()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-white/60 hover:text-gold hover:border-gold/30 transition-all duration-300">
+            📊 Load Demo Data
+          </button>
+          <button onclick="exportCSV()" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-white/60 hover:text-gold hover:border-gold/30 transition-all duration-300">
+            📥 Export CSV
+          </button>
+          <button onclick="logout()" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-xs text-red-400 hover:bg-red-500/20 transition-all duration-300">
+            🚪 Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-[1600px] mx-auto px-4 md:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- Metrics Row -->
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      <!-- Total Revenue -->
+      <div class="metric-card p-5 rounded-2xl bg-gradient-to-br from-navy-800 to-navy-900 border border-gold/10">
+        <div class="flex items-start justify-between mb-3">
+          <div class="w-10 h-10 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-lg">💰</div>
+          <span class="text-[10px] text-green-400/60 font-medium">COMPLETED</span>
+        </div>
+        <div class="text-xs text-white/40 mb-1">Total Revenue</div>
+        <div id="metricRevenue" class="font-display text-2xl font-bold gold-text">₱0</div>
+      </div>
+      <!-- Pending Receivables -->
+      <div class="metric-card p-5 rounded-2xl bg-gradient-to-br from-navy-800 to-navy-900 border border-gold/10">
+        <div class="flex items-start justify-between mb-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-lg">⏳</div>
+          <span class="text-[10px] text-amber-400/60 font-medium">PENDING</span>
+        </div>
+        <div class="text-xs text-white/40 mb-1">Pending Receivables</div>
+        <div id="metricPending" class="font-display text-2xl font-bold text-amber-400">₱0</div>
+      </div>
+      <!-- Active Bookings -->
+      <div class="metric-card p-5 rounded-2xl bg-gradient-to-br from-navy-800 to-navy-900 border border-gold/10">
+        <div class="flex items-start justify-between mb-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-lg">📅</div>
+          <span class="text-[10px] text-blue-400/60 font-medium">ACTIVE</span>
+        </div>
+        <div class="text-xs text-white/40 mb-1">Active Bookings</div>
+        <div id="metricActive" class="font-display text-2xl font-bold text-blue-400">0</div>
+      </div>
+      <!-- Client Retention -->
+      <div class="metric-card p-5 rounded-2xl bg-gradient-to-br from-navy-800 to-navy-900 border border-gold/10">
+        <div class="flex items-start justify-between mb-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-lg">🤝</div>
+          <span class="text-[10px] text-purple-400/60 font-medium">RETENTION</span>
+        </div>
+        <div class="text-xs text-white/40 mb-1">Client Retention</div>
+        <div id="metricRetention" class="font-display text-2xl font-bold text-purple-400">0%</div>
+      </div>
+    </section>
+
+    <!-- Bookings Table -->
+    <section class="rounded-2xl bg-navy-800/50 border border-white/5 overflow-hidden">
+      <!-- Table Header -->
+      <div class="p-5 border-b border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="font-display text-xl font-bold">📋 Booking Management</h2>
+          <p class="text-xs text-white/40 mt-0.5">Real-time data from localStorage</p>
+        </div>
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <!-- Search -->
+          <div class="relative">
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="text" id="searchInput" oninput="renderTable()" placeholder="Search client, event, ID…" class="input-field pl-10 pr-4 py-2.5 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm w-full sm:w-64" />
+          </div>
+          <!-- Status Filter -->
+          <select id="statusFilter" onchange="renderTable()" class="input-field px-4 py-2.5 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm">
+            <option value="" class="bg-navy-900">All Status</option>
+            <option value="Pending" class="bg-navy-900">⏳ Pending</option>
+            <option value="Confirmed" class="bg-navy-900">✅ Confirmed</option>
+            <option value="Completed" class="bg-navy-900">🎉 Completed</option>
+            <option value="Cancelled" class="bg-navy-900">❌ Cancelled</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-white/5 text-xs text-white/40">
+              <th class="text-left px-5 py-3 font-medium">Booking ID</th>
+              <th class="text-left px-5 py-3 font-medium">Client</th>
+              <th class="text-left px-5 py-3 font-medium">Event Date</th>
+              <th class="text-left px-5 py-3 font-medium">Event Type</th>
+              <th class="text-left px-5 py-3 font-medium">Package</th>
+              <th class="text-right px-5 py-3 font-medium">Balance</th>
+              <th class="text-center px-5 py-3 font-medium">Status</th>
+              <th class="text-right px-5 py-3 font-medium">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="bookingsTableBody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty State -->
+      <div id="emptyState" class="hidden p-12 text-center">
+        <div class="text-5xl mb-4 opacity-30">📭</div>
+        <h3 class="font-display text-lg font-bold text-white/40 mb-1">No Bookings Found</h3>
+        <p class="text-xs text-white/30">Bookings from the client site will appear here in real-time.</p>
+        <button onclick="loadDemoData()" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gold/10 border border-gold/30 text-gold text-xs font-medium hover:bg-gold/20 transition-all duration-300">
+          📊 Load Demo Data
+        </button>
+      </div>
+    </section>
+
+    <!-- Footer Info -->
+    <div class="text-center pt-4 pb-8">
+      <p class="text-xs text-white/20">PRESENCIA Venue Management · Admin Dashboard · New Lower Bicutan, Taguig City</p>
+    </div>
+  </main>
+</div>
+
+<!-- ================= DETAIL MODAL ================= -->
+<div id="detailModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+  <div class="modal-overlay absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeDetailModal()"></div>
+  <div class="modal-content relative bg-gradient-to-b from-navy-800 to-navy-900 rounded-2xl border border-gold/20 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+    <div class="sticky top-0 z-10 flex items-center justify-between p-5 border-b border-gold/10 bg-navy-800/95 backdrop-blur-md rounded-t-2xl">
+      <h2 class="font-display text-lg font-bold gold-text">Booking Details</h2>
+      <button onclick="closeDetailModal()" class="w-8 h-8 rounded-lg hover:bg-white/10 flex items-center justify-center transition-all duration-300">
+        <svg class="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="detailContent" class="p-6 space-y-4">
+      <!-- Filled dynamically -->
+    </div>
+  </div>
+</div>
+
+<!-- ================= TOAST CONTAINER ================= -->
+<div id="toastContainer" class="fixed top-20 right-4 z-[200] space-y-3 pointer-events-none"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  const STORAGE_KEY = 'presencia_bookings';
+  const ADMIN_PIN = 'presencia2025';
+  const SESSION_KEY = 'presencia_admin_session';
+
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+  function formatCurrency(n) { return '₱' + Number(n || 0).toLocaleString('en-PH'); }
+  function formatDateShort(d) {
+    if (!d) return '—';
+    const dt = new Date(d + 'T00:00:00');
+    return dt.toLocaleDateString('en-PH', { year:'numeric', month:'short', day:'numeric' });
+  }
+
+  /* ===== TOAST ===== */
+  window.showToast = function(message, type) {
+    type = type || 'info';
+    const container = $('toastContainer');
+    const toast = document.createElement('div');
+    const colors = { success:'from-green-500 to-emerald-600', error:'from-red-500 to-rose-600', info:'from-gold to-gold-dark', warning:'from-amber-500 to-orange-600' };
+    const icons = { success:'✅', error:'❌', info:'ℹ️', warning:'⚠️' };
+    toast.className = `toast-item pointer-events-auto flex items-center gap-3 px-5 py-3 rounded-xl bg-gradient-to-r ${colors[type]||colors.info} text-white font-medium text-sm shadow-2xl max-w-sm`;
+    toast.innerHTML = `<span class="text-lg">${icons[type]}</span><span>${message}</span>`;
+    container.appendChild(toast);
+    setTimeout(function() {
+      toast.style.transition = 'all 0.4s ease';
+      toast.style.opacity = '0'; toast.style.transform = 'translateX(40px)';
+      setTimeout(function() { toast.remove(); }, 400);
+    }, 3500);
+  };
+
+  /* ===== AUTH ===== */
+  window.handleLogin = function(e) {
+    e.preventDefault();
+    const pin = $('adminPin').value.trim();
+    if (pin === ADMIN_PIN) {
+      sessionStorage.setItem(SESSION_KEY, 'true');
+      $('loginGate').classList.add('hidden');
+      $('dashboard').classList.remove('hidden');
+      renderTable();
+      updateMetrics();
+      showToast('Welcome back, Admin! 👋', 'success');
+    } else {
+      showToast('Invalid access key. Please try again.', 'error');
+      $('adminPin').value = '';
+      const form = $('loginForm');
+      form.style.animation = 'none';
+      void form.offsetWidth;
+      form.style.animation = 'shake 0.4s ease';
+    }
+  };
+
+  window.logout = function() {
+    sessionStorage.removeItem(SESSION_KEY);
+    window.location.reload();
+  };
+
+  /* ===== DATA ===== */
+  function getBookings() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+    catch(e) { return []; }
+  }
+  function saveBookings(arr) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+    catch(e) { showToast('Error saving data.', 'error'); }
+  }
+
+  /* ===== METRICS ===== */
+  function updateMetrics() {
+    const bookings = getBookings();
+    // Revenue: completed bookings
+    const completed = bookings.filter(function(b) { return b.status === 'Completed'; });
+    const revenue = completed.reduce(function(s, b) { return s + (b.packageRate || 0) + (b.addOnsTotal || 0); }, 0);
+    // Pending: pending + confirmed
+    const pendingList = bookings.filter(function(b) { return b.status === 'Pending' || b.status === 'Confirmed'; });
+    const pendingTotal = pendingList.reduce(function(s, b) { return s + (b.totalBalance || 0); }, 0);
+    // Active
+    const active = pendingList.length;
+    // Retention
+    const clientMap = {};
+    bookings.forEach(function(b) { clientMap[b.clientName] = (clientMap[b.clientName] || 0) + 1; });
+    const totalClients = Object.keys(clientMap).length;
+    const returning = Object.values(clientMap).filter(function(c) { return c > 1; }).length;
+    const retention = totalClients > 0 ? Math.round((returning / totalClients) * 100) : 0;
+
+    animateNumber($('metricRevenue'), revenue, '₱');
+    animateNumber($('metricPending'), pendingTotal, '₱');
+    animateNumber($('metricActive'), active, '');
+    $('metricRetention').textContent = retention + '%';
+  }
+
+  function animateNumber(el, target, prefix) {
+    if (!el) return;
+    prefix = prefix || '';
+    const duration = 800;
+    const start = 0;
+    const startTime = performance.now();
+    function step(now) {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(start + (target - start) * eased);
+      el.textContent = prefix + current.toLocaleString('en-PH');
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ===== TABLE ===== */
+  window.renderTable = function() {
+    const bookings = getBookings();
+    const search = ($('searchInput') ? $('searchInput').value.toLowerCase() : '');
+    const statusF = ($('statusFilter') ? $('statusFilter').value : '');
+
+    let filtered = bookings.filter(function(b) {
+      const matchSearch = !search ||
+        (b.clientName || '').toLowerCase().indexOf(search) !== -1 ||
+        (b.eventType || '').toLowerCase().indexOf(search) !== -1 ||
+        (b.id || '').toLowerCase().indexOf(search) !== -1 ||
+        (b.eventDate || '').toLowerCase().indexOf(search) !== -1;
+      const matchStatus = !statusF || b.status === statusF;
+      return matchSearch && matchStatus;
+    });
+
+    // Sort by createdAt desc
+    filtered.sort(function(a, b) {
+      return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+    });
+
+    const tbody = $('bookingsTableBody');
+    const empty = $('emptyState');
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = '';
+      empty.classList.remove('hidden');
+      return;
+    }
+    empty.classList.add('hidden');
+
+    const statusColors = {
+      Pending:   'bg-amber-500/10 border-amber-500/30 text-amber-400',
+      Confirmed: 'bg-green-500/10 border-green-500/30 text-green-400',
+      Completed: 'bg-blue-500/10 border-blue-500/30 text-blue-400',
+      Cancelled: 'bg-red-500/10 border-red-500/30 text-red-400',
+    };
+    const statusIcons = { Pending:'⏳', Confirmed:'✅', Completed:'🎉', Cancelled:'❌' };
+
+    tbody.innerHTML = filtered.map(function(b) {
+      return `
+        <tr class="table-row border-b border-white/5">
+          <td class="px-5 py-4">
+            <div class="text-xs font-mono text-gold/70">${esc(b.id)}</div>
+            <div class="text-[10px] text-white/30">${esc(new Date(b.createdAt).toLocaleDateString('en-PH'))}</div>
+          </td>
+          <td class="px-5 py-4">
+            <div class="text-sm font-medium text-white/90">${esc(b.clientName)}</div>
+            <div class="text-[10px] text-white/30">${esc(b.contactNumber)}</div>
+          </td>
+          <td class="px-5 py-4">
+            <div class="text-sm text-white/80">${esc(formatDateShort(b.eventDate))}</div>
+            <div class="text-[10px] text-white/30">${esc(b.startTime || '')} – ${esc(b.endTime || '')}</div>
+          </td>
+          <td class="px-5 py-4">
+            <div class="text-sm text-white/80">${esc(b.eventType)}</div>
+            <div class="text-[10px] text-white/30">${esc(b.guests)} guests</div>
+          </td>
+          <td class="px-5 py-4">
+            <span class="text-sm text-white/80">${esc(b.package)}</span>
+          </td>
+          <td class="px-5 py-4 text-right">
+            <div class="text-sm font-bold text-gold">${formatCurrency(b.totalBalance)}</div>
+            <div class="text-[10px] text-white/30">of ${formatCurrency((b.packageRate||0) + (b.addOnsTotal||0) + (b.cleaningDeposit||0))}</div>
+          </td>
+          <td class="px-5 py-4 text-center">
+            <select onchange="updateStatus('${esc(b.id)}', this.value)" class="status-badge text-xs font-medium rounded-lg border px-3 py-1.5 cursor-pointer bg-navy-900 ${statusColors[b.status] || statusColors.Pending}">
+              <option value="Pending" ${b.status==='Pending'?'selected':''} class="bg-navy-900 text-white">⏳ Pending</option>
+              <option value="Confirmed" ${b.status==='Confirmed'?'selected':''} class="bg-navy-900 text-white">✅ Confirmed</option>
+              <option value="Completed" ${b.status==='Completed'?'selected':''} class="bg-navy-900 text-white">🎉 Completed</option>
+              <option value="Cancelled" ${b.status==='Cancelled'?'selected':''} class="bg-navy-900 text-white">❌ Cancelled</option>
+            </select>
+          </td>
+          <td class="px-5 py-4">
+            <div class="flex items-center justify-end gap-2">
+              <button onclick="viewDetail('${esc(b.id)}')" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-gold/10 border border-white/10 hover:border-gold/30 flex items-center justify-center transition-all duration-300" title="View Details">
+                <svg class="w-4 h-4 text-white/50 hover:text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </button>
+              <button onclick="regeneratePDF('${esc(b.id)}')" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-gold/10 border border-white/10 hover:border-gold/30 flex items-center justify-center transition-all duration-300" title="Download Contract PDF">
+                <svg class="w-4 h-4 text-white/50 hover:text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+              </button>
+              <button onclick="deleteBooking('${esc(b.id)}')" class="w-8 h-8 rounded-lg bg-red-500/5 hover:bg-red-500/15 border border-red-500/10 hover:border-red-500/30 flex items-center justify-center transition-all duration-300" title="Delete">
+                <svg class="w-4 h-4 text-red-400/60 hover:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+  };
+
+  /* ===== STATUS UPDATE ===== */
+  window.updateStatus = function(id, newStatus) {
+    const bookings = getBookings();
+    const idx = bookings.findIndex(function(b) { return b.id === id; });
+    if (idx === -1) return;
+    bookings[idx].status = newStatus;
+    saveBookings(bookings);
+    renderTable();
+    updateMetrics();
+    showToast(`Status updated to "${newStatus}" for ${bookings[idx].clientName}`, 'success');
+  };
+
+  /* ===== DELETE ===== */
+  window.deleteBooking = function(id) {
+    const bookings = getBookings();
+    const b = bookings.find(function(x) { return x.id === id; });
+    if (!b) return;
+    if (!confirm(`Delete booking for "${b.clientName}" (${b.id})?\nThis action cannot be undone.`)) return;
+    const filtered = bookings.filter(function(x) { return x.id !== id; });
+    saveBookings(filtered);
+    renderTable();
+    updateMetrics();
+    showToast('Booking deleted.', 'warning');
+  };
+
+  /* ===== VIEW DETAIL ===== */
+  window.viewDetail = function(id) {
+    const bookings = getBookings();
+    const b = bookings.find(function(x) { return x.id === id; });
+    if (!b) return;
+    const addOnsText = (b.addOns || []).map(function(a) {
+      return `<div class="flex justify-between text-xs"><span class="text-white/50">${esc(a.name)}</span><span class="text-white/70">${a.included ? 'Included' : formatCurrency(a.price)}</span></div>`;
+    }).join('') || '<div class="text-xs text-white/30">None</div>';
+
+    $('detailContent').innerHTML = `
+      <div class="grid grid-cols-2 gap-4 text-sm">
+        <div><span class="text-white/40 text-xs">Booking ID</span><div class="font-mono text-gold text-xs">${esc(b.id)}</div></div>
+        <div><span class="text-white/40 text-xs">Status</span><div class="font-medium">${esc(b.status)}</div></div>
+        <div><span class="text-white/40 text-xs">Client Name</span><div class="font-medium">${esc(b.clientName)}</div></div>
+        <div><span class="text-white/40 text-xs">Contact</span><div>${esc(b.contactNumber)}</div></div>
+        <div><span class="text-white/40 text-xs">Email</span><div class="text-xs">${esc(b.email)}</div></div>
+        <div><span class="text-white/40 text-xs">Facebook</span><div class="text-xs">${esc(b.facebook || '—')}</div></div>
+        <div><span class="text-white/40 text-xs">Event Type</span><div>${esc(b.eventType)}</div></div>
+        <div><span class="text-white/40 text-xs">Guests</span><div>${esc(b.guests)}</div></div>
+        <div><span class="text-white/40 text-xs">Event Date</span><div>${esc(formatDateShort(b.eventDate))}</div></div>
+        <div><span class="text-white/40 text-xs">Time</span><div>${esc(b.startTime)} – ${esc(b.endTime)}</div></div>
+      </div>
+      <div class="pt-4 border-t border-white/5">
+        <div class="text-xs text-white/40 mb-2">Package & Add-Ons</div>
+        <div class="flex justify-between text-sm mb-1"><span class="text-white/50">${esc(b.package)} Package</span><span class="text-white/70">${formatCurrency(b.packageRate)}</span></div>
+        <div class="space-y-1 mb-2">${addOnsText}</div>
+        <div class="flex justify-between text-sm"><span class="text-white/50">Add-Ons Total</span><span class="text-white/70">${formatCurrency(b.addOnsTotal)}</span></div>
+      </div>
+      <div class="pt-4 border-t border-white/5 space-y-1">
+        <div class="flex justify-between text-sm"><span class="text-white/50">Cleaning Deposit</span><span>${formatCurrency(b.cleaningDeposit)}</span></div>
+        <div class="flex justify-between text-sm"><span class="text-white/50">Reservation Fee</span><span class="text-red-400/70">–${formatCurrency(b.reservationFee)}</span></div>
+        <div class="flex justify-between text-base font-bold pt-2 border-t border-gold/10"><span class="text-gold">Total Balance Due</span><span class="text-gold">${formatCurrency(b.totalBalance)}</span></div>
+      </div>
+      ${b.notes ? `<div class="pt-4 border-t border-white/5"><div class="text-xs text-white/40 mb-1">Notes</div><div class="text-sm text-white/60">${esc(b.notes)}</div></div>` : ''}
+      <div class="pt-4 border-t border-white/5">
+        <div class="text-xs text-white/40 mb-1">Digital Signature</div>
+        <div class="font-signature text-2xl text-gold" style="font-family: 'Great Vibes', cursive;">${esc(b.signature)}</div>
+        <div class="text-[10px] text-white/30 mt-1">Signed on ${esc(new Date(b.createdAt).toLocaleString('en-PH'))}</div>
+      </div>
+    `;
+    $('detailModal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeDetailModal = function() {
+    $('detailModal').classList.add('hidden');
+    document.body.style.overflow = '';
+  };
+
+  /* ===== CSV EXPORT ===== */
+  window.exportCSV = function() {
+    const bookings = getBookings();
+    if (bookings.length === 0) { showToast('No bookings to export.', 'warning'); return; }
+    const headers = ['ID','Client Name','Contact','Email','Facebook','Event Type','Guests','Event Date','Start Time','End Time','Package','Package Rate','Add-Ons Total','Cleaning Deposit','Reservation Fee','Total Balance','Status','Signature','Notes','Created At'];
+    const rows = bookings.map(function(b) {
+      return [
+        b.id, b.clientName, b.contactNumber, b.email, b.facebook || '',
+        b.eventType, b.guests, b.eventDate, b.startTime, b.endTime,
+        b.package, b.packageRate, b.addOnsTotal, b.cleaningDeposit, b.reservationFee,
+        b.totalBalance, b.status, b.signature, (b.notes || '').replace(/[\n\r]/g, ' '),
+        b.createdAt
+      ].map(function(v) {
+        const s = String(v || '');
+        if (s.indexOf(',') !== -1 || s.indexOf('"') !== -1) return '"' + s.replace(/"/g, '""') + '"';
+        return s;
+      }).join(',');
+    });
+    const csv = headers.join(',') + '\n' + rows.join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'presencia_bookings_' + new Date().toISOString().split('T')[0] + '.csv';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('CSV exported successfully! 📥', 'success');
+  };
+
+  /* ===== PDF REGENERATION ===== */
+  window.regeneratePDF = function(id) {
+    const bookings = getBookings();
+    const b = bookings.find(function(x) { return x.id === id; });
+    if (!b) return;
+    try {
+      generateContractPDF(b);
+      showToast('Contract PDF generated! 📄', 'success');
+    } catch(e) {
+      console.error(e);
+      showToast('Error generating PDF.', 'error');
+    }
+  };
+
+  function generateContractPDF(data) {
+    if (!window.jspdf) { showToast('jsPDF not loaded.', 'error'); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    const PW = 210, PH = 297, M = 20, CW = PW - M * 2;
+    let y = M;
+    function ensureSpace(needed) { if (y + needed > PH - M - 10) { doc.addPage(); y = M; } }
+    function txt(text, size, style, lh, color) {
+      size = size || 10; style = style || 'normal'; lh = lh || 5;
+      doc.setFontSize(size); doc.setFont('helvetica', style);
+      if (color) doc.setTextColor(color[0], color[1], color[2]); else doc.setTextColor(40, 40, 40);
+      const lines = doc.splitTextToSize(text, CW);
+      for (let i = 0; i < lines.length; i++) { ensureSpace(lh); doc.text(lines[i], M, y); y += lh; }
+    }
+    function heading(text, size) { y += 4; ensureSpace(8); txt(text, size || 12, 'bold', 7, [212, 175, 55]); y += 1; }
+    function line() { ensureSpace(2); doc.setDrawColor(220, 220, 220); doc.setLineWidth(0.3); doc.line(M, y, PW - M, y); y += 4; }
+
+    txt('PRESENCIA VENUE MANAGEMENT', 20, 'bold', 10, [10, 14, 26]);
+    txt('Client Booking Agreement', 12, 'normal', 6, [100, 100, 100]);
+    y += 2;
+    txt('Please read this agreement carefully. By signing, you agree to all terms stated herein.', 9, 'normal', 4);
+    line();
+    heading('SECTION A — CLIENT & EVENT INFORMATION', 11);
+    const fields = [
+      ['Client Full Name:', data.clientName, 'Contact Number:', data.contactNumber],
+      ['Email Address:', data.email, 'Facebook / Messenger:', data.facebook || '—'],
+      ['Event Type:', data.eventType, 'Number of Guests:', String(data.guests)],
+      ['Preferred Event Date:', data.eventDate, 'Event Time:', (data.startTime || '') + ' – ' + (data.endTime || '')],
+    ];
+    fields.forEach(function(row) {
+      ensureSpace(8);
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'bold'); doc.setTextColor(80, 80, 80); doc.text(row[0], M, y);
+      doc.setFont('helvetica', 'normal'); doc.setTextColor(30, 30, 30); doc.text(row[1] || '—', M + 35, y);
+      doc.setFont('helvetica', 'bold'); doc.setTextColor(80, 80, 80); doc.text(row[2], PW / 2, y);
+      doc.setFont('helvetica', 'normal'); doc.setTextColor(30, 30, 30); doc.text(row[3] || '—', PW / 2 + 35, y);
+      y += 6;
+    });
+    line();
+    heading('SECTION B — PACKAGE & PAYMENT SUMMARY', 11);
+    const payRows = [
+      ['Selected Package:', data.package + ' Package'],
+      ['Package Rate:', 'PHP ' + (data.packageRate || 0).toLocaleString()],
+      ['Add-On Services Total:', 'PHP ' + (data.addOnsTotal || 0).toLocaleString()],
+      ['Cleaning Deposit (refundable):', 'PHP 1,000.00'],
+      ['Less: Reservation Fee Paid:', '(PHP 2,000.00)'],
+      ['TOTAL BALANCE DUE:', 'PHP ' + (data.totalBalance || 0).toLocaleString()],
+    ];
+    payRows.forEach(function(row, i) {
+      ensureSpace(6); doc.setFontSize(10);
+      if (i === payRows.length - 1) { doc.setFont('helvetica', 'bold'); doc.setTextColor(212, 175, 55); }
+      else { doc.setFont('helvetica', 'normal'); doc.setTextColor(50, 50, 50); }
+      doc.text(row[0], M, y); doc.text(row[1], PW - M - 50, y); y += 6;
+    });
+    y += 2;
+    txt('Reservation Fee: PHP 2,000 — paid upon signing. Fully deductible from total. Non-refundable.', 8, 'normal', 4, [120, 120, 120]);
+    txt('Balance Due Date: Full balance must be paid at least 3 days before the event date.', 8, 'normal', 4, [120, 120, 120]);
+    txt('Payment Methods: GCash, Bank Transfer, or Cash — as confirmed with the Venue Manager.', 8, 'normal', 4, [120, 120, 120]);
+    y += 2;
+    txt('Presencia Venue Management | Bicutan, Taguig Branch | presenciavenue@gmail.com | Page 1 of 3', 7, 'normal', 3, [150, 150, 150]);
+
+    // Page 2
+    doc.addPage(); y = M;
+    txt('PRESENCIA VENUE MANAGEMENT', 16, 'bold', 8, [10, 14, 26]);
+    txt('Terms and Conditions', 12, 'normal', 6, [100, 100, 100]);
+    txt('Articles 1 to 8 — Payment, Scheduling, Cancellation, and Venue Use', 9, 'bold', 5, [120, 120, 120]);
+    y += 3; line();
+    heading('PAYMENT TERMS', 10);
+    txt('Article 1. Reservation Fee', 9, 'bold', 5, [60, 60, 60]);
+    txt('The Client shall pay a non-refundable Reservation Fee of PHP 2,000 upon signing. This amount is deducted from the total package fee upon the event. The event date is considered reserved only upon receipt of this fee. Presencia reserves the right to release the date if payment is not received within 24 hours of booking confirmation.', 9, 'normal', 4);
+    txt('Article 2. Full Payment', 9, 'bold', 5, [60, 60, 60]);
+    txt('The remaining balance must be settled in full at least three (3) days before the event date. Venue access will not be granted without confirmed full payment clearance. Accepted payment methods: GCash, bank transfer, or cash.', 9, 'normal', 4);
+    heading('SCHEDULING & CANCELLATION', 10);
+    txt('Article 3. Date Change Policy', 9, 'bold', 5, [60, 60, 60]);
+    txt('The Client may request one (1) date change, subject to venue availability. A rebooking fee of PHP 500 applies. Requests must be submitted in writing at least 10 days before the original event date.', 9, 'normal', 4);
+    txt('Article 4. Cancellation Policy', 9, 'bold', 5, [60, 60, 60]);
+    txt('Cancellation 15+ days: Reservation fee forfeited, balance refunded. 7-14 days: 50% forfeited. Within 7 days or no-show: 100% forfeited. All cancellations must be submitted in writing to presenciavenue@gmail.com.', 9, 'normal', 4);
+    txt('Article 5. Force Majeure', 9, 'bold', 5, [60, 60, 60]);
+    txt('In the event of a natural disaster, government-mandated closure, or any circumstance beyond reasonable control, affected bookings shall be rescheduled at no penalty. No cash refund; rescheduling credit applies.', 9, 'normal', 4);
+    heading('VENUE USE & TIME', 10);
+    txt('Article 6. Venue Use Hours', 9, 'bold', 5, [60, 60, 60]);
+    txt('All packages include 7 hours: 1hr Ingress, 1hr Free Bonus Hour, 4hr Event Proper, 1hr Egress. The event must fully conclude and the venue vacated within the agreed time.', 9, 'normal', 4);
+    txt('Article 7. Extension / Overtime', 9, 'bold', 5, [60, 60, 60]);
+    txt('Any extension is charged at PHP 1,500 per hour. Request must be made 30 minutes before event ends. Subject to availability.', 9, 'normal', 4);
+    txt('Article 8. Venue Capacity', 9, 'bold', 5, [60, 60, 60]);
+    txt('Maximum 100 persons. Overcrowding that compromises safety is grounds for immediate event suspension without refund.', 9, 'normal', 4);
+    y += 2;
+    txt('Presencia Venue Management | Bicutan, Taguig Branch | presenciavenue@gmail.com | Page 2 of 3', 7, 'normal', 3, [150, 150, 150]);
+
+    // Page 3
+    doc.addPage(); y = M;
+    txt('PRESENCIA VENUE MANAGEMENT', 16, 'bold', 8, [10, 14, 26]);
+    txt('Property Care, Damage Policy & Acknowledgment', 12, 'normal', 6, [100, 100, 100]);
+    txt('Articles 9 to 14 — The Client agrees to protect and respect the venue at all times.', 9, 'bold', 5, [120, 120, 120]);
+    y += 3; line();
+    heading('PROPERTY CARE & CLEANLINESS', 10);
+    txt('Article 9. Cleanliness Obligation', 9, 'bold', 5, [60, 60, 60]);
+    txt('The Client is fully responsible for maintaining cleanliness. Upon egress, the venue must be returned in the same clean condition. All trash must be disposed of, furniture returned to original arrangement, no items left behind, floors free from spills. Failure = forfeiture of Cleaning Deposit.', 9, 'normal', 4);
+    txt('Article 10. Cleaning Deposit', 9, 'bold', 5, [60, 60, 60]);
+    txt('A refundable Cleaning Deposit of PHP 1,000 is required. Returned within 3 banking days if venue is clean and no damage. Photographic documentation provided for any issues.', 9, 'normal', 4);
+    txt('Article 11. Property Damage Policy', 9, 'bold', 5, [60, 60, 60]);
+    txt('The Client is fully liable for any damage to the venue, furniture, fixtures, equipment, walls, flooring, or property. Costs assessed post-event, payable within 7 days. Cleaning Deposit applied first toward damages. Intentional damage subject to legal action under Philippine law.', 9, 'normal', 4);
+    txt('Article 12. Prohibited Acts', 9, 'bold', 5, [60, 60, 60]);
+    txt('Prohibited: illegal substances, smoking, nails/strong tape on walls, open flames/fireworks/pyrotechnics, exceeding 100 guests, violence or harassment. Grounds for immediate termination without refund.', 9, 'normal', 4);
+    heading('AUTHORITY & DISPUTE RESOLUTION', 10);
+    txt('Article 13. Manager Authority', 9, 'bold', 5, [60, 60, 60]);
+    txt('Presencia has full authority to enforce rules, suspend or terminate events for violations, and retain deposits and pursue damage claims.', 9, 'normal', 4);
+    txt('Article 14. Dispute Resolution', 9, 'bold', 5, [60, 60, 60]);
+    txt('Disputes resolved through good-faith negotiation first, then mediation. Philippine law governs. Venue: Taguig City.', 9, 'normal', 4);
+    y += 6; line();
+    txt('By signing below, the Client confirms they have read and understood all terms of this Agreement.', 9, 'italic', 4, [80, 80, 80]);
+    y += 8;
+    ensureSpace(30);
+    doc.setDrawColor(180, 180, 180); doc.setLineWidth(0.3);
+    doc.line(M, y, M + 70, y);
+    doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(80, 80, 80);
+    doc.text('Venue Manager — PRESENCIA', M, y + 5);
+    doc.text('Signature over Printed Name', M, y + 9);
+    doc.text('Date Signed: _______________', M, y + 13);
+    doc.line(PW - M - 70, y, PW - M, y);
+    doc.text('Client', PW - M - 70, y + 5);
+    doc.setFont('helvetica', 'bold'); doc.setTextColor(30, 30, 30);
+    doc.text(data.signature || data.clientName, PW - M - 70, y - 2);
+    doc.setFont('helvetica', 'normal'); doc.setTextColor(80, 80, 80);
+    doc.text('Signature over Printed Name', PW - M - 70, y + 9);
+    doc.text('Date Signed: ' + new Date().toLocaleDateString('en-PH'), PW - M - 70, y + 13);
+    y += 22;
+    txt('For full legal enforceability, both parties are encouraged to have this Agreement notarized by a licensed Notary Public in Taguig City.', 8, 'italic', 3, [120, 120, 120]);
+    y += 2;
+    txt('Booking ID: ' + data.id + ' | Presencia Venue Management | Bicutan, Taguig Branch | presenciavenue@gmail.com | Page 3 of 3', 7, 'normal', 3, [150, 150, 150]);
+
+    doc.save('Presencia_Contract_' + data.id + '.pdf');
+  }
+
+  /* ===== DEMO DATA ===== */
+  window.loadDemoData = function() {
+    const demo = [
+      { id:'BKG-2025-00001', clientName:'Maria Santos', contactNumber:'0917 123 4567', email:'maria.santos@email.com', facebook:'fb.com/maria.santos', eventType:'Birthday', guests:50, eventDate:'2025-07-15', startTime:'14:00', endTime:'20:00', package:'Classic', packageId:'classic', packageRate:12500, addOns:[{name:'MC Service',price:3000}], addOnsTotal:3000, cleaningDeposit:1000, reservationFee:2000, totalBalance:14500, status:'Confirmed', signature:'Maria Santos', notes:'Need extra chairs for elderly', createdAt:'2025-06-01T10:00:00Z' },
+      { id:'BKG-2025-00002', clientName:'Juan Dela Cruz', contactNumber:'0918 234 5678', email:'juan.delacruz@email.com', facebook:'', eventType:'Wedding', guests:100, eventDate:'2025-08-20', startTime:'10:00', endTime:'16:00', package:'Premier', packageId:'premier', packageRate:16500, addOns:[], addOnsTotal:0, cleaningDeposit:1000, reservationFee:2000, totalBalance:15500, status:'Pending', signature:'Juan Dela Cruz', notes:'', createdAt:'2025-06-05T14:30:00Z' },
+      { id:'BKG-2025-00003', clientName:'Anna Garcia', contactNumber:'0919 345 6789', email:'anna.garcia@email.com', facebook:'fb.com/anna.garcia', eventType:'Child Dedication', guests:30, eventDate:'2025-07-25', startTime:'13:00', endTime:'19:00', package:'Essential', packageId:'essential', packageRate:9500, addOns:[{name:'Welcome Signage',price:500}], addOnsTotal:500, cleaningDeposit:1000, reservationFee:2000, totalBalance:9000, status:'Completed', signature:'Anna Garcia', notes:'', createdAt:'2025-05-15T09:00:00Z' },
+      { id:'BKG-2025-00004', clientName:'Maria Santos', contactNumber:'0917 123 4567', email:'maria.santos@email.com', facebook:'fb.com/maria.santos', eventType:'Seminar', guests:80, eventDate:'2025-09-10', startTime:'08:00', endTime:'14:00', package:'Classic', packageId:'classic', packageRate:12500, addOns:[{name:'Event Coordinator',price:0,included:true}], addOnsTotal:0, cleaningDeposit:1000, reservationFee:2000, totalBalance:11500, status:'Pending', signature:'Maria Santos', notes:'Returning client', createdAt:'2025-06-10T11:00:00Z' },
+      { id:'BKG-2025-00005', clientName:'Pedro Reyes', contactNumber:'0920 456 7890', email:'pedro.reyes@email.com', facebook:'', eventType:'Workshop', guests:40, eventDate:'2025-07-30', startTime:'09:00', endTime:'15:00', package:'Essential', packageId:'essential', packageRate:9500, addOns:[], addOnsTotal:0, cleaningDeposit:1000, reservationFee:2000, totalBalance:8500, status:'Cancelled', signature:'Pedro Reyes', notes:'Cancelled due to schedule conflict', createdAt:'2025-05-20T16:00:00Z' },
+    ];
+    saveBookings(demo);
+    renderTable();
+    updateMetrics();
+    showToast('Demo data loaded! 5 sample bookings added. 📊', 'success');
+  };
+
+  /* ===== INIT ===== */
+  // Check session
+  if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+    $('loginGate').classList.add('hidden');
+    $('dashboard').classList.remove('hidden');
+    renderTable();
+    updateMetrics();
+  }
+
+  // Listen for storage changes (real-time sync)
+  window.addEventListener('storage', function(e) {
+    if (e.key === STORAGE_KEY) {
+      renderTable();
+      updateMetrics();
+    }
+  });
+
+  // Shake animation for failed login
+  const styleEl = document.createElement('style');
+  styleEl.textContent = '@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }';
+  document.head.appendChild(styleEl);
+
+  console.log('%c🔒 PRESENCIA Admin Dashboard — Ready', 'color: #D4AF37; font-weight: bold;');
+})();
+</script>
+
+</body>
+</html>

@@ -1313,7 +1313,7 @@ tailwind.config = {
     if (!document.querySelector('input[name="package"]:checked')) return false;
     return true;
   }
-  function $v(id) { const el = $(id); return el && el.value && el.value.trim() !== ''; }
+   function $v(id) { const el = $(id); return el && el.value ? el.value.trim() : ''; }
 
   window.validateProceed = function() {
     const btn = $('proceedBtn');

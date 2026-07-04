@@ -972,11 +972,14 @@ tailwind.config = {
 
   /* ===== CONFIGURATION ===== */
   const CONFIG = {
-    STORAGE_KEY: 'presencia_bookings',
-    EMAILJS_USER_ID: 'YOUR_EMAILJS_USER_ID',      // ← Replace with your EmailJS User ID
-    EMAILJS_SERVICE_ID: 'YOUR_SERVICE_ID',         // ← Replace with your EmailJS Service ID
-    EMAILJS_TEMPLATE_ID: 'YOUR_TEMPLATE_ID',       // ← Replace with your EmailJS Template ID
-  };
+  STORAGE_KEY: 'presencia_bookings',
+  EMAILJS_USER_ID: 'presenciavenue@gmail.com',
+  EMAILJS_SERVICE_ID: 'service_3lw502e',
+  // Three template IDs for three different emails:
+  EMAILJS_TEMPLATE_CLIENT_CONFIRMATION: 'template_client_confirma',
+  EMAILJS_TEMPLATE_RESERVATION_PAID: 'template_reservation_pai',
+  EMAILJS_TEMPLATE_OWNER_NOTIFICATION: 'template_owner_notification',
+};
 
   /* ===== IMAGE ASSETS (CDN URLs — replace with local paths for production) ===== */
   /* Local filenames: 1010.png, 1015.png, 1782791108125.png, 1782791429827.png,
@@ -1506,30 +1509,59 @@ tailwind.config = {
         console.error('PDF generation error:', e);
       }
 
-      // Send Email (if EmailJS configured)
-      if (CONFIG.EMAILJS_USER_ID !== 'YOUR_EMAILJS_USER_ID') {
-        try {
-          emailjs.init(CONFIG.EMAILJS_USER_ID);
-          emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, {
-            client_name: booking.clientName,
-            client_email: booking.email,
-            contact_number: booking.contactNumber,
-            event_type: booking.eventType,
-            event_date: booking.eventDate,
-            start_time: booking.startTime,
-            end_time: booking.endTime,
-            guests: booking.guests,
-            package_name: booking.package,
-            total_balance: booking.totalBalance,
-            booking_id: booking.id,
-            signature: booking.signature,
-          }).then(function() {
-            showToast('Confirmation email sent! 📧', 'success');
-          }).catch(function(err) {
-            console.warn('EmailJS error:', err);
-          });
-        } catch(err) { console.warn('EmailJS error:', err); }
-      }
+// Send Emails (if EmailJS configured)
+if (CONFIG.EMAILJS_USER_ID !== 'YOUR_EMAILJS_USER_ID') {
+  try {
+    emailjs.init(CONFIG.EMAILJS_USER_ID);
+
+    // Calculate remaining balance
+    const remainingBalance = booking.totalBalance;
+
+    // Common template parameters
+    const templateParams = {
+      client_name: booking.clientName,
+      client_email: booking.email,
+      contact_number: booking.contactNumber,
+      facebook_account: booking.facebook || 'Not provided',
+      event_type: booking.eventType,
+      event_date: booking.eventDate,
+      start_time: booking.startTime,
+      end_time: booking.endTime,
+      guests: booking.guests,
+      package_name: booking.package,
+      package_rate: booking.packageRate,
+      addons_total: booking.addOnsTotal,
+      total_balance: booking.totalBalance,
+      remaining_balance: remainingBalance,
+      booking_id: booking.id,
+      signature: booking.signature,
+      event_notes: booking.notes || 'None',
+      admin_email: 'presenciavenue@gmail.com',
+      admin_phone: '09916596381',
+    };
+
+    // 1. Send Client Confirmation Email
+    emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_CLIENT_CONFIRMATION, templateParams)
+      .then(function() {
+        showToast('Confirmation email sent to client! 📧', 'success');
+      })
+      .catch(function(err) {
+        console.warn('Client email error:', err);
+      });
+
+    // 2. Send Owner & Manager Notification Email
+    emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_OWNER_NOTIFICATION, templateParams)
+      .then(function() {
+        console.log('Owner notification sent');
+      })
+      .catch(function(err) {
+        console.warn('Owner email error:', err);
+      });
+
+  } catch(err) {
+    console.warn('EmailJS initialization error:', err);
+  }
+}
 
       // Success
       btn.disabled = false; txt.classList.remove('hidden'); loader.classList.add('hidden');

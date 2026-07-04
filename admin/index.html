@@ -446,16 +446,72 @@ tailwind.config = {
   };
 
   /* ===== STATUS UPDATE ===== */
-  window.updateStatus = function(id, newStatus) {
-    const bookings = getBookings();
-    const idx = bookings.findIndex(function(b) { return b.id === id; });
-    if (idx === -1) return;
-    bookings[idx].status = newStatus;
-    saveBookings(bookings);
-    renderTable();
-    updateMetrics();
-    showToast(`Status updated to "${newStatus}" for ${bookings[idx].clientName}`, 'success');
-  };
+  /* ===== STATUS UPDATE ===== */
+window.updateStatus = function(id, newStatus) {
+  const bookings = getBookings();
+  const idx = bookings.findIndex(function(b) { return b.id === id; });
+  if (idx === -1) return;
+
+  const oldStatus = bookings[idx].status;
+  bookings[idx].status = newStatus;
+  saveBookings(bookings);
+  renderTable();
+  updateMetrics();
+  showToast(`Status updated to "${newStatus}" for ${bookings[idx].clientName}`, 'success');
+
+  // Send "Reservation Paid" email when status changes to "Confirmed"
+  // (This means the ₱2,000 reservation fee has been collected)
+  if (oldStatus !== 'Confirmed' && newStatus === 'Confirmed') {
+    sendReservationPaidEmail(bookings[idx]);
+  }
+};
+
+/* ===== SEND RESERVATION PAID EMAIL ===== */
+function sendReservationPaidEmail(booking) {
+  const ADMIN_USER_ID = 'presenciavenue@gmail.com';      // ← Replace
+  const ADMIN_SERVICE_ID = 'service_3lw502e';         // ← Replace
+  const TEMPLATE_RESERVATION_PAID = 'template_reservation_pai';
+
+  if (ADMIN_USER_ID === 'YOUR_EMAILJS_USER_ID' || !window.emailjs) {
+    console.warn('EmailJS not configured. Skipping reservation email.');
+    return;
+  }
+
+  try {
+    emailjs.init(ADMIN_USER_ID);
+
+    const remainingBalance = booking.totalBalance;
+
+    const templateParams = {
+      client_name: booking.clientName,
+      client_email: booking.email,
+      contact_number: booking.contactNumber,
+      event_type: booking.eventType,
+      event_date: booking.eventDate,
+      start_time: booking.startTime,
+      end_time: booking.endTime,
+      guests: booking.guests,
+      package_name: booking.package,
+      total_balance: booking.totalBalance,
+      remaining_balance: remainingBalance,
+      booking_id: booking.id,
+      signature: booking.signature,
+      admin_email: 'presenciavenue@gmail.com',
+      admin_phone: '09916596381',
+    };
+
+    emailjs.send(ADMIN_SERVICE_ID, TEMPLATE_RESERVATION_PAID, templateParams)
+      .then(function() {
+        showToast('Reservation confirmation email sent to ' + booking.clientName + '! 📧', 'success');
+      })
+      .catch(function(err) {
+        console.warn('Reservation email error:', err);
+        showToast('Could not send reservation email. Check EmailJS config.', 'warning');
+      });
+  } catch(err) {
+    console.warn('EmailJS error:', err);
+  }
+}
 
   /* ===== DELETE ===== */
   window.deleteBooking = function(id) {

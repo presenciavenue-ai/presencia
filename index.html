@@ -457,7 +457,7 @@ tailwind.config = {
     <div class="grid lg:grid-cols-3 gap-6 lg:gap-8">
       <!-- Form -->
       <div class="lg:col-span-2 reveal">
-        <form id="bookingForm" class="space-y-6 p-6 md:p-8 rounded-2xl bg-navy-800/50 border border-white/5">
+        <form id="bookingForm" onsubmit="return false;" class="space-y-6 p-6 md:p-8 rounded-2xl bg-navy-800/50 border border-white/5">
           <!-- Section A: Client Info -->
           <div>
             <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2">
@@ -973,7 +973,7 @@ tailwind.config = {
   /* ===== CONFIGURATION ===== */
   const CONFIG = {
   STORAGE_KEY: 'presencia_bookings',
-  EMAILJS_USER_ID: 'XPS1YBOuMAMXNxxxxsLfc',
+  EMAILJS_USER_ID: 'OqAdFT4VZ78167lVh',
   EMAILJS_SERVICE_ID: 'service_3lw502e',
   // Three template IDs for three different emails:
   EMAILJS_TEMPLATE_CLIENT_CONFIRMATION: 'template_client_confirma',
@@ -1516,63 +1516,131 @@ console.log("User ID:", CONFIG.EMAILJS_USER_ID);
 console.log("Service ID:", CONFIG.EMAILJS_SERVICE_ID);
 
 if (CONFIG.EMAILJS_USER_ID !== 'XPS1YBOuMAMXNxxxxsLfc' && window.emailjs) {
-  try {
-    emailjs.init(CONFIG.EMAILJS_USER_ID);
+  /* ===== SUBMIT BOOKING ===== */
+  window.submitBooking = function(event) {
+    // PREVENT DEFAULT FORM SUBMISSION / PAGE RELOAD
+    if (event) event.preventDefault();
+    
+    const btn = $('submitBooking');
+    const txt = $('submitText');
+    const loader = $('submitLoader');
+    btn.disabled = true;
+    txt.classList.add('hidden');
+    loader.classList.remove('hidden');
 
-    const remainingBalance = booking.totalBalance;
+    const pkgId = document.querySelector('input[name="package"]:checked').value;
+    const pkg = PACKAGES[pkgId];
 
-    const templateParams = {
-      client_name: booking.clientName,
-      client_email: booking.email,
-      contact_number: booking.contactNumber,
-      facebook_account: booking.facebook || 'Not provided',
-      event_type: booking.eventType,
-      event_date: booking.eventDate,
-      start_time: booking.startTime,
-      end_time: booking.endTime,
-      guests: booking.guests,
-      package_name: booking.package,
-      package_rate: booking.packageRate,
-      addons_total: booking.addOnsTotal,
-      total_balance: booking.totalBalance,
-      remaining_balance: remainingBalance,
-      booking_id: booking.id,
-      signature: booking.signature,
-      event_notes: booking.notes || 'None',
-      admin_email: 'presenciavenue@gmail.com',
-      admin_phone: '09916596381',
+    // Gather add-ons
+    let addOnsTotal = 0;
+    const selectedAddOns = [];
+    ADDONS.forEach(function(addon) {
+      const included = addon.includedIn.indexOf(pkgId) !== -1;
+      if (included) { selectedAddOns.push({ name: addon.name, price: 0, included: true }); return; }
+      if (addon.isQty) {
+        const input = document.querySelector(`input[data-addon="${addon.id}"]`);
+        const qty = parseInt((input && input.value) || 0, 10);
+        if (qty > 0) { addOnsTotal += addon.price * qty; selectedAddOns.push({ name: addon.name, price: addon.price * qty, qty: qty }); }
+      } else {
+        const cb = document.querySelector(`input[data-addon="${addon.id}"]`);
+        if (cb && cb.checked) { addOnsTotal += addon.price; selectedAddOns.push({ name: addon.name, price: addon.price }); }
+      }
+    });
+
+    const bookingId = generateBookingId();
+    console.log("Generated Booking ID:", bookingId); // Log to confirm ID is created
+
+    const booking = {
+      id: bookingId,
+      clientName: $v('clientName'),
+      contactNumber: $v('contactNumber'),
+      email: $v('email'),
+      facebook: $v('facebook') || '',
+      eventType: $v('eventType'),
+      guests: parseInt($v('guests'), 10),
+      eventDate: $v('eventDateValue'),
+      startTime: $v('startTime'),
+      endTime: $v('endTime'),
+      package: pkg.name,
+      packageId: pkgId,
+      packageRate: pkg.price,
+      addOns: selectedAddOns,
+      addOnsTotal: addOnsTotal,
+      cleaningDeposit: 1000,
+      reservationFee: 2000,
+      totalBalance: pkg.price + addOnsTotal + 1000 - 2000,
+      status: 'Pending',
+      signature: $v('eSignature'),
+      notes: $v('notes') || '',
+      createdAt: new Date().toISOString(),
     };
 
-    console.log("Template Params prepared:", templateParams);
+    // Save to localStorage
+    try {
+      const all = JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEY) || '[]');
+      all.push(booking);
+      localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(all));
+    } catch(e) {
+      showToast('Error saving booking. Please try again.', 'error');
+      btn.disabled = false; txt.classList.remove('hidden'); loader.classList.add('hidden');
+      return;
+    }
 
-    // 1. Send Client Confirmation Email
-    emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_CLIENT_CONFIRMATION, templateParams)
-      .then(function(response) {
-        console.log("✅ Client Email SUCCESS:", response);
-        showToast('Confirmation email sent to client! 📧', 'success');
-      })
-      .catch(function(err) {
-        console.error("❌ Client Email FAILED:", err);
-        showToast('Client email failed to send. Check console.', 'error');
-      });
+    // Generate PDF & Send Email
+    setTimeout(function() {
+      try {
+        generateContractPDF(booking);
+      } catch(e) {
+        console.error('PDF generation error:', e);
+      }
 
-    // 2. Send Owner & Manager Notification Email
-    emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_OWNER_NOTIFICATION, templateParams)
-      .then(function(response) {
-        console.log("✅ Owner Email SUCCESS:", response);
-      })
-      .catch(function(err) {
-        console.error("❌ Owner Email FAILED:", err);
-      });
+      // Send Emails (if EmailJS configured)
+      console.log("Checking EmailJS configuration...");
+      if (CONFIG.EMAILJS_USER_ID !== 'OqAdFT4VZ78167lVh' && window.emailjs) {
+        console.log("EmailJS is configured. Initializing send...");
+        try {
+          emailjs.init(CONFIG.EMAILJS_USER_ID);
 
-  } catch(err) {
-    console.error("EmailJS Initialization Error:", err);
-  }
-} else {
-  console.warn("EmailJS skipped. Check if User ID is replaced or if emailjs script is loaded.");
-}
+          const templateParams = {
+            client_name: booking.clientName,
+            client_email: booking.email,
+            contact_number: booking.contactNumber,
+            facebook_account: booking.facebook || 'Not provided',
+            event_type: booking.eventType,
+            event_date: booking.eventDate,
+            start_time: booking.startTime,
+            end_time: booking.endTime,
+            guests: booking.guests,
+            package_name: booking.package,
+            package_rate: booking.packageRate,
+            addons_total: booking.addOnsTotal,
+            total_balance: booking.totalBalance,
+            remaining_balance: booking.totalBalance,
+            booking_id: booking.id,
+            signature: booking.signature,
+            event_notes: booking.notes || 'None',
+            admin_email: 'presenciavenue@gmail.com',
+            admin_phone: '09916596381',
+          };
 
-      // Success
+          // 1. Send Client Confirmation Email
+          emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_CLIENT_CONFIRMATION, templateParams)
+            .then(function(response) {
+              console.log("✅ Client Email SUCCESS:", response);
+              showToast('Confirmation email sent to client! 📧', 'success');
+            })
+            .catch(function(err) {
+              console.error("❌ Client Email FAILED:", err);
+            });
+
+        } catch(err) {
+          console.error("EmailJS Initialization Error:", err);
+        }
+      } else {
+        console.warn("EmailJS skipped. Please replace 'YOUR_EMAILJS_USER_ID' in the CONFIG.");
+      }
+
+      // Success UI Reset
       btn.disabled = false; txt.classList.remove('hidden'); loader.classList.add('hidden');
       closeContractModal();
       showToast('Booking submitted successfully! 🎉 Your ID: ' + booking.id, 'success');

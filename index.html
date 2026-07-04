@@ -973,12 +973,12 @@ tailwind.config = {
   /* ===== CONFIGURATION ===== */
   const CONFIG = {
   STORAGE_KEY: 'presencia_bookings',
-  EMAILJS_USER_ID: 'D7NhYeENC9IWTKyUd',
+  EMAILJS_USER_ID: 'XPS1YBOuMAMXNxxxxsLfc',
   EMAILJS_SERVICE_ID: 'service_3lw502e',
   // Three template IDs for three different emails:
   EMAILJS_TEMPLATE_CLIENT_CONFIRMATION: 'template_client_confirma',
   EMAILJS_TEMPLATE_RESERVATION_PAID: 'template_reservation_pai',
-  EMAILJS_TEMPLATE_OWNER_NOTIFICATION: 'template_owner_notification',
+
 };
 
   /* ===== IMAGE ASSETS (CDN URLs — replace with local paths for production) ===== */
@@ -1515,7 +1515,7 @@ console.log("Attempting to send emails...");
 console.log("User ID:", CONFIG.EMAILJS_USER_ID);
 console.log("Service ID:", CONFIG.EMAILJS_SERVICE_ID);
 
-if (CONFIG.EMAILJS_USER_ID !== 'D7NhYeENC9IWTKyUd' && window.emailjs) {
+if (CONFIG.EMAILJS_USER_ID !== 'XPS1YBOuMAMXNxxxxsLfc' && window.emailjs) {
   try {
     emailjs.init(CONFIG.EMAILJS_USER_ID);
 

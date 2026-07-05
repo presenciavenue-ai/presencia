@@ -6,6 +6,9 @@
 <title>PRESENCIA Venue Management — Luxury Event Booking</title>
 <meta name="description" content="Premier venue management in New Lower Bicutan, Taguig City. Birthdays, Weddings, Child Dedication, Seminars, Workshops & More." />
 
+<!-- Inline Favicon (No file needed) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>" />
+
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 <!-- Google Fonts -->
@@ -14,8 +17,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet" />
 <!-- jsPDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<!-- EmailJS -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <script>
 tailwind.config = {
@@ -40,68 +41,34 @@ tailwind.config = {
   body { font-family: 'Inter', sans-serif; background: #060912; overflow-x: hidden; }
   .font-display { font-family: 'Playfair Display', serif; }
   .font-signature { font-family: 'Great Vibes', cursive; }
-
-  .gold-text {
-    background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 50%, #D4AF37 100%);
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .gold-shimmer {
-    background: linear-gradient(90deg, #B8941F 0%, #D4AF37 25%, #F4D03F 50%, #D4AF37 75%, #B8941F 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-    animation: shimmer 4s linear infinite;
-  }
+  .gold-text { background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 50%, #D4AF37 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .gold-shimmer { background: linear-gradient(90deg, #B8941F 0%, #D4AF37 25%, #F4D03F 50%, #D4AF37 75%, #B8941F 100%); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 4s linear infinite; }
   @keyframes shimmer { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
-
   .glass { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-
-  ::-webkit-scrollbar { width: 8px; height: 8px; }
-  ::-webkit-scrollbar-track { background: #0A0E1A; }
-  ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #D4AF37, #B8941F); border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
-
+  ::-webkit-scrollbar { width: 8px; height: 8px; } ::-webkit-scrollbar-track { background: #0A0E1A; } ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #D4AF37, #B8941F); border-radius: 4px; } ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
   @keyframes fadeInUp { from { opacity:0; transform: translateY(30px); } to { opacity:1; transform: translateY(0); } }
   @keyframes scaleIn { from { opacity:0; transform: scale(0.95); } to { opacity:1; transform: scale(1); } }
   @keyframes toastIn { from { opacity:0; transform: translateY(-20px) scale(0.9); } to { opacity:1; transform: translateY(0) scale(1); } }
   @keyframes pulseGold { 0%,100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); } 50% { box-shadow: 0 0 0 12px rgba(212,175,55,0); } }
   @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  .reveal { opacity: 0; }
-  .reveal.visible { animation: fadeInUp 0.7s ease forwards; }
+  .reveal { opacity: 0; } .reveal.visible { animation: fadeInUp 0.7s ease forwards; }
   .modal-overlay { animation: fadeInUp 0.3s ease forwards; }
   .modal-content { animation: scaleIn 0.35s cubic-bezier(0.16,1,0.3,1) forwards; }
   .toast-item { animation: toastIn 0.4s cubic-bezier(0.16,1,0.3,1) forwards; }
   .pulse-gold { animation: pulseGold 2s infinite; }
   .float-anim { animation: float 4s ease-in-out infinite; }
   .spin-loader { animation: spin 0.8s linear infinite; }
-
-  .hero-bg::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse at top, rgba(212,175,55,0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom right, rgba(212,175,55,0.08) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
+  .hero-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top, rgba(212,175,55,0.15) 0%, transparent 50%), radial-gradient(ellipse at bottom right, rgba(212,175,55,0.08) 0%, transparent 60%); pointer-events: none; }
   .card-glow:hover { box-shadow: 0 0 30px rgba(212,175,55,0.15); }
-  .gold-border-glow { border: 1px solid rgba(212,175,55,0.3); }
-  .gold-border-glow:hover { border-color: rgba(212,175,55,0.6); box-shadow: 0 0 20px rgba(212,175,55,0.1); }
-
   .calendar-day { transition: all 0.2s ease; position: relative; }
   .calendar-day:not(.disabled):not(.selected):hover { background: rgba(212,175,55,0.15); transform: scale(1.05); }
   .calendar-day.disabled { opacity: 0.3; cursor: not-allowed; }
   .calendar-day.selected { background: linear-gradient(135deg, #D4AF37, #F4D03F); color: #0A0E1A; font-weight: 700; }
-
   input:focus, select:focus, textarea:focus { outline: none; }
-  .input-field { transition: all 0.3s ease; }
-  .input-field:focus { border-color: #D4AF37; box-shadow: 0 0 0 3px rgba(212,175,55,0.15); }
-
-  .package-card { transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
-  .package-card.selected { border-color: #D4AF37; box-shadow: 0 0 30px rgba(212,175,55,0.2), inset 0 0 20px rgba(212,175,55,0.05); }
-
-  .nav-link { position: relative; }
-  .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, #D4AF37, #F4D03F); transition: width 0.3s ease; }
-  .nav-link:hover::after { width: 100%; }
+  .input-field { transition: all 0.3s ease; } .input-field:focus { border-color: #D4AF37; box-shadow: 0 0 0 3px rgba(212,175,55,0.15); }
+  .package-card { transition: all 0.4s cubic-bezier(0.16,1,0.3,1); } .package-card.selected { border-color: #D4AF37; box-shadow: 0 0 30px rgba(212,175,55,0.2), inset 0 0 20px rgba(212,175,55,0.05); }
+  .nav-link { position: relative; } .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, #D4AF37, #F4D03F); transition: width 0.3s ease; } .nav-link:hover::after { width: 100%; }
 </style>
 </head>
 
@@ -166,15 +133,11 @@ tailwind.config = {
     <div class="flex justify-center mb-6 reveal">
       <div class="relative">
         <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-2 border-gold/40 flex items-center justify-center pulse-gold">
-          <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-gold/20 to-transparent flex items-center justify-center">
-            <span class="font-display text-3xl md:text-4xl gold-text">P</span>
-          </div>
+          <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-gold/20 to-transparent flex items-center justify-center"><span class="font-display text-3xl md:text-4xl gold-text">P</span></div>
         </div>
       </div>
     </div>
-    <div class="reveal" style="animation-delay: 0.1s;">
-      <p class="text-xs md:text-sm tracking-[0.3em] uppercase text-gold/70 mb-4 font-medium">✦ Premier Event Venue ✦</p>
-    </div>
+    <div class="reveal" style="animation-delay: 0.1s;"><p class="text-xs md:text-sm tracking-[0.3em] uppercase text-gold/70 mb-4 font-medium">✦ Premier Event Venue ✦</p></div>
     <h1 class="reveal font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6" style="animation-delay: 0.2s;">
       <span class="gold-shimmer">PRESENCIA</span>
       <span class="block text-white/90 text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2">Venue Management</span>
@@ -197,12 +160,6 @@ tailwind.config = {
       <span>New Lower Bicutan, Taguig City <span class="text-white/30">(Front of Bicutan Med)</span></span>
     </div>
   </div>
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 reveal" style="animation-delay: 0.8s;">
-    <div class="flex flex-col items-center gap-2 animate-bounce">
-      <span class="text-xs text-white/30 tracking-widest uppercase">Scroll</span>
-      <svg class="w-5 h-5 text-gold/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
-    </div>
-  </div>
 </section>
 
 <!-- ================= SERVICES OVERVIEW ================= -->
@@ -214,31 +171,11 @@ tailwind.config = {
       <p class="text-white/50 max-w-2xl mx-auto">We serve: BIRTHDAYS | WEDDINGS | CHILD DEDICATION | SEMINARS | WORKSHOPS & ETC.</p>
     </div>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
-      <div class="reveal group p-6 rounded-2xl bg-navy-800/50 border border-white/5 hover:border-gold/30 card-glow transition-all duration-300 ease-in-out text-center">
-        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">🎉</div>
-        <h3 class="font-semibold text-sm md:text-base mb-1">Birthday Parties</h3>
-        <p class="text-xs text-white/40">Celebrate life's milestones</p>
-      </div>
-      <div class="reveal group p-6 rounded-2xl bg-navy-800/50 border border-white/5 hover:border-gold/30 card-glow transition-all duration-300 ease-in-out text-center" style="animation-delay: 0.1s;">
-        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">💍</div>
-        <h3 class="font-semibold text-sm md:text-base mb-1">Weddings</h3>
-        <p class="text-xs text-white/40">Your perfect day, perfected</p>
-      </div>
-      <div class="reveal group p-6 rounded-2xl bg-navy-800/50 border border-white/5 hover:border-gold/30 card-glow transition-all duration-300 ease-in-out text-center" style="animation-delay: 0.15s;">
-        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">👶</div>
-        <h3 class="font-semibold text-sm md:text-base mb-1">Child Dedication</h3>
-        <p class="text-xs text-white/40">Blessed beginnings</p>
-      </div>
-      <div class="reveal group p-6 rounded-2xl bg-navy-800/50 border border-white/5 hover:border-gold/30 card-glow transition-all duration-300 ease-in-out text-center" style="animation-delay: 0.2s;">
-        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">📊</div>
-        <h3 class="font-semibold text-sm md:text-base mb-1">Seminars</h3>
-        <p class="text-xs text-white/40">Professional gatherings</p>
-      </div>
-      <div class="reveal group p-6 rounded-2xl bg-navy-800/50 border border-white/5 hover:border-gold/30 card-glow transition-all duration-300 ease-in-out text-center" style="animation-delay: 0.25s;">
-        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">🔨</div>
-        <h3 class="font-semibold text-sm md:text-base mb-1">Workshops</h3>
-        <p class="text-xs text-white/40">Creative learning spaces</p>
-      </div>
+      <div class="reveal group p-6 rounded-2xl bg-navy-800/50 border border-white/5 hover:border-gold/30 card-glow transition-all duration-300 ease-in-out text-center"><div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">🎉</div><h3 class="font-semibold text-sm md:text-base mb-1">Birthday Parties</h3><p class="text-xs text-white/40">Celebrate life's milestones</p></div>
+      <div class="reveal group p-6 rounded-2xl bg-navy-800/50 border border-white/5 hover:border-gold/30 card-glow transition-all duration-300 ease-in-out text-center" style="animation-delay: 0.1s;"><div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">💍</div><h3 class="font-semibold text-sm md:text-base mb-1">Weddings</h3><p class="text-xs text-white/40">Your perfect day, perfected</p></div>
+      <div class="reveal group p-6 rounded-2xl bg-navy-800/50 border border-white/5 hover:border-gold/30 card-glow transition-all duration-300 ease-in-out text-center" style="animation-delay: 0.15s;"><div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">👶</div><h3 class="font-semibold text-sm md:text-base mb-1">Child Dedication</h3><p class="text-xs text-white/40">Blessed beginnings</p></div>
+      <div class="reveal group p-6 rounded-2xl bg-navy-800/50 border border-white/5 hover:border-gold/30 card-glow transition-all duration-300 ease-in-out text-center" style="animation-delay: 0.2s;"><div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">📊</div><h3 class="font-semibold text-sm md:text-base mb-1">Seminars</h3><p class="text-xs text-white/40">Professional gatherings</p></div>
+      <div class="reveal group p-6 rounded-2xl bg-navy-800/50 border border-white/5 hover:border-gold/30 card-glow transition-all duration-300 ease-in-out text-center" style="animation-delay: 0.25s;"><div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">🔨</div><h3 class="font-semibold text-sm md:text-base mb-1">Workshops</h3><p class="text-xs text-white/40">Creative learning spaces</p></div>
     </div>
   </div>
 </section>
@@ -252,13 +189,10 @@ tailwind.config = {
       <p class="text-white/50 max-w-2xl mx-auto">All packages include 6 hours of venue access and a PHP 1,000 refundable cleaning deposit. Overtime: PHP 1,500/hr.</p>
     </div>
     <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+      <!-- Essential -->
       <div class="package-card reveal p-6 md:p-8 rounded-2xl bg-gradient-to-b from-navy-800 to-navy-900 border border-white/10 hover:border-gold/30 cursor-pointer" data-package="essential" onclick="selectPackage('essential')">
         <div class="flex justify-center mb-4"><img src="https://z-cdn-media.chatglm.cn/files/72ee39b4-3e2f-4441-b7f1-cfa8175430c5.png" alt="Essential Package" class="h-40 rounded-lg object-cover" onerror="this.style.display='none'" loading="lazy" /></div>
-        <div class="text-center mb-6">
-          <h3 class="font-display text-2xl font-bold mb-1">Essential</h3>
-          <p class="text-xs text-white/40 mb-3">30–50 Guests</p>
-          <div class="flex items-baseline justify-center gap-1"><span class="text-xs text-gold/70">PHP</span><span class="font-display text-4xl font-bold gold-text">9,500</span></div>
-        </div>
+        <div class="text-center mb-6"><h3 class="font-display text-2xl font-bold mb-1">Essential</h3><p class="text-xs text-white/40 mb-3">30–50 Guests</p><div class="flex items-baseline justify-center gap-1"><span class="text-xs text-gold/70">PHP</span><span class="font-display text-4xl font-bold gold-text">9,500</span></div></div>
         <div class="space-y-3 mb-6">
           <div class="flex items-center gap-2 text-sm text-white/70"><span class="text-gold">✦</span> 6 Hours Venue (1hr Ingress, 4hr Proper, 1hr Egress)</div>
           <div class="flex items-center gap-2 text-sm text-white/70"><span class="text-gold">✦</span> Basic Sound System</div>
@@ -268,14 +202,11 @@ tailwind.config = {
         </div>
         <button onclick="selectPackage('essential'); document.getElementById('book').scrollIntoView({behavior:'smooth'});" class="w-full py-3 rounded-xl bg-white/5 border border-gold/20 text-gold font-semibold text-sm hover:bg-gold hover:text-navy-900 transition-all duration-300 ease-in-out">Select Essential</button>
       </div>
+      <!-- Classic -->
       <div class="package-card reveal p-6 md:p-8 rounded-2xl bg-gradient-to-b from-navy-800 to-navy-900 border border-gold/30 cursor-pointer relative md:-mt-4 md:mb-4" data-package="classic" onclick="selectPackage('classic')" style="animation-delay: 0.1s;">
         <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-gold to-gold-dark text-navy-900 text-xs font-bold tracking-wide">⭐ POPULAR CHOICE</div>
         <div class="flex justify-center mb-4"><img src="https://z-cdn-media.chatglm.cn/files/fa7826d8-1993-4427-b662-9a055ac9130c.png" alt="Classic Package" class="h-40 rounded-lg object-cover" onerror="this.style.display='none'" loading="lazy" /></div>
-        <div class="text-center mb-6">
-          <h3 class="font-display text-2xl font-bold mb-1">Classic</h3>
-          <p class="text-xs text-white/40 mb-3">50–80 Guests</p>
-          <div class="flex items-baseline justify-center gap-1"><span class="text-xs text-gold/70">PHP</span><span class="font-display text-4xl font-bold gold-text">12,500</span></div>
-        </div>
+        <div class="text-center mb-6"><h3 class="font-display text-2xl font-bold mb-1">Classic</h3><p class="text-xs text-white/40 mb-3">50–80 Guests</p><div class="flex items-baseline justify-center gap-1"><span class="text-xs text-gold/70">PHP</span><span class="font-display text-4xl font-bold gold-text">12,500</span></div></div>
         <div class="space-y-3 mb-6">
           <div class="flex items-center gap-2 text-sm text-white/70"><span class="text-gold">✦</span> 6 Hours Venue (1hr Ingress, 4hr Proper, 1hr Egress)</div>
           <div class="flex items-center gap-2 text-sm text-white/70"><span class="text-gold">✦</span> Basic Sound System</div>
@@ -287,13 +218,10 @@ tailwind.config = {
         </div>
         <button onclick="selectPackage('classic'); document.getElementById('book').scrollIntoView({behavior:'smooth'});" class="w-full py-3 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-bold text-sm hover:scale-105 hover:shadow-lg hover:shadow-gold/30 transition-all duration-300 ease-in-out">Select Classic</button>
       </div>
+      <!-- Premier -->
       <div class="package-card reveal p-6 md:p-8 rounded-2xl bg-gradient-to-b from-navy-800 to-navy-900 border border-white/10 hover:border-gold/30 cursor-pointer" data-package="premier" onclick="selectPackage('premier')" style="animation-delay: 0.2s;">
         <div class="flex justify-center mb-4"><img src="https://z-cdn-media.chatglm.cn/files/2a026c64-4ab1-44a0-a70e-e39f2bb14b65.png" alt="Premier Package" class="h-40 rounded-lg object-cover" onerror="this.style.display='none'" loading="lazy" /></div>
-        <div class="text-center mb-6">
-          <h3 class="font-display text-2xl font-bold mb-1">Premier</h3>
-          <p class="text-xs text-white/40 mb-3">Up to 100 Guests</p>
-          <div class="flex items-baseline justify-center gap-1"><span class="text-xs text-gold/70">PHP</span><span class="font-display text-4xl font-bold gold-text">16,500</span></div>
-        </div>
+        <div class="text-center mb-6"><h3 class="font-display text-2xl font-bold mb-1">Premier</h3><p class="text-xs text-white/40 mb-3">Up to 100 Guests</p><div class="flex items-baseline justify-center gap-1"><span class="text-xs text-gold/70">PHP</span><span class="font-display text-4xl font-bold gold-text">16,500</span></div></div>
         <div class="space-y-3 mb-6">
           <div class="flex items-center gap-2 text-sm text-white/70"><span class="text-gold">✦</span> 6 Hours Venue (1hr Ingress, 4hr Proper, 1hr Egress)</div>
           <div class="flex items-center gap-2 text-sm text-white/70"><span class="text-gold">✦</span> Premium Sound System</div>
@@ -306,9 +234,6 @@ tailwind.config = {
         </div>
         <button onclick="selectPackage('premier'); document.getElementById('book').scrollIntoView({behavior:'smooth'});" class="w-full py-3 rounded-xl bg-white/5 border border-gold/20 text-gold font-semibold text-sm hover:bg-gold hover:text-navy-900 transition-all duration-300 ease-in-out">Select Premier</button>
       </div>
-    </div>
-    <div class="reveal mt-10 p-6 rounded-2xl bg-navy-800/50 border border-gold/10 text-center">
-      <p class="text-sm text-white/50"><span class="text-gold font-semibold">📌 All Packages:</span> PHP 1,000 refundable cleaning deposit required • Overtime rate: PHP 1,500/hour • Max 100 guests</p>
     </div>
   </div>
 </section>
@@ -323,17 +248,17 @@ tailwind.config = {
     </div>
     <div class="grid md:grid-cols-3 gap-4 md:gap-6">
       <div class="reveal group relative overflow-hidden rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300">
-        <img src="https://z-cdn-media.chatglm.cn/files/1e5dee8d-22f0-4884-99e1-fb16ffa994c9.jpg" alt="Venue Interior View 1" class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.parentElement.style.display='none'" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300"><p class="text-sm text-white/90"> spacious main hall with professional lighting</p></div>
-      </div>
-      <div class="reveal group relative overflow-hidden rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300" style="animation-delay: 0.1s;">
-        <img src="https://z-cdn-media.chatglm.cn/files/78f52766-a61d-42ed-8215-c13ad39e52c0.jpg" alt="Venue Interior View 2" class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.parentElement.style.display='none'" loading="lazy" />
+        <img src="https://z-cdn-media.chatglm.cn/files/9229c0e6-e8b8-4a79-b0cc-4bd086fa1179.jpg" alt="Venue Interior View 1" class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.parentElement.style.display='none'" loading="lazy" />
         <div class="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300"><p class="text-sm text-white/90">Bright, clean space ready for setup</p></div>
       </div>
+      <div class="reveal group relative overflow-hidden rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300" style="animation-delay: 0.1s;">
+        <img src="https://z-cdn-media.chatglm.cn/files/696c434f-deb8-41fe-aefd-ae6b5de5e914.jpg" alt="Venue Interior View 2" class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.parentElement.style.display='none'" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300"><p class="text-sm text-white/90">Spacious interior with professional lighting</p></div>
+      </div>
       <div class="reveal group relative overflow-hidden rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300" style="animation-delay: 0.2s;">
-        <img src="https://z-cdn-media.chatglm.cn/files/7e1668e2-0d9d-49ac-be2b-5b2163221355.jpg" alt="Venue Interior View 3" class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.parentElement.style.display='none'" loading="lazy" />
+        <img src="https://z-cdn-media.chatglm.cn/files/ba844da2-cad1-48a2-a290-87dd8339a013.jpg" alt="Venue Interior View 3" class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.parentElement.style.display='none'" loading="lazy" />
         <div class="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300"><p class="text-sm text-white/90">Flexible layout for events and rehearsals</p></div>
       </div>
@@ -355,22 +280,10 @@ tailwind.config = {
           <div>
             <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">A</span> Client Information</h3>
             <div class="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs text-white/50 mb-1.5 font-medium">Full Name <span class="text-red-400">*</span></label>
-                <input type="text" id="clientName" required class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20" placeholder="Juan Dela Cruz" />
-              </div>
-              <div>
-                <label class="block text-xs text-white/50 mb-1.5 font-medium">Contact Number <span class="text-red-400">*</span></label>
-                <input type="tel" id="contactNumber" required class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20" placeholder="0917 123 4567" />
-              </div>
-              <div>
-                <label class="block text-xs text-white/50 mb-1.5 font-medium">Email Address <span class="text-red-400">*</span></label>
-                <input type="email" id="email" required class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20" placeholder="you@email.com" />
-              </div>
-              <div>
-                <label class="block text-xs text-white/50 mb-1.5 font-medium">Facebook / Messenger</label>
-                <input type="text" id="facebook" class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20" placeholder="fb.com/yourname" />
-              </div>
+              <div><label class="block text-xs text-white/50 mb-1.5 font-medium">Full Name <span class="text-red-400">*</span></label><input type="text" id="clientName" required class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20" placeholder="Juan Dela Cruz" /></div>
+              <div><label class="block text-xs text-white/50 mb-1.5 font-medium">Contact Number <span class="text-red-400">*</span></label><input type="tel" id="contactNumber" required class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20" placeholder="0917 123 4567" /></div>
+              <div><label class="block text-xs text-white/50 mb-1.5 font-medium">Email Address <span class="text-red-400">*</span></label><input type="email" id="email" required class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20" placeholder="you@email.com" /></div>
+              <div><label class="block text-xs text-white/50 mb-1.5 font-medium">Facebook / Messenger</label><input type="text" id="facebook" class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20" placeholder="fb.com/yourname" /></div>
             </div>
           </div>
           <div class="pt-2">
@@ -388,69 +301,37 @@ tailwind.config = {
                   <option value="Other" class="bg-navy-900">✨ Other</option>
                 </select>
               </div>
-              <div>
-                <label class="block text-xs text-white/50 mb-1.5 font-medium">Number of Guests <span class="text-red-400">*</span></label>
-                <input type="number" id="guests" required min="1" max="100" class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20" placeholder="Max 100" oninput="if(this.value>100)this.value=100;if(this.value<1)this.value='';" />
-              </div>
+              <div><label class="block text-xs text-white/50 mb-1.5 font-medium">Number of Guests <span class="text-red-400">*</span></label><input type="number" id="guests" required min="1" max="100" class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20" placeholder="Max 100" oninput="if(this.value>100)this.value=100;if(this.value<1)this.value='';" /></div>
               <div class="relative">
                 <label class="block text-xs text-white/50 mb-1.5 font-medium">Preferred Event Date <span class="text-red-400">*</span></label>
                 <input type="text" id="eventDate" readonly required class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20 cursor-pointer" placeholder="Tap to select a date 📅" onclick="toggleCalendar(event)" />
                 <input type="hidden" id="eventDateValue" />
                 <div id="calendarPopover" class="hidden absolute top-full mt-2 left-0 z-50 w-80 p-4 rounded-2xl bg-navy-800 border border-gold/20 shadow-2xl modal-content">
                   <div class="flex items-center justify-between mb-4">
-                    <button id="prevMonth" onclick="changeMonth(-1)" class="w-8 h-8 rounded-lg hover:bg-gold/10 text-gold flex items-center justify-center transition-all duration-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg></button>
+                    <button onclick="changeMonth(-1)" class="w-8 h-8 rounded-lg hover:bg-gold/10 text-gold flex items-center justify-center transition-all duration-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg></button>
                     <span id="calendarMonthYear" class="font-display font-semibold text-sm"></span>
-                    <button id="nextMonth" onclick="changeMonth(1)" class="w-8 h-8 rounded-lg hover:bg-gold/10 text-gold flex items-center justify-center transition-all duration-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+                    <button onclick="changeMonth(1)" class="w-8 h-8 rounded-lg hover:bg-gold/10 text-gold flex items-center justify-center transition-all duration-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
                   </div>
-                  <div class="grid grid-cols-7 gap-1 mb-2">
-                    <span class="text-center text-[10px] text-white/40 font-medium py-1">Mon</span><span class="text-center text-[10px] text-white/40 font-medium py-1">Tue</span><span class="text-center text-[10px] text-white/40 font-medium py-1">Wed</span><span class="text-center text-[10px] text-white/40 font-medium py-1">Thu</span><span class="text-center text-[10px] text-white/40 font-medium py-1">Fri</span><span class="text-center text-[10px] text-red-400/50 font-medium py-1">Sat</span><span class="text-center text-[10px] text-red-400/50 font-medium py-1">Sun</span>
-                  </div>
+                  <div class="grid grid-cols-7 gap-1 mb-2"><span class="text-center text-[10px] text-white/40 font-medium py-1">Mon</span><span class="text-center text-[10px] text-white/40 font-medium py-1">Tue</span><span class="text-center text-[10px] text-white/40 font-medium py-1">Wed</span><span class="text-center text-[10px] text-white/40 font-medium py-1">Thu</span><span class="text-center text-[10px] text-white/40 font-medium py-1">Fri</span><span class="text-center text-[10px] text-red-400/50 font-medium py-1">Sat</span><span class="text-center text-[10px] text-red-400/50 font-medium py-1">Sun</span></div>
                   <div id="calendarDays" class="grid grid-cols-7 gap-1"></div>
                 </div>
               </div>
               <div class="grid grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-xs text-white/50 mb-1.5 font-medium">Start Time <span class="text-red-400">*</span></label>
-                  <input type="time" id="startTime" required class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm" style="color-scheme: dark;" />
-                </div>
-                <div>
-                  <label class="block text-xs text-white/50 mb-1.5 font-medium">End Time <span class="text-red-400">*</span></label>
-                  <input type="time" id="endTime" required class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm" style="color-scheme: dark;" />
-                </div>
+                <div><label class="block text-xs text-white/50 mb-1.5 font-medium">Start Time <span class="text-red-400">*</span></label><input type="time" id="startTime" required class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm" style="color-scheme: dark;" /></div>
+                <div><label class="block text-xs text-white/50 mb-1.5 font-medium">End Time <span class="text-red-400">*</span></label><input type="time" id="endTime" required class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm" style="color-scheme: dark;" /></div>
               </div>
             </div>
           </div>
           <div class="pt-2">
             <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">C</span> Select Package <span class="text-red-400">*</span></h3>
             <div class="grid sm:grid-cols-3 gap-3">
-              <label class="package-option cursor-pointer">
-                <input type="radio" name="package" value="essential" class="hidden peer" onchange="selectPackage('essential'); updateCalculator();" />
-                <div class="p-4 rounded-xl bg-navy-900/50 border border-white/10 peer-checked:border-gold peer-checked:bg-gold/5 transition-all duration-300">
-                  <div class="text-xs text-white/40 mb-1">Essential</div><div class="font-display text-xl font-bold gold-text">₱9,500</div><div class="text-[10px] text-white/30 mt-1">30–50 guests</div>
-                </div>
-              </label>
-              <label class="package-option cursor-pointer">
-                <input type="radio" name="package" value="classic" class="hidden peer" onchange="selectPackage('classic'); updateCalculator();" />
-                <div class="p-4 rounded-xl bg-navy-900/50 border border-white/10 peer-checked:border-gold peer-checked:bg-gold/5 transition-all duration-300">
-                  <div class="text-xs text-white/40 mb-1">Classic</div><div class="font-display text-xl font-bold gold-text">₱12,500</div><div class="text-[10px] text-white/30 mt-1">50–80 guests</div>
-                </div>
-              </label>
-              <label class="package-option cursor-pointer">
-                <input type="radio" name="package" value="premier" class="hidden peer" onchange="selectPackage('premier'); updateCalculator();" />
-                <div class="p-4 rounded-xl bg-navy-900/50 border border-white/10 peer-checked:border-gold peer-checked:bg-gold/5 transition-all duration-300">
-                  <div class="text-xs text-white/40 mb-1">Premier</div><div class="font-display text-xl font-bold gold-text">₱16,500</div><div class="text-[10px] text-white/30 mt-1">Up to 100 guests</div>
-                </div>
-              </label>
+              <label class="package-option cursor-pointer"><input type="radio" name="package" value="essential" class="hidden peer" onchange="selectPackage('essential'); updateCalculator();" /><div class="p-4 rounded-xl bg-navy-900/50 border border-white/10 peer-checked:border-gold peer-checked:bg-gold/5 transition-all duration-300"><div class="text-xs text-white/40 mb-1">Essential</div><div class="font-display text-xl font-bold gold-text">₱9,500</div><div class="text-[10px] text-white/30 mt-1">30–50 guests</div></div></label>
+              <label class="package-option cursor-pointer"><input type="radio" name="package" value="classic" class="hidden peer" onchange="selectPackage('classic'); updateCalculator();" /><div class="p-4 rounded-xl bg-navy-900/50 border border-white/10 peer-checked:border-gold peer-checked:bg-gold/5 transition-all duration-300"><div class="text-xs text-white/40 mb-1">Classic</div><div class="font-display text-xl font-bold gold-text">₱12,500</div><div class="text-[10px] text-white/30 mt-1">50–80 guests</div></div></label>
+              <label class="package-option cursor-pointer"><input type="radio" name="package" value="premier" class="hidden peer" onchange="selectPackage('premier'); updateCalculator();" /><div class="p-4 rounded-xl bg-navy-900/50 border border-white/10 peer-checked:border-gold peer-checked:bg-gold/5 transition-all duration-300"><div class="text-xs text-white/40 mb-1">Premier</div><div class="font-display text-xl font-bold gold-text">₱16,500</div><div class="text-[10px] text-white/30 mt-1">Up to 100 guests</div></div></label>
             </div>
           </div>
-          <div class="pt-2">
-            <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">D</span> Add-On Services</h3>
-            <div id="addonContainer" class="space-y-3"></div>
-          </div>
-          <div class="pt-2">
-            <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">E</span> Special Requests / Notes</h3>
-            <textarea id="notes" rows="3" class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20 resize-none" placeholder="Any special requests or additional information…"></textarea>
-          </div>
+          <div class="pt-2"><h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">D</span> Add-On Services</h3><div id="addonContainer" class="space-y-3"></div></div>
+          <div class="pt-2"><h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-sm">E</span> Special Requests / Notes</h3><textarea id="notes" rows="3" class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm placeholder-white/20 resize-none" placeholder="Any special requests or additional information…"></textarea></div>
           <div class="pt-4">
             <button type="button" id="proceedBtn" onclick="openContractModal()" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-bold text-base hover:scale-[1.02] hover:shadow-2xl hover:shadow-gold/30 transition-all duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">📜 Proceed to Booking</button>
             <p class="text-center text-xs text-white/30 mt-3">You will review and sign the contract before final submission.</p>
@@ -460,37 +341,16 @@ tailwind.config = {
       <div class="lg:col-span-1">
         <div class="sticky top-24 reveal" style="animation-delay: 0.15s;">
           <div class="p-6 rounded-2xl bg-gradient-to-b from-navy-800 to-navy-900 border border-gold/20 shadow-xl">
-            <div class="flex items-center gap-2 mb-6">
-              <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-              <h3 class="font-display text-lg font-bold">Cost Summary</h3>
-            </div>
+            <div class="flex items-center gap-2 mb-6"><svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg><h3 class="font-display text-lg font-bold">Cost Summary</h3></div>
             <div class="space-y-4">
-              <div id="calcPackageRow" class="flex items-center justify-between opacity-40 transition-all duration-300">
-                <div><div class="text-xs text-white/40">Package Rate</div><div id="calcPackageName" class="text-sm font-medium text-white/70">— Not selected —</div></div>
-                <div id="calcPackageRate" class="font-display text-lg font-bold text-white/50">₱0</div>
-              </div>
+              <div id="calcPackageRow" class="flex items-center justify-between opacity-40 transition-all duration-300"><div><div class="text-xs text-white/40">Package Rate</div><div id="calcPackageName" class="text-sm font-medium text-white/70">— Not selected —</div></div><div id="calcPackageRate" class="font-display text-lg font-bold text-white/50">₱0</div></div>
               <div class="border-t border-white/5"></div>
-              <div id="calcAddOnsRow" class="opacity-40 transition-all duration-300">
-                <div class="flex items-center justify-between mb-2"><div class="text-xs text-white/40">Add-On Services</div><div id="calcAddOnsTotal" class="font-display text-lg font-bold text-white/50">₱0</div></div>
-                <div id="calcAddOnsList" class="text-[11px] text-white/30 space-y-1"></div>
-              </div>
+              <div id="calcAddOnsRow" class="opacity-40 transition-all duration-300"><div class="flex items-center justify-between mb-2"><div class="text-xs text-white/40">Add-On Services</div><div id="calcAddOnsTotal" class="font-display text-lg font-bold text-white/50">₱0</div></div><div id="calcAddOnsList" class="text-[11px] text-white/30 space-y-1"></div></div>
               <div class="border-t border-white/5"></div>
-              <div class="flex items-center justify-between">
-                <div><div class="text-xs text-white/40">Cleaning Deposit</div><div class="text-[10px] text-white/20">Refundable</div></div>
-                <div class="font-display text-lg font-bold text-white/70">₱1,000</div>
-              </div>
-              <div class="flex items-center justify-between">
-                <div><div class="text-xs text-white/40">Reservation Fee</div><div class="text-[10px] text-white/20">Non-refundable · Deducted</div></div>
-                <div class="font-display text-lg font-bold text-red-400/70">–₱2,000</div>
-              </div>
+              <div class="flex items-center justify-between"><div><div class="text-xs text-white/40">Cleaning Deposit</div><div class="text-[10px] text-white/20">Refundable</div></div><div class="font-display text-lg font-bold text-white/70">₱1,000</div></div>
+              <div class="flex items-center justify-between"><div><div class="text-xs text-white/40">Reservation Fee</div><div class="text-[10px] text-white/20">Non-refundable · Deducted</div></div><div class="font-display text-lg font-bold text-red-400/70">–₱2,000</div></div>
               <div class="border-t border-gold/20"></div>
-              <div class="flex items-center justify-between pt-2">
-                <div><div class="text-sm font-bold text-gold">Total Balance Due</div><div class="text-[10px] text-white/30">Due 3 days before event</div></div>
-                <div id="calcTotalBalance" class="font-display text-2xl font-bold gold-text">₱0</div>
-              </div>
-              <div class="p-3 rounded-lg bg-navy-900/50 border border-white/5">
-                <div class="text-[10px] text-white/30 flex items-center gap-1.5"><svg class="w-3 h-3 text-gold/50" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg> Overtime rate: ₱1,500/hour · Max 100 guests · 6 hours venue time included</div>
-              </div>
+              <div class="flex items-center justify-between pt-2"><div><div class="text-sm font-bold text-gold">Total Balance Due</div><div class="text-[10px] text-white/30">Due 3 days before event</div></div><div id="calcTotalBalance" class="font-display text-2xl font-bold gold-text">₱0</div></div>
             </div>
           </div>
         </div>
@@ -503,8 +363,7 @@ tailwind.config = {
 <section class="py-20 md:py-32 relative">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="reveal relative overflow-hidden rounded-3xl bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950 border border-gold/20 p-8 md:p-12">
-      <div class="absolute top-0 right-0 w-64 h-64 rounded-full bg-gold/5 blur-3xl"></div>
-      <div class="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-gold/5 blur-3xl"></div>
+      <div class="absolute top-0 right-0 w-64 h-64 rounded-full bg-gold/5 blur-3xl"></div><div class="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-gold/5 blur-3xl"></div>
       <div class="relative grid md:grid-cols-2 gap-8 items-center">
         <div>
           <div class="inline-block px-3 py-1 rounded-full bg-gold/10 border border-gold/30 text-xs text-gold font-medium mb-4">🎁 REFERRAL PROGRAM</div>
@@ -513,9 +372,7 @@ tailwind.config = {
           <div class="flex items-center gap-3 mb-6"><span class="px-4 py-2 rounded-full bg-gold/10 border border-gold/30 text-sm text-gold font-bold">✓ NO LIMITATIONS</span></div>
           <button onclick="showToast('Referral code copied to clipboard! Share with friends 🎉', 'success')" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-semibold text-sm hover:scale-105 hover:shadow-lg hover:shadow-gold/30 transition-all duration-300 ease-in-out">📋 Copy Referral Code</button>
         </div>
-        <div class="flex justify-center">
-          <img src="https://z-cdn-media.chatglm.cn/files/8a228718-fc21-42de-9963-0a3b71693b60.png" alt="Referral Box" class="max-h-72 rounded-2xl border border-gold/20" onerror="this.style.display='none'" loading="lazy" />
-        </div>
+        <div class="flex justify-center"><img src="https://z-cdn-media.chatglm.cn/files/8a228718-fc21-42de-9963-0a3b71693b60.png" alt="Referral Box" class="max-h-72 rounded-2xl border border-gold/20" onerror="this.style.display='none'" loading="lazy" /></div>
       </div>
     </div>
   </div>
@@ -538,38 +395,18 @@ tailwind.config = {
           <button onclick="copyEmail()" class="ml-1 p-1 rounded hover:bg-gold/10 text-gold/60 hover:text-gold transition-all duration-300" title="Copy email"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg></button>
         </div>
       </div>
-      <div>
-        <h4 class="font-semibold text-sm text-gold mb-4">Quick Links</h4>
-        <div class="space-y-2">
-          <a href="#packages" class="block text-sm text-white/50 hover:text-gold transition-all duration-300">Packages</a>
-          <a href="#gallery" class="block text-sm text-white/50 hover:text-gold transition-all duration-300">Gallery</a>
-          <a href="#book" class="block text-sm text-white/50 hover:text-gold transition-all duration-300">Book Now</a>
-          <a href="admin/index.html" class="block text-sm text-white/30 hover:text-gold/60 transition-all duration-300">Admin Dashboard</a>
-        </div>
-      </div>
+      <div><h4 class="font-semibold text-sm text-gold mb-4">Quick Links</h4><div class="space-y-2"><a href="#packages" class="block text-sm text-white/50 hover:text-gold transition-all duration-300">Packages</a><a href="#gallery" class="block text-sm text-white/50 hover:text-gold transition-all duration-300">Gallery</a><a href="#book" class="block text-sm text-white/50 hover:text-gold transition-all duration-300">Book Now</a><a href="admin/index.html" class="block text-sm text-white/30 hover:text-gold/60 transition-all duration-300">Admin Dashboard</a></div></div>
       <div>
         <h4 class="font-semibold text-sm text-gold mb-4">Follow Us</h4>
         <div class="space-y-3">
-          <a href="https://instagram.com/presenciavenue" target="_blank" rel="noopener" class="group flex items-center gap-3 p-3 rounded-xl bg-navy-800/50 border border-white/5 hover:border-gold/30 transition-all duration-300 ease-in-out hover:scale-105">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center"><svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
-            <div><div class="text-xs text-white/40">Instagram</div><div class="text-sm font-medium text-white/80 group-hover:text-gold transition-all duration-300">@presenciavenue</div></div>
-          </a>
-          <a href="https://tiktok.com/@presenciaofficial" target="_blank" rel="noopener" class="group flex items-center gap-3 p-3 rounded-xl bg-navy-800/50 border border-white/5 hover:border-gold/30 transition-all duration-300 ease-in-out hover:scale-105">
-            <div class="w-8 h-8 rounded-lg bg-black flex items-center justify-center border border-white/10"><svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></div>
-            <div><div class="text-xs text-white/40">TikTok</div><div class="text-sm font-medium text-white/80 group-hover:text-gold transition-all duration-300">@presenciaofficial</div></div>
-          </a>
-          <a href="https://facebook.com/presencia" target="_blank" rel="noopener" class="group flex items-center gap-3 p-3 rounded-xl bg-navy-800/50 border border-white/5 hover:border-gold/30 transition-all duration-300 ease-in-out hover:scale-105">
-            <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center"><svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></div>
-            <div><div class="text-xs text-white/40">Facebook</div><div class="text-sm font-medium text-white/80 group-hover:text-gold transition-all duration-300">Presencia Venue</div></div>
-          </a>
+          <a href="https://instagram.com/presenciavenue" target="_blank" rel="noopener" class="group flex items-center gap-3 p-3 rounded-xl bg-navy-800/50 border border-white/5 hover:border-gold/30 transition-all duration-300 ease-in-out hover:scale-105"><div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center"><svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div><div><div class="text-xs text-white/40">Instagram</div><div class="text-sm font-medium text-white/80 group-hover:text-gold transition-all duration-300">@presenciavenue</div></div></a>
+          <a href="https://tiktok.com/@presenciaofficial" target="_blank" rel="noopener" class="group flex items-center gap-3 p-3 rounded-xl bg-navy-800/50 border border-white/5 hover:border-gold/30 transition-all duration-300 ease-in-out hover:scale-105"><div class="w-8 h-8 rounded-lg bg-black flex items-center justify-center border border-white/10"><svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></div><div><div class="text-xs text-white/40">TikTok</div><div class="text-sm font-medium text-white/80 group-hover:text-gold transition-all duration-300">@presenciaofficial</div></div></a>
+          <a href="https://facebook.com/presencia" target="_blank" rel="noopener" class="group flex items-center gap-3 p-3 rounded-xl bg-navy-800/50 border border-white/5 hover:border-gold/30 transition-all duration-300 ease-in-out hover:scale-105"><div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center"><svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></div><div><div class="text-xs text-white/40">Facebook</div><div class="text-sm font-medium text-white/80 group-hover:text-gold transition-all duration-300">Presencia Venue</div></div></a>
         </div>
       </div>
     </div>
     <div class="p-4 rounded-xl bg-navy-800/30 border border-gold/10 text-center mb-8"><p class="text-sm text-white/40"><span class="text-gold font-semibold">We Serve:</span> BIRTHDAYS | WEDDINGS | CHILD DEDICATION | SEMINARS | WORKSHOPS & ETC.</p></div>
-    <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5">
-      <p class="text-xs text-white/30">© 2025 PRESENCIA Venue Management. All rights reserved.</p>
-      <p class="text-xs text-white/20">New Lower Bicutan, Taguig City · presenciavenue@gmail.com</p>
-    </div>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5"><p class="text-xs text-white/30">© 2025 PRESENCIA Venue Management. All rights reserved.</p><p class="text-xs text-white/20">New Lower Bicutan, Taguig City · presenciavenue@gmail.com</p></div>
   </div>
 </footer>
 
@@ -577,67 +414,41 @@ tailwind.config = {
 <div id="contractModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
   <div class="modal-overlay absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeContractModal()"></div>
   <div class="modal-content relative bg-gradient-to-b from-navy-800 to-navy-900 rounded-2xl border border-gold/20 max-w-3xl w-full max-h-[92vh] flex flex-col shadow-2xl">
-    <div class="sticky top-0 z-10 flex items-center justify-between p-5 md:p-6 border-b border-gold/10 bg-navy-800/95 backdrop-blur-md rounded-t-2xl">
-      <div><h2 class="font-display text-xl font-bold gold-text">Client Booking Agreement</h2><p class="text-xs text-white/40 mt-0.5">Please read carefully before signing</p></div>
-      <button onclick="closeContractModal()" class="w-9 h-9 rounded-lg hover:bg-white/10 flex items-center justify-center transition-all duration-300"><svg class="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
+    <div class="sticky top-0 z-10 flex items-center justify-between p-5 md:p-6 border-b border-gold/10 bg-navy-800/95 backdrop-blur-md rounded-t-2xl"><div><h2 class="font-display text-xl font-bold gold-text">Client Booking Agreement</h2><p class="text-xs text-white/40 mt-0.5">Please read carefully before signing</p></div><button onclick="closeContractModal()" class="w-9 h-9 rounded-lg hover:bg-white/10 flex items-center justify-center transition-all duration-300"><svg class="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button></div>
     <div id="contractScroll" class="flex-1 overflow-y-auto p-5 md:p-8 space-y-6 text-sm leading-relaxed text-white/60">
-      <div><p class="text-center mb-4"><span class="font-display text-lg gold-text font-bold block">PRESENCIA VENUE MANAGEMENT</span><span class="text-white/40 text-xs">Client Booking Agreement</span></p><p class="text-xs text-white/40">Please read this agreement carefully. By signing, you agree to all terms stated herein. This Agreement governs the use of the venue and all services rendered in connection with the booked event.</p></div>
-      <div class="p-4 rounded-xl bg-gold/5 border border-gold/20">
-        <h3 class="font-bold text-gold text-sm mb-3 flex items-center gap-2">💰 Payment Terms — Articles 1 & 2</h3>
-        <div class="space-y-3 text-xs text-white/60">
-          <div><p class="font-semibold text-white/80 mb-1">Article 1. Reservation Fee</p><ul class="space-y-1 list-disc list-inside"><li>Non-refundable Reservation Fee of <span class="text-gold font-medium">PHP 2,000</span> upon signing.</li><li>Deducted from the total package fee upon the event.</li><li>Event date is reserved only upon receipt of this fee.</li><li>Date is released if payment is not received within <span class="text-gold font-medium">24 hours</span> of booking confirmation.</li></ul></div>
-          <div><p class="font-semibold text-white/80 mb-1">Article 2. Full Payment</p><ul class="space-y-1 list-disc list-inside"><li>Remaining balance must be settled in full at least <span class="text-gold font-medium">three (3) days</span> before the event date.</li><li>Venue access will not be granted without confirmed full payment clearance.</li><li>Accepted methods: GCash, bank transfer, or cash.</li></ul></div>
-        </div>
-      </div>
+      <div><p class="text-center mb-4"><span class="font-display text-lg gold-text font-bold block">PRESENCIA VENUE MANAGEMENT</span><span class="text-white/40 text-xs">Client Booking Agreement</span></p><p class="text-xs text-white/40">Please read this agreement carefully. By signing, you agree to all terms stated herein.</p></div>
+      <div class="p-4 rounded-xl bg-gold/5 border border-gold/20"><h3 class="font-bold text-gold text-sm mb-3">💰 Payment Terms — Articles 1 & 2</h3><div class="space-y-3 text-xs text-white/60"><div><p class="font-semibold text-white/80 mb-1">Article 1. Reservation Fee</p><ul class="space-y-1 list-disc list-inside"><li>Non-refundable Reservation Fee of <span class="text-gold font-medium">PHP 2,000</span> upon signing.</li><li>Deducted from the total package fee upon the event.</li><li>Date is released if payment is not received within <span class="text-gold font-medium">24 hours</span>.</li></ul></div><div><p class="font-semibold text-white/80 mb-1">Article 2. Full Payment</p><ul class="space-y-1 list-disc list-inside"><li>Remaining balance must be settled in full at least <span class="text-gold font-medium">three (3) days</span> before the event date.</li><li>Accepted methods: GCash, bank transfer, or cash.</li></ul></div></div></div>
       <div><h3 class="font-bold text-white/80 text-sm mb-2">Section A — Client & Event Information</h3><div id="contractClientPreview" class="grid grid-cols-2 gap-2 text-xs p-3 rounded-lg bg-navy-900/50 border border-white/5"></div></div>
       <div><h3 class="font-bold text-white/80 text-sm mb-2">Section B — Package & Payment Summary</h3><div id="contractPaymentPreview" class="text-xs p-3 rounded-lg bg-navy-900/50 border border-white/5 space-y-1"></div></div>
       <div><h3 class="font-bold text-white/80 text-sm mb-2">Articles 3–5: Scheduling & Cancellation</h3><div class="space-y-2 text-xs"><p><span class="font-semibold text-white/70">Art. 3 Date Change:</span> One (1) date change allowed, PHP 500 rebooking fee, request 10 days before event.</p><p><span class="font-semibold text-white/70">Art. 4 Cancellation:</span> 15+ days: forfeit reservation fee. 7–14 days: 50% forfeited. Within 7 days / no-show: 100% forfeited.</p><p><span class="font-semibold text-white/70">Art. 5 Force Majeure:</span> Rescheduled at no penalty. No cash refund; rescheduling credit applies.</p></div></div>
       <div><h3 class="font-bold text-white/80 text-sm mb-2">Articles 6–8: Venue Use & Time</h3><div class="space-y-2 text-xs"><p><span class="font-semibold text-white/70">Art. 6 Hours:</span> Total 7 hours = 1hr Ingress + 1hr Free Bonus + 4hr Event Proper + 1hr Egress.</p><p><span class="font-semibold text-white/70">Art. 7 Overtime:</span> PHP 1,500/hour. Request 30 min before event ends. Subject to availability.</p><p><span class="font-semibold text-white/70">Art. 8 Capacity:</span> Maximum 100 persons. Overcrowding = grounds for event suspension without refund.</p></div></div>
       <div><h3 class="font-bold text-white/80 text-sm mb-2">Articles 9–12: Property Care & Damage</h3><div class="space-y-2 text-xs"><p><span class="font-semibold text-white/70">Art. 9 Cleanliness:</span> Venue must be returned in same clean condition. Failure = forfeiture of cleaning deposit.</p><p><span class="font-semibold text-white/70">Art. 10 Cleaning Deposit:</span> PHP 1,000 refundable. Returned within 3 banking days if no issues.</p><p><span class="font-semibold text-white/70">Art. 11 Property Damage:</span> Client liable for all damages. Costs assessed post-event, payable within 7 days.</p><p><span class="font-semibold text-white/70">Art. 12 Prohibited Acts:</span> No illegal substances, smoking, nails/tape on walls, open flames, exceeding capacity, or violent conduct.</p></div></div>
       <div><h3 class="font-bold text-white/80 text-sm mb-2">Articles 13–14: Authority & Disputes</h3><div class="space-y-2 text-xs"><p><span class="font-semibold text-white/70">Art. 13 Manager Authority:</span> Presencia has full authority to enforce rules, suspend or terminate events for violations.</p><p><span class="font-semibold text-white/70">Art. 14 Dispute Resolution:</span> Good-faith negotiation first, then mediation. Philippine law governs. Venue: Taguig City.</p></div></div>
-      <p class="text-[10px] text-white/30 text-center pt-2">For full legal enforceability, both parties are encouraged to have this Agreement notarized by a licensed Notary Public in Taguig City. — Presencia Venue Management | Bicutan, Taguig Branch | presenciavenue@gmail.com</p>
+      <p class="text-[10px] text-white/30 text-center pt-2">For full legal enforceability, both parties are encouraged to have this Agreement notarized by a licensed Notary Public in Taguig City.</p>
     </div>
     <div class="sticky bottom-0 z-10 p-5 md:p-6 border-t border-gold/10 bg-navy-800/95 backdrop-blur-md rounded-b-2xl space-y-4">
-      <div>
-        <label class="block text-xs text-white/50 mb-1.5 font-medium">✍️ E-Signature: Type your full legal name exactly as entered in the form</label>
-        <input type="text" id="eSignature" oninput="validateSignature()" class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm font-signature text-lg" placeholder="Type your full name…" autocomplete="off" />
-        <div id="sigFeedback" class="text-xs mt-1.5 h-4 transition-all duration-300"></div>
-      </div>
-      <div class="flex items-start gap-3">
-        <input type="checkbox" id="agreeCheckbox" onchange="validateAgreement()" disabled class="mt-1 w-4 h-4 rounded border-white/20 bg-navy-900 text-gold focus:ring-gold/30 cursor-pointer" />
-        <label for="agreeCheckbox" class="text-xs text-white/50 leading-relaxed cursor-pointer">I have read and understood all terms of this Agreement. I commit to respecting the venue and all its property throughout the event. I authorize PRESENCIA Venue Management to process this booking.</label>
-      </div>
-      <button type="button" id="submitBooking" onclick="submitBooking(event)" disabled class="w-full py-4 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-bold text-base hover:scale-[1.02] hover:shadow-2xl hover:shadow-gold/30 transition-all duration-300 ease-in-out disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2">
-        <span id="submitText">🔒 Sign & Submit Booking</span>
-        <svg id="submitLoader" class="hidden w-5 h-5 spin-loader" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-      </button>
+      <div><label class="block text-xs text-white/50 mb-1.5 font-medium">✍️ E-Signature: Type your full legal name exactly as entered in the form</label><input type="text" id="eSignature" oninput="validateSignature()" class="input-field w-full px-4 py-3 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm font-signature text-lg" placeholder="Type your full name…" autocomplete="off" /><div id="sigFeedback" class="text-xs mt-1.5 h-4 transition-all duration-300"></div></div>
+      <div class="flex items-start gap-3"><input type="checkbox" id="agreeCheckbox" onchange="validateAgreement()" disabled class="mt-1 w-4 h-4 rounded border-white/20 bg-navy-900 text-gold focus:ring-gold/30 cursor-pointer" /><label for="agreeCheckbox" class="text-xs text-white/50 leading-relaxed cursor-pointer">I have read and understood all terms of this Agreement. I commit to respecting the venue and all its property throughout the event. I authorize PRESENCIA Venue Management to process this booking.</label></div>
+      <button type="button" id="submitBooking" onclick="submitBooking(event)" disabled class="w-full py-4 rounded-xl bg-gradient-to-r from-gold to-gold-dark text-navy-900 font-bold text-base hover:scale-[1.02] hover:shadow-2xl hover:shadow-gold/30 transition-all duration-300 ease-in-out disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"><span id="submitText">🔒 Sign & Submit Booking</span><svg id="submitLoader" class="hidden w-5 h-5 spin-loader" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg></button>
     </div>
   </div>
 </div>
 
-<!-- ================= TOAST CONTAINER ================= -->
 <div id="toastContainer" class="fixed top-20 right-4 z-[200] space-y-3 pointer-events-none"></div>
+<button id="scrollTopBtn" class="hidden fixed bottom-8 right-8 z-40 w-11 h-11 rounded-full bg-gradient-to-br from-gold to-gold-dark text-navy-900 flex items-center justify-center shadow-lg shadow-gold/20 hover:scale-110 transition-all duration-300 ease-in-out"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
 
-<!-- ================= SCROLL TOP BUTTON ================= -->
-<button id="scrollTopBtn" class="hidden fixed bottom-8 right-8 z-40 w-11 h-11 rounded-full bg-gradient-to-br from-gold to-gold-dark text-navy-900 flex items-center justify-center shadow-lg shadow-gold/20 hover:scale-110 transition-all duration-300 ease-in-out">
-  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
-</button>
-
-<!-- ================= JAVASCRIPT ================= -->
 <script>
 (function() {
   'use strict';
 
-  /* ===== CONFIGURATION ===== */
-  // REPLACE THESE WITH YOUR ACTUAL EMAILJS CREDENTIALS
+  /* ====================================================================
+     ONLY EDIT THESE 2 LINES WITH YOUR MAKE.COM WEBHOOK URLS
+     (Create two separate webhooks in Make.com, one for Client, one for Owner)
+  ==================================================================== */
   const CONFIG = {
     STORAGE_KEY: 'presencia_bookings',
-    EMAILJS_USER_ID: 'OqAdFT4VZ78167lVh', 
-    EMAILJS_SERVICE_ID: 'service_3lw502e',
-    EMAILJS_TEMPLATE_CLIENT_CONFIRMATION: 'template_client_confirma',
-    EMAILJS_TEMPLATE_RESERVATION_PAID: 'template_reservation_pai',
-    EMAILJS_TEMPLATE_OWNER_NOTIFICATION: 'template_owner_notification',
+    MAKE_CLIENT_WEBHOOK_URL: 'PASTE_YOUR_MAKE_CLIENT_WEBHOOK_URL_HERE',
+    MAKE_OWNER_WEBHOOK_URL: 'PASTE_YOUR_MAKE_OWNER_WEBHOOK_URL_HERE'
   };
 
   const PACKAGES = {
@@ -701,7 +512,7 @@ tailwind.config = {
     for (let i = 0; i < startOffset; i++) { html += '<div></div>'; }
     for (let d = 1; d <= daysInMonth; d++) {
       const cellDate = new Date(year, month, d); const dateStr = formatDateISO(cellDate); const reason = getDisabledReason(cellDate); const isDisabled = reason !== null; const isSelected = calendarSelectedDate === dateStr;
-      let classes = 'calendar-day flex flex-col items-center justify-center h-10 rounded-lg text-xs cursor-pointer '; let title = '';
+      let classes = 'calendar-day flex flex-col items-center justify-center h-10 rounded-lg text-xs cursor-pointer ';
       if (isDisabled) { classes += 'disabled '; if (reason === 'past') classes += 'text-white/20 '; if (reason === 'weekend') classes += 'text-red-400/40 '; if (reason === 'booked') classes += 'text-red-400/50 '; }
       else { classes += 'text-white/80 hover:bg-gold/15 '; }
       if (isSelected) classes += 'selected ';
@@ -826,25 +637,50 @@ tailwind.config = {
     setTimeout(function() {
       try { generateContractPDF(booking); } catch(e) { console.error('PDF error:', e); }
 
-      if (CONFIG.EMAILJS_USER_ID !== 'OqAdFT4VZ78167lVh' && window.emailjs) {
-        try {
-          emailjs.init(CONFIG.EMAILJS_USER_ID);
-          const templateParams = {
-            client_name: booking.clientName, client_email: booking.email, contact_number: booking.contactNumber,
-            facebook_account: booking.facebook || 'Not provided', event_type: booking.eventType, event_date: booking.eventDate,
-            start_time: booking.startTime, end_time: booking.endTime, guests: booking.guests, package_name: booking.package,
-            package_rate: booking.packageRate, addons_total: booking.addOnsTotal, total_balance: booking.totalBalance,
-            remaining_balance: booking.totalBalance, booking_id: booking.id, signature: booking.signature,
-            event_notes: booking.notes || 'None', admin_email: 'presenciavenue@gmail.com', admin_phone: '09916596381',
-          };
-          emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_CLIENT_CONFIRMATION, templateParams)
-            .then(function(response) { console.log("Client Email Sent:", response); showToast('Confirmation email sent! 📧', 'success'); })
-            .catch(function(err) { console.error("Client Email Failed:", err); });
-          emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_OWNER_NOTIFICATION, templateParams)
-            .then(function(response) { console.log("Owner Email Sent:", response); })
-            .catch(function(err) { console.error("Owner Email Failed:", err); });
-        } catch(err) { console.error("EmailJS Error:", err); }
-      } else { console.warn("EmailJS skipped. User ID not replaced."); }
+      // Prepare Webhook Data
+      const webhookData = {
+        booking_id: booking.id,
+        client_name: booking.clientName,
+        client_email: booking.email,
+        contact_number: booking.contactNumber,
+        facebook_account: booking.facebook || 'Not provided',
+        event_type: booking.eventType,
+        event_date: booking.eventDate,
+        start_time: booking.startTime,
+        end_time: booking.endTime,
+        guests: booking.guests,
+        package_name: booking.package,
+        package_rate: booking.packageRate,
+        addons_total: booking.addOnsTotal,
+        total_balance: booking.totalBalance,
+        remaining_balance: booking.totalBalance,
+        signature: booking.signature,
+        event_notes: booking.notes || 'None',
+        admin_email: 'presenciavenue@gmail.com',
+        admin_phone: '09916596381'
+      };
+
+      // 1. Send Client Email via Make.com
+      if (CONFIG.MAKE_CLIENT_WEBHOOK_URL !== 'https://hook.eu1.make.com/46jdmy5sy6fn83wgll72ho0jb7ctjmj6') {
+        fetch(CONFIG.MAKE_CLIENT_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(webhookData)
+        })
+        .then(function() { showToast('Confirmation email sent! 📧', 'success'); })
+        .catch(function(err) { console.error("Client Webhook Error:", err); });
+      }
+
+      // 2. Send Owner Notification via Make.com
+      if (CONFIG.MAKE_OWNER_WEBHOOK_URL !== 'PASTE_YOUR_MAKE_OWNER_WEBHOOK_URL_HERE') {
+        fetch(CONFIG.MAKE_OWNER_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(webhookData)
+        })
+        .then(function() { console.log("Owner Notification Triggered!"); })
+        .catch(function(err) { console.error("Owner Webhook Error:", err); });
+      }
 
       btn.disabled = false; txt.classList.remove('hidden'); loader.classList.add('hidden');
       closeContractModal();
@@ -886,7 +722,6 @@ tailwind.config = {
   $$('.reveal').forEach(function(el) { observer.observe(el); });
 
   renderAddOns(null); updateCalculator(); validateProceed();
-  if (CONFIG.EMAILJS_USER_ID !== 'YOUR_EMAILJS_USER_ID' && window.emailjs) { try { emailjs.init(CONFIG.EMAILJS_USER_ID); } catch(e) {} }
 })();
 </script>
 

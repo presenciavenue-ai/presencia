@@ -446,10 +446,10 @@ tailwind.config = {
      (Create two separate webhooks in Make.com, one for Client, one for Owner)
   ==================================================================== */
   const CONFIG = {
-    STORAGE_KEY: 'presencia_bookings',
-    MAKE_CLIENT_WEBHOOK_URL: 'https://hook.eu1.make.com/ray25w2tqqyoyww7n7v9515afn2drfwi',
-    MAKE_OWNER_WEBHOOK_URL: 'https://hook.eu1.make.com/ray25w2tqqyoyww7n7v9515afn2drfwi'
-  };
+  STORAGE_KEY: 'presencia_bookings',
+  MAKE_CLIENT_WEBHOOK_URL: 'https://hook.eu1.make.com/ray25w2tqqyoyww7n7v9515afn2drfwi',
+  MAKE_OWNER_WEBHOOK_URL: 'PASTE_YOUR_OWNER_URL_HERE'
+};
 
   const PACKAGES = {
     essential: { name: 'Essential', price: 9500, guests: '30–50' },
@@ -672,7 +672,7 @@ tailwind.config = {
       }
 
       // 2. Send Owner Notification via Make.com
-      if (CONFIG.MAKE_OWNER_WEBHOOK_URL !== 'PASTE_YOUR_MAKE_OWNER_WEBHOOK_URL_HERE') {
+      if (CONFIG.MAKE_OWNER_WEBHOOK_URL !== 'https://hook.eu1.make.com/ray25w2tqqyoyww7n7v9515afn2drfwi') {
         fetch(CONFIG.MAKE_OWNER_WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

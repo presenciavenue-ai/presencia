@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body style="background:#060912; color:white; text-align:center; padding:50px; font-family:sans-serif;">
+  <h2>Make.com Test Sender</h2>
+  <button onclick="sendTest()" style="background:#D4AF37; color:#000; padding:15px 30px; font-size:18px; border:none; border-radius:10px; cursor:pointer;">Send Test Data to Make.com</button>
+  <p id="status" style="margin-top:20px; color:#D4AF37;"></p>
+
+  <script>
+    function sendTest() {
+      document.getElementById('status').innerText = 'Sending...';
+      // PASTE YOUR MAKE.COM WEBHOOK URL BELOW BETWEEN THE QUOTES
+      var url = 'PASTE_YOUR_MAKE_WEBHOOK_URL_HERE';
+      
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          booking_id: 'BKG-TEST-12345',
+          client_name: 'Juan Dela Cruz',
+          client_email: 'presenciavenue@gmail.com',
+          contact_number: '0917 123 4567',
+          event_type: 'Birthday',
+          event_date: '2025-12-25',
+          start_time: '14:00',
+          end_time: '20:00',
+          guests: 50,
+          package_name: 'Classic',
+          total_balance: 12500,
+          remaining_balance: 10500,
+          admin_email: 'presenciavenue@gmail.com',
+          admin_phone: '09916596381'
+        })
+      })
+      .then(function() {
+        document.getElementById('status').innerText = '✅ Data sent! Check Make.com!';
+      })
+      .catch(function(err) {
+        document.getElementById('status').innerText = '❌ Error: ' + err;
+      });
+    }
+  </script>
+</body>
+</html>

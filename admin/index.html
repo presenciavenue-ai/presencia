@@ -229,6 +229,7 @@ tailwind.config = {
 
   /* ====================================================================
      ONLY EDIT THIS LINE WITH YOUR MAKE.COM WEBHOOK URL
+     (Keep the single quotes '' around your URL!)
   ==================================================================== */
   const MAKE_RESERVATION_PAID_WEBHOOK_URL = 'https://hook.eu1.make.com/3pmnucknozt2gy1fuwbqqbc8krbo77l9';
   
@@ -407,7 +408,7 @@ tailwind.config = {
 
   /* ===== SEND RESERVATION PAID EMAIL VIA MAKE.COM ===== */
   function sendReservationPaidEmail(booking) {
-    if (MAKE_RESERVATION_PAID_WEBHOOK_URL === 'https://hook.eu1.make.com/3pmnucknozt2gy1fuwbqqbc8krbo77l9) {
+    if (MAKE_RESERVATION_PAID_WEBHOOK_URL === 'https://hook.eu1.make.com/3pmnucknozt2gy1fuwbqqbc8krbo77l9') {
       console.warn("Reservation Webhook URL not set in admin code.");
       return;
     }
@@ -424,7 +425,7 @@ tailwind.config = {
       guests: booking.guests,
       package_name: booking.package,
       total_balance: booking.totalBalance,
-      remaining_balance: booking.totalBalance, // Balance after 2000 fee
+      remaining_balance: booking.totalBalance, 
       admin_email: 'presenciavenue@gmail.com',
       admin_phone: '09916596381'
     };
@@ -711,10 +712,6 @@ tailwind.config = {
       updateMetrics();
     }
   });
-
-  const styleEl = document.createElement('style');
-  styleEl.textContent = '@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }';
-  document.head.appendChild(styleEl);
 
 })();
 </script>

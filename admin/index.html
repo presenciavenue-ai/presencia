@@ -9,7 +9,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
@@ -105,15 +105,9 @@ tailwind.config = {
           </div>
         </div>
         <div class="flex items-center gap-3">
-          <button onclick="loadDemoData()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-white/60 hover:text-gold hover:border-gold/30 transition-all duration-300">
-            📊 Load Demo Data
-          </button>
-          <button onclick="exportCSV()" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-white/60 hover:text-gold hover:border-gold/30 transition-all duration-300">
-            📥 Export CSV
-          </button>
-          <button onclick="logout()" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-xs text-red-400 hover:bg-red-500/20 transition-all duration-300">
-            🚪 Logout
-          </button>
+          <button onclick="loadDemoData()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-white/60 hover:text-gold hover:border-gold/30 transition-all duration-300">📊 Load Demo Data</button>
+          <button onclick="exportCSV()" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-white/60 hover:text-gold hover:border-gold/30 transition-all duration-300">📥 Export CSV</button>
+          <button onclick="logout()" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-xs text-red-400 hover:bg-red-500/20 transition-all duration-300">🚪 Logout</button>
         </div>
       </div>
     </div>
@@ -124,7 +118,6 @@ tailwind.config = {
 
     <!-- Metrics Row -->
     <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-      <!-- Total Revenue -->
       <div class="metric-card p-5 rounded-2xl bg-gradient-to-br from-navy-800 to-navy-900 border border-gold/10">
         <div class="flex items-start justify-between mb-3">
           <div class="w-10 h-10 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-lg">💰</div>
@@ -133,7 +126,6 @@ tailwind.config = {
         <div class="text-xs text-white/40 mb-1">Total Revenue</div>
         <div id="metricRevenue" class="font-display text-2xl font-bold gold-text">₱0</div>
       </div>
-      <!-- Pending Receivables -->
       <div class="metric-card p-5 rounded-2xl bg-gradient-to-br from-navy-800 to-navy-900 border border-gold/10">
         <div class="flex items-start justify-between mb-3">
           <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-lg">⏳</div>
@@ -142,7 +134,6 @@ tailwind.config = {
         <div class="text-xs text-white/40 mb-1">Pending Receivables</div>
         <div id="metricPending" class="font-display text-2xl font-bold text-amber-400">₱0</div>
       </div>
-      <!-- Active Bookings -->
       <div class="metric-card p-5 rounded-2xl bg-gradient-to-br from-navy-800 to-navy-900 border border-gold/10">
         <div class="flex items-start justify-between mb-3">
           <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-lg">📅</div>
@@ -151,7 +142,6 @@ tailwind.config = {
         <div class="text-xs text-white/40 mb-1">Active Bookings</div>
         <div id="metricActive" class="font-display text-2xl font-bold text-blue-400">0</div>
       </div>
-      <!-- Client Retention -->
       <div class="metric-card p-5 rounded-2xl bg-gradient-to-br from-navy-800 to-navy-900 border border-gold/10">
         <div class="flex items-start justify-between mb-3">
           <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-lg">🤝</div>
@@ -164,19 +154,16 @@ tailwind.config = {
 
     <!-- Bookings Table -->
     <section class="rounded-2xl bg-navy-800/50 border border-white/5 overflow-hidden">
-      <!-- Table Header -->
       <div class="p-5 border-b border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 class="font-display text-xl font-bold">📋 Booking Management</h2>
           <p class="text-xs text-white/40 mt-0.5">Real-time data from localStorage</p>
         </div>
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-          <!-- Search -->
           <div class="relative">
             <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             <input type="text" id="searchInput" oninput="renderTable()" placeholder="Search client, event, ID…" class="input-field pl-10 pr-4 py-2.5 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm w-full sm:w-64" />
           </div>
-          <!-- Status Filter -->
           <select id="statusFilter" onchange="renderTable()" class="input-field px-4 py-2.5 rounded-xl bg-navy-900/50 border border-white/10 text-white text-sm">
             <option value="" class="bg-navy-900">All Status</option>
             <option value="Pending" class="bg-navy-900">⏳ Pending</option>
@@ -187,7 +174,6 @@ tailwind.config = {
         </div>
       </div>
 
-      <!-- Table -->
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
@@ -202,24 +188,18 @@ tailwind.config = {
               <th class="text-right px-5 py-3 font-medium">Actions</th>
             </tr>
           </thead>
-          <tbody id="bookingsTableBody">
-            <!-- Rendered by JS -->
-          </tbody>
+          <tbody id="bookingsTableBody"></tbody>
         </table>
       </div>
 
-      <!-- Empty State -->
       <div id="emptyState" class="hidden p-12 text-center">
         <div class="text-5xl mb-4 opacity-30">📭</div>
         <h3 class="font-display text-lg font-bold text-white/40 mb-1">No Bookings Found</h3>
         <p class="text-xs text-white/30">Bookings from the client site will appear here in real-time.</p>
-        <button onclick="loadDemoData()" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gold/10 border border-gold/30 text-gold text-xs font-medium hover:bg-gold/20 transition-all duration-300">
-          📊 Load Demo Data
-        </button>
+        <button onclick="loadDemoData()" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gold/10 border border-gold/30 text-gold text-xs font-medium hover:bg-gold/20 transition-all duration-300">📊 Load Demo Data</button>
       </div>
     </section>
 
-    <!-- Footer Info -->
     <div class="text-center pt-4 pb-8">
       <p class="text-xs text-white/20">PRESENCIA Venue Management · Admin Dashboard · New Lower Bicutan, Taguig City</p>
     </div>
@@ -236,9 +216,7 @@ tailwind.config = {
         <svg class="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
     </div>
-    <div id="detailContent" class="p-6 space-y-4">
-      <!-- Filled dynamically -->
-    </div>
+    <div id="detailContent" class="p-6 space-y-4"></div>
   </div>
 </div>
 
@@ -249,20 +227,20 @@ tailwind.config = {
 (function() {
   'use strict';
 
-    const ADMIN_PIN = 'presencia@8';
-    const SESSION_KEY = 'presencia_admin_session';
-    const MAKE_RESERVATION_PAID_WEBHOOK_URL = 'https://hook.eu1.make.com/3pmnucknozt2gy1fuwbqqbc8krbo77l9'; // <-- Paste the URL you just copied inside the quotes ''
+  /* ====================================================================
+     ONLY EDIT THIS LINE WITH YOUR MAKE.COM WEBHOOK URL
+  ==================================================================== */
+  const MAKE_RESERVATION_PAID_WEBHOOK_URL = 'https://hook.eu1.make.com/3pmnucknozt2gy1fuwbqqbc8krbo77l9';
+  
+  const STORAGE_KEY = 'presencia_bookings';
+  const ADMIN_PIN = 'presencia2025';
+  const SESSION_KEY = 'presencia_admin_session';
 
   function $(id) { return document.getElementById(id); }
   function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
   function formatCurrency(n) { return '₱' + Number(n || 0).toLocaleString('en-PH'); }
-  function formatDateShort(d) {
-    if (!d) return '—';
-    const dt = new Date(d + 'T00:00:00');
-    return dt.toLocaleDateString('en-PH', { year:'numeric', month:'short', day:'numeric' });
-  }
+  function formatDateShort(d) { if (!d) return '—'; const dt = new Date(d + 'T00:00:00'); return dt.toLocaleDateString('en-PH', { year:'numeric', month:'short', day:'numeric' }); }
 
-  /* ===== TOAST ===== */
   window.showToast = function(message, type) {
     type = type || 'info';
     const container = $('toastContainer');
@@ -272,14 +250,9 @@ tailwind.config = {
     toast.className = `toast-item pointer-events-auto flex items-center gap-3 px-5 py-3 rounded-xl bg-gradient-to-r ${colors[type]||colors.info} text-white font-medium text-sm shadow-2xl max-w-sm`;
     toast.innerHTML = `<span class="text-lg">${icons[type]}</span><span>${message}</span>`;
     container.appendChild(toast);
-    setTimeout(function() {
-      toast.style.transition = 'all 0.4s ease';
-      toast.style.opacity = '0'; toast.style.transform = 'translateX(40px)';
-      setTimeout(function() { toast.remove(); }, 400);
-    }, 3500);
+    setTimeout(function() { toast.style.transition = 'all 0.4s ease'; toast.style.opacity = '0'; toast.style.transform = 'translateX(40px)'; setTimeout(function() { toast.remove(); }, 400); }, 3500);
   };
 
-  /* ===== AUTH ===== */
   window.handleLogin = function(e) {
     e.preventDefault();
     const pin = $('adminPin').value.trim();
@@ -293,10 +266,6 @@ tailwind.config = {
     } else {
       showToast('Invalid access key. Please try again.', 'error');
       $('adminPin').value = '';
-      const form = $('loginForm');
-      form.style.animation = 'none';
-      void form.offsetWidth;
-      form.style.animation = 'shake 0.4s ease';
     }
   };
 
@@ -305,28 +274,16 @@ tailwind.config = {
     window.location.reload();
   };
 
-  /* ===== DATA ===== */
-  function getBookings() {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
-    catch(e) { return []; }
-  }
-  function saveBookings(arr) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
-    catch(e) { showToast('Error saving data.', 'error'); }
-  }
+  function getBookings() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch(e) { return []; } }
+  function saveBookings(arr) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); } catch(e) { showToast('Error saving data.', 'error'); } }
 
-  /* ===== METRICS ===== */
   function updateMetrics() {
     const bookings = getBookings();
-    // Revenue: completed bookings
     const completed = bookings.filter(function(b) { return b.status === 'Completed'; });
     const revenue = completed.reduce(function(s, b) { return s + (b.packageRate || 0) + (b.addOnsTotal || 0); }, 0);
-    // Pending: pending + confirmed
     const pendingList = bookings.filter(function(b) { return b.status === 'Pending' || b.status === 'Confirmed'; });
     const pendingTotal = pendingList.reduce(function(s, b) { return s + (b.totalBalance || 0); }, 0);
-    // Active
     const active = pendingList.length;
-    // Retention
     const clientMap = {};
     bookings.forEach(function(b) { clientMap[b.clientName] = (clientMap[b.clientName] || 0) + 1; });
     const totalClients = Object.keys(clientMap).length;
@@ -340,11 +297,8 @@ tailwind.config = {
   }
 
   function animateNumber(el, target, prefix) {
-    if (!el) return;
-    prefix = prefix || '';
-    const duration = 800;
-    const start = 0;
-    const startTime = performance.now();
+    if (!el) return; prefix = prefix || '';
+    const duration = 800; const start = 0; const startTime = performance.now();
     function step(now) {
       const progress = Math.min((now - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
@@ -355,35 +309,23 @@ tailwind.config = {
     requestAnimationFrame(step);
   }
 
-  /* ===== TABLE ===== */
   window.renderTable = function() {
     const bookings = getBookings();
     const search = ($('searchInput') ? $('searchInput').value.toLowerCase() : '');
     const statusF = ($('statusFilter') ? $('statusFilter').value : '');
 
     let filtered = bookings.filter(function(b) {
-      const matchSearch = !search ||
-        (b.clientName || '').toLowerCase().indexOf(search) !== -1 ||
-        (b.eventType || '').toLowerCase().indexOf(search) !== -1 ||
-        (b.id || '').toLowerCase().indexOf(search) !== -1 ||
-        (b.eventDate || '').toLowerCase().indexOf(search) !== -1;
+      const matchSearch = !search || (b.clientName || '').toLowerCase().indexOf(search) !== -1 || (b.eventType || '').toLowerCase().indexOf(search) !== -1 || (b.id || '').toLowerCase().indexOf(search) !== -1 || (b.eventDate || '').toLowerCase().indexOf(search) !== -1;
       const matchStatus = !statusF || b.status === statusF;
       return matchSearch && matchStatus;
     });
 
-    // Sort by createdAt desc
-    filtered.sort(function(a, b) {
-      return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
-    });
+    filtered.sort(function(a, b) { return new Date(b.createdAt || 0) - new Date(a.createdAt || 0); });
 
     const tbody = $('bookingsTableBody');
     const empty = $('emptyState');
 
-    if (filtered.length === 0) {
-      tbody.innerHTML = '';
-      empty.classList.remove('hidden');
-      return;
-    }
+    if (filtered.length === 0) { tbody.innerHTML = ''; empty.classList.remove('hidden'); return; }
     empty.classList.add('hidden');
 
     const statusColors = {
@@ -392,7 +334,6 @@ tailwind.config = {
       Completed: 'bg-blue-500/10 border-blue-500/30 text-blue-400',
       Cancelled: 'bg-red-500/10 border-red-500/30 text-red-400',
     };
-    const statusIcons = { Pending:'⏳', Confirmed:'✅', Completed:'🎉', Cancelled:'❌' };
 
     tbody.innerHTML = filtered.map(function(b) {
       return `
@@ -446,7 +387,6 @@ tailwind.config = {
   };
 
   /* ===== STATUS UPDATE ===== */
-    /* ===== STATUS UPDATE ===== */
   window.updateStatus = function(id, newStatus) {
     const bookings = getBookings();
     const idx = bookings.findIndex(function(b) { return b.id === id; });
@@ -467,7 +407,7 @@ tailwind.config = {
 
   /* ===== SEND RESERVATION PAID EMAIL VIA MAKE.COM ===== */
   function sendReservationPaidEmail(booking) {
-    if (MAKE_RESERVATION_PAID_WEBHOOK_URL === 'https://hook.eu1.make.com/3pmnucknozt2gy1fuwbqqbc8krbo77l9') {
+    if (MAKE_RESERVATION_PAID_WEBHOOK_URL === 'https://hook.eu1.make.com/3pmnucknozt2gy1fuwbqqbc8krbo77l9) {
       console.warn("Reservation Webhook URL not set in admin code.");
       return;
     }
@@ -502,6 +442,19 @@ tailwind.config = {
       showToast('Failed to send reservation email.', 'error'); 
     });
   }
+
+  /* ===== DELETE ===== */
+  window.deleteBooking = function(id) {
+    const bookings = getBookings();
+    const b = bookings.find(function(x) { return x.id === id; });
+    if (!b) return;
+    if (!confirm(`Delete booking for "${b.clientName}" (${b.id})?\nThis action cannot be undone.`)) return;
+    const filtered = bookings.filter(function(x) { return x.id !== id; });
+    saveBookings(filtered);
+    renderTable();
+    updateMetrics();
+    showToast('Booking deleted.', 'warning');
+  };
 
   /* ===== VIEW DETAIL ===== */
   window.viewDetail = function(id) {
@@ -745,7 +698,6 @@ tailwind.config = {
   };
 
   /* ===== INIT ===== */
-  // Check session
   if (sessionStorage.getItem(SESSION_KEY) === 'true') {
     $('loginGate').classList.add('hidden');
     $('dashboard').classList.remove('hidden');
@@ -753,7 +705,6 @@ tailwind.config = {
     updateMetrics();
   }
 
-  // Listen for storage changes (real-time sync)
   window.addEventListener('storage', function(e) {
     if (e.key === STORAGE_KEY) {
       renderTable();
@@ -761,12 +712,10 @@ tailwind.config = {
     }
   });
 
-  // Shake animation for failed login
   const styleEl = document.createElement('style');
   styleEl.textContent = '@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }';
   document.head.appendChild(styleEl);
 
-  console.log('%c🔒 PRESENCIA Admin Dashboard — Ready', 'color: #D4AF37; font-weight: bold;');
 })();
 </script>
 

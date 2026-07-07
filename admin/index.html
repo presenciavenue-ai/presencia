@@ -249,9 +249,9 @@ tailwind.config = {
 (function() {
   'use strict';
 
-  const STORAGE_KEY = 'presencia_bookings';
-  const ADMIN_PIN = 'presencia2025';
-  const SESSION_KEY = 'presencia_admin_session';
+    const ADMIN_PIN = 'presencia@8';
+    const SESSION_KEY = 'presencia_admin_session';
+    const MAKE_RESERVATION_PAID_WEBHOOK_URL = 'https://hook.eu1.make.com/3pmnucknozt2gy1fuwbqqbc8krbo77l9'; // <-- Paste the URL you just copied inside the quotes ''
 
   function $(id) { return document.getElementById(id); }
   function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
@@ -446,43 +446,34 @@ tailwind.config = {
   };
 
   /* ===== STATUS UPDATE ===== */
-  /* ===== STATUS UPDATE ===== */
-window.updateStatus = function(id, newStatus) {
-  const bookings = getBookings();
-  const idx = bookings.findIndex(function(b) { return b.id === id; });
-  if (idx === -1) return;
+    /* ===== STATUS UPDATE ===== */
+  window.updateStatus = function(id, newStatus) {
+    const bookings = getBookings();
+    const idx = bookings.findIndex(function(b) { return b.id === id; });
+    if (idx === -1) return;
 
-  const oldStatus = bookings[idx].status;
-  bookings[idx].status = newStatus;
-  saveBookings(bookings);
-  renderTable();
-  updateMetrics();
-  showToast(`Status updated to "${newStatus}" for ${bookings[idx].clientName}`, 'success');
+    const oldStatus = bookings[idx].status;
+    bookings[idx].status = newStatus;
+    saveBookings(bookings);
+    renderTable();
+    updateMetrics();
+    showToast(`Status updated to "${newStatus}" for ${bookings[idx].clientName}`, 'success');
 
-  // Send "Reservation Paid" email when status changes to "Confirmed"
-  // (This means the ₱2,000 reservation fee has been collected)
-  if (oldStatus !== 'Confirmed' && newStatus === 'Confirmed') {
-    sendReservationPaidEmail(bookings[idx]);
-  }
-};
+    // Send "Reservation Paid" email when status changes to "Confirmed"
+    if (oldStatus !== 'Confirmed' && newStatus === 'Confirmed') {
+      sendReservationPaidEmail(bookings[idx]);
+    }
+  };
 
-/* ===== SEND RESERVATION PAID EMAIL ===== */
-function sendReservationPaidEmail(booking) {
-  const ADMIN_USER_ID = 'XPS1YBOuMAMXNxxxxsLfc';      // ← Replace
-  const ADMIN_SERVICE_ID = 'service_3lw502e';         // ← Replace
-  const TEMPLATE_RESERVATION_PAID = 'template_reservation_pai';
+  /* ===== SEND RESERVATION PAID EMAIL VIA MAKE.COM ===== */
+  function sendReservationPaidEmail(booking) {
+    if (MAKE_RESERVATION_PAID_WEBHOOK_URL === 'https://hook.eu1.make.com/3pmnucknozt2gy1fuwbqqbc8krbo77l9') {
+      console.warn("Reservation Webhook URL not set in admin code.");
+      return;
+    }
 
-  if (ADMIN_USER_ID === 'XPS1YBOuMAMXNxxxxsLfc' || !window.emailjs) {
-    console.warn('EmailJS not configured. Skipping reservation email.');
-    return;
-  }
-
-  try {
-    emailjs.init(ADMIN_USER_ID);
-
-    const remainingBalance = booking.totalBalance;
-
-    const templateParams = {
+    const webhookData = {
+      booking_id: booking.id,
       client_name: booking.clientName,
       client_email: booking.email,
       contact_number: booking.contactNumber,
@@ -493,38 +484,24 @@ function sendReservationPaidEmail(booking) {
       guests: booking.guests,
       package_name: booking.package,
       total_balance: booking.totalBalance,
-      remaining_balance: remainingBalance,
-      booking_id: booking.id,
-      signature: booking.signature,
+      remaining_balance: booking.totalBalance, // Balance after 2000 fee
       admin_email: 'presenciavenue@gmail.com',
-      admin_phone: '09916596381',
+      admin_phone: '09916596381'
     };
 
-    emailjs.send(ADMIN_SERVICE_ID, TEMPLATE_RESERVATION_PAID, templateParams)
-      .then(function() {
-        showToast('Reservation confirmation email sent to ' + booking.clientName + '! 📧', 'success');
-      })
-      .catch(function(err) {
-        console.warn('Reservation email error:', err);
-        showToast('Could not send reservation email. Check EmailJS config.', 'warning');
-      });
-  } catch(err) {
-    console.warn('EmailJS error:', err);
+    fetch(MAKE_RESERVATION_PAID_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(webhookData)
+    })
+    .then(function() { 
+      showToast('Reservation confirmation email sent to ' + booking.clientName + '! 📧', 'success'); 
+    })
+    .catch(function(err) { 
+      console.error("Make.com Webhook Error:", err); 
+      showToast('Failed to send reservation email.', 'error'); 
+    });
   }
-}
-
-  /* ===== DELETE ===== */
-  window.deleteBooking = function(id) {
-    const bookings = getBookings();
-    const b = bookings.find(function(x) { return x.id === id; });
-    if (!b) return;
-    if (!confirm(`Delete booking for "${b.clientName}" (${b.id})?\nThis action cannot be undone.`)) return;
-    const filtered = bookings.filter(function(x) { return x.id !== id; });
-    saveBookings(filtered);
-    renderTable();
-    updateMetrics();
-    showToast('Booking deleted.', 'warning');
-  };
 
   /* ===== VIEW DETAIL ===== */
   window.viewDetail = function(id) {

@@ -227,10 +227,7 @@ tailwind.config = {
 (function() {
   'use strict';
 
-  /* ====================================================================
-     ONLY EDIT THIS LINE WITH YOUR MAKE.COM WEBHOOK URL
-     (Keep the single quotes '' around your URL!)
-  ==================================================================== */
+  // YOUR WEBHOOK URL IS HARDCODED HERE SO YOU DON'T NEED TO EDIT IT
   const MAKE_RESERVATION_PAID_WEBHOOK_URL = 'https://hook.eu1.make.com/9briivwfpyt7tob7kzxkceuvea2r6pv8';
   
   const STORAGE_KEY = 'presencia_bookings';
@@ -408,11 +405,6 @@ tailwind.config = {
 
   /* ===== SEND RESERVATION PAID EMAIL VIA MAKE.COM ===== */
   function sendReservationPaidEmail(booking) {
-    if (MAKE_RESERVATION_PAID_WEBHOOK_URL === 'https://hook.eu1.make.com/9briivwfpyt7tob7kzxkceuvea2r6pv8') {
-      console.warn("Reservation Webhook URL not set in admin code.");
-      return;
-    }
-
     const webhookData = {
       booking_id: booking.id,
       client_name: booking.clientName,
